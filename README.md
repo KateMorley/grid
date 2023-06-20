@@ -26,6 +26,16 @@ The script outputs details of the update process to standard output, and details
 
 The CSS refers to `proza-light.woff2` and `proza-regular.woff2`. These are commercial fonts, so are not included in this repository. Licences for [Proza](http://bureauroffa.com/about-proza) can be purchased from [Bureau Roffa](http://bureauroffa.com/). Alterenatively, the simplified free version [Proza Libre](http://bureauroffa.com/about-proza-libre) can be used instead.
 
+## Codebase structure
+
+PHP classes can be found in the `classes` directory. The [Database](classes/Database.php) class directly within this directory is responsible for all database access. The other classes are divided into three namespaces:
+
+The [Data](classes/Data) namespace contains classes for reading data from the various data sources, as documented further below.
+
+The [State](classes/State) namespace contains classes representing the data needed to output the user interface. The [State](classes/State/State.php) class is the overall container; an instance of this class is returned by the `getState()` method of a `Database` instance.
+
+The [UI](classes/UI) namespace contains classes that output the user interface. The [UI](classes/UI/UI.php) class has overall responsibility for outputting the HTML, while the [Favicon](classes/UI/Favicon.php) class outputs the dynamically-updated favicon.
+
 ## Data sources
 
 ### [Balancing Mechanism Reporting Service](https://www.bmreports.com/)
