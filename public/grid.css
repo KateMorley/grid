@@ -1,0 +1,821 @@
+:root{
+  --width               : 36;
+  --rounding            : 4px;
+  --table-width         : 316px;
+  --accent              : #696;
+  --background          : #eee;
+  --content-background  : #fff;
+  --content-text        : #000;
+  --heading-background  : #aaa;
+  --heading-text        : #fff;
+  --selected-background : #fffc;
+  --help-background     : #aaa;
+  --help-text           : #fff;
+  --graph-line          : #bbb;
+  --graph-highlight     : #0001;
+  --key-line            : #999;
+  --unit-opacity        : 0.4;
+}
+
+@media (prefers-color-scheme:dark) {
+  :root{
+    --background          : #000;
+    --content-background  : #222;
+    --content-text        : #eee;
+    --heading-background  : #444;
+    --selected-background : #222c;
+    --help-background     : #888;
+    --help-text           : #000;
+    --graph-line          : #444;
+    --graph-highlight     : #fff1;
+    --key-line            : #666;
+    --unit-opacity        : 0.6;
+  }
+}
+
+@font-face{
+  font-family : 'Proza';
+  font-weight : 300;
+  src         : url('proza-light.woff2') format('woff2');
+}
+
+@font-face{
+  font-family : 'Proza';
+  font-weight : 400;
+  src         : url('proza-regular.woff2') format('woff2');
+}
+
+html{
+  height                   : 100%;
+  font-family              : Proza,sans-serif;
+  font-weight              : 300;
+  font-size                : clamp(17px, calc(100vw / var(--width)), 20px);
+  font-feature-settings    : 'tnum';
+  line-height              : 1.5;
+  -webkit-text-size-adjust : none;
+  text-size-adjust         : none;
+}
+
+body{
+  display            : grid;
+  grid-template-rows : max-content 1fr max-content;
+  height             : 100%;
+  margin             : 0;
+  background         : var(--accent);
+  color              : #fff;
+}
+
+header,
+footer{
+  box-sizing  : border-box;
+  font-weight : 400;
+}
+
+header{
+  display               : grid;
+  grid-template-columns : 30px calc(min(100vw, 1320px) - 60px - 2rem) 30px;
+  justify-content       : center;
+  align-items           : center;
+  padding               : 0 1rem;
+}
+
+header svg{
+  fill           : #fff;
+  vertical-align : bottom;
+}
+
+nav ul{
+  display           : grid;
+  grid-auto-flow    : column;
+  grid-auto-columns : min-content;
+  justify-content   : center;
+  margin            : 0;
+  padding           : 1rem;
+}
+
+nav li{
+  display : block;
+}
+
+nav a{
+  display         : block;
+  padding         : 0 0.5rem;
+  border-radius   : 1rem;
+  color           : inherit;
+  text-decoration : none;
+}
+
+nav a.section{
+  background : #fff;
+  color      : var(--accent);
+}
+
+main{
+  display         : grid;
+  gap             : 1rem;
+  justify-content : center;
+  padding         : 1rem;
+  background      : var(--background);
+  color           : #000;
+  font-size       : 16px;
+  line-height     : 1.25;
+}
+
+main > *{
+  max-width : 1280px;
+}
+
+footer{
+  padding    : 1rem;
+  text-align : center;
+}
+
+footer a{
+  color                 : #fff;
+  text-decoration-color : #fff;
+}
+
+section{
+  box-sizing    : border-box;
+  padding       : 1rem;
+  border-radius : var(--rounding);
+  background    : var(--content-background);
+  color         : var(--content-text);
+}
+
+h1{
+  margin      : 0 0 0.5rem;
+  font-size   : 2rem;
+  font-weight : 400;
+  line-height : 1.1;
+}
+
+h2{
+  font-size   : 1.1rem;
+  font-weight : 400;
+  line-height : 1;
+}
+
+main h2{
+  margin        : -1rem -1rem 1rem;
+  padding       : 0.75rem 1rem;
+  border-radius : var(--rounding) var(--rounding) 0 0;
+  background    : var(--heading-background);
+  color         : var(--heading-text);
+}
+
+h3{
+  margin      : 2rem 0 1rem;
+  padding     : 0;
+  font-size   : 1rem;
+  font-weight : 300;
+  text-align  : center;
+}
+
+h3:first-of-type{
+  margin-top : 0;
+}
+
+p{
+  margin      : 0;
+  font-size   : 1rem;
+  line-height : 1.5;
+}
+
+p + p{
+  margin-top : 1rem;
+}
+
+table{
+  border-collapse : collapse;
+}
+
+a{
+  color                     : var(--accent);
+  text-decoration-color     : var(--accent);
+  text-decoration-thickness : 1px;
+  text-underline-offset     : 2px;
+}
+
+a:visited{
+  color : inherit;
+}
+
+/* colours */
+
+.generation  { color : #aaa; }
+.price       { color : #000; }
+.emissions   { color : #000; }
+.demand      { color : #000; }
+.fossils     { color : #b46; }
+.renewables  { color : #5b5; }
+.others      { color : #18c; }
+.transfers   { color : #aaa; }
+.coal        { color : #a36; }
+.gas         { color : #e94; }
+.solar       { color : #ed0; }
+.wind        { color : #9d5; }
+.hydro       { color : #2cb; }
+.nuclear     { color : #09c; }
+.biomass     { color : #36b; }
+.belgium     { color : #817; }
+.france      { color : #c66; }
+.ireland     { color : #e94; }
+.netherlands { color : #ed0; }
+.norway      { color : #9d5; }
+.pumped      { color : #09c; }
+.battery     { color : #639; }
+
+@media (prefers-color-scheme:dark) {
+  .generation  { color : #888; }
+  .price       { color : #eee; }
+  .emissions   { color : #eee; }
+  .demand      { color : #eee; }
+  .transfers   { color : #888; }
+}
+
+/* columns */
+
+.columns{
+  display               : grid;
+  grid-template-columns : 1fr 1fr;
+  gap                   : 1rem;
+}
+
+@media screen and (max-width:959px){
+  .columns{
+    grid-template-columns : 1fr;
+  }
+}
+
+/* introduction */
+
+#introduction{
+  text-align : center;
+}
+
+/* status */
+
+#status{
+  font-size : 1rem;
+}
+
+dl{
+  display               : grid;
+  grid-template-columns : 1fr 1fr 1fr;
+  gap                   : 0.5em;
+  align-items           : center;
+  justify-items         : center;
+  margin                : 0 -1em;
+}
+
+dt,
+dd{
+  margin      : 0;
+  line-height : 1;
+  white-space : nowrap;
+}
+
+dt{
+  grid-row : 1;
+}
+
+dd{
+  grid-row  : 2;
+  font-size : 1.2em;
+}
+
+dd abbr{
+  opacity : var(--unit-opacity);
+}
+
+dt:nth-child(1),
+dd:nth-child(2){
+  grid-column : 1;
+}
+
+dt:nth-child(3),
+dd:nth-child(4){
+  grid-column : 2;
+}
+
+dt:nth-child(5),
+dd:nth-child(6){
+  grid-column : 3;
+}
+
+[data-operator]::before{
+  content   : '=';
+  grid-area : 1 / 1 / 3 / 3;
+  font-size : 1.25rem;
+}
+
+[data-operator]::after{
+  content   : attr(data-operator);
+  grid-area : 1 / 2 / 3 / 4;
+  font-size : 1.25rem;
+}
+
+/* latest */
+
+#latest{
+  display               : grid;
+  grid-template-columns : 1fr 1fr 1fr;
+  grid-template-areas   : "generation fossils transfers" "generation renewables transfers" "generation others storage";
+  gap                   : 1rem;
+}
+
+@media screen and (max-width:1199px){
+
+  #latest{
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas   : "generation fossils" "generation renewables" "generation others" "transfers storage";
+  }
+
+}
+
+@media screen and (max-width:779px){
+
+  #latest{
+    grid-template-columns: 1fr;
+    grid-template-areas   : "generation" "fossils" "renewables" "others" "transfers" "storage";
+  }
+
+}
+
+#latest section{
+  margin : 0;
+}
+
+#generation{
+  grid-area : generation;
+}
+
+#fossils{
+  grid-area : fossils;
+}
+
+#renewables{
+  grid-area : renewables;
+}
+
+#others{
+  grid-area : others;
+}
+
+#transfers{
+  grid-area : transfers;
+}
+
+#storage{
+  grid-area : storage;
+}
+
+.sources{
+  width  : 100%;
+  margin : 0;
+}
+
+.sources.transfers{
+  color : inherit;
+}
+
+.sources td{
+  vertical-align : top;
+}
+
+.sources td:nth-child(1){
+  padding    : 0 0 1em;
+  background : transparent;
+}
+
+.sources td:nth-child(1)::after{
+  content    : '';
+  display    : block;
+  box-sizing : border-box;
+  width      : 1em;
+  height     : 1em;
+  margin-top : 2px;
+  background : currentcolor;
+}
+
+.sources.transfers td:nth-child(1)::after{
+  border     : 2px solid;
+  background : transparent;
+}
+
+.sources td:nth-child(2){
+  width   : 100%;
+  padding : 0 0 1em 0.5em;
+}
+
+.sources td:nth-child(3),
+.sources td:nth-child(4){
+  padding     : 0 0 1em 0.75em;
+  text-align  : right;
+  white-space : nowrap;
+}
+
+.sources td:nth-child(1),
+.sources td:nth-child(3),
+.sources td:nth-child(4){
+  width : 0;
+}
+
+.sources td:nth-child(3)::after{
+  content : 'GW';
+  opacity : var(--unit-opacity);
+}
+
+.sources td:nth-child(4)::after{
+  content : '%';
+  opacity : var(--unit-opacity);
+}
+
+.sources tr:last-child td{
+  padding-bottom : 0;
+}
+
+[data-help]{
+  display       : inline-block;
+  width         : 1em;
+  height        : 1em;
+  border-radius : 50%;
+  background    : var(--help-background);
+  color         : var(--help-text);
+  font-variant  : small-caps;
+  line-height   : 1;
+  text-align    : center;
+  cursor        : pointer;
+}
+
+[data-help]:after{
+  content  : '?';
+  position : relative;
+  top      : -1px;
+}
+
+#fossils h2{
+  background : #b46;
+}
+
+#renewables h2{
+  background : #5b5;
+}
+
+#others h2{
+  background : #18c;
+}
+
+/* tabs */
+
+[role="tablist"]{
+  display               : grid;
+  grid-template-columns : 1fr 1fr 1fr 1fr;
+  position              : sticky;
+  top                   : 0;
+  z-index               : 1;
+  margin                : -1rem -1rem 1rem;
+}
+
+[role="tablist"] h2{
+  margin              : 0;
+  border-radius       : 0;
+  text-align          : center;
+  -webkit-user-select : none;
+  user-select         : none;
+}
+
+[role="tablist"] h2:first-child{
+  border-top-left-radius : var(--rounding);
+}
+
+[role="tablist"] h2:last-child{
+  border-top-right-radius : var(--rounding);
+}
+
+h2[aria-selected="true"]{
+  -webkit-backdrop-filter : saturate(180%) blur(20px);
+  backdrop-filter         : saturate(180%) blur(20px);
+  background              : var(--selected-background);
+  color                   : var(--content-text);
+}
+
+h2[aria-selected="false"]{
+  cursor : pointer;
+}
+
+@media screen and (max-width:34rem) {
+
+  [role="tablist"] h2{
+    text-transform : capitalize;
+  }
+
+  [role="tablist"] span{
+    display : none;
+  }
+
+}
+
+[role="tabpanel"]{
+  display               : grid;
+  grid-template-columns : 1fr var(--table-width) 1fr;
+  grid-template-areas   : "pie status demand" "pie equation demand" "pie table demand" "price table generation" "emissions table transfers";
+  gap                   : 1rem 3rem;
+}
+
+[role="tabpanel"]:nth-child(n + 3){
+  display : none;
+}
+
+[role="tabpanel"] > div{
+  min-width : 0;
+}
+
+[role="tabpanel"] > :nth-child(1){ grid-area : status; }
+[role="tabpanel"] > :nth-child(2){ grid-area : equation; }
+[role="tabpanel"] > :nth-child(3){ grid-area : pie; }
+[role="tabpanel"] > :nth-child(4){ grid-area : table; }
+[role="tabpanel"] > :nth-child(5){ grid-area : price; }
+[role="tabpanel"] > :nth-child(6){ grid-area : emissions; }
+[role="tabpanel"] > :nth-child(7){ grid-area : demand; }
+[role="tabpanel"] > :nth-child(8){ grid-area : generation; }
+[role="tabpanel"] > :nth-child(9){ grid-area : transfers; }
+
+[role="tabpanel"] > :is(:nth-child(1),:nth-child(2)){
+  padding-bottom : 1rem;
+}
+
+[role="tabpanel"] > :is(:nth-child(1),:nth-child(2),:nth-child(4)){
+  width        : 100%;
+  max-width    : var(--table-width);
+  justify-self : center;
+}
+
+[role="tabpanel"] > :nth-child(3) {
+  align-self   : center;
+  justify-self : center;
+}
+
+@media screen and (max-width:1023px) {
+
+  [role="tabpanel"]{
+    grid-template-columns : var(--table-width) 1fr;
+    grid-template-areas   : "pie price" "status emissions" "equation emissions" "table emissions" "table demand" "table generation" "table transfers";
+  }
+}
+
+@media screen and (max-width:767px) {
+
+  [role="tabpanel"]{
+    grid-template-columns : 1fr;
+    grid-template-areas   : none;
+  }
+
+  [role="tabpanel"] > :nth-child(n){
+    grid-area : auto;
+  }
+
+  [role="tabpanel"] > :is(:nth-child(3),:nth-child(4)){
+    padding-bottom : 1rem;
+  }
+
+}
+
+/* dialogs */
+
+dialog::backdrop{
+  background : rgba(0,0,0,0.5);
+}
+
+dialog[open]{
+  display               : grid;
+  grid-template-columns : 1fr 1.5rem;
+  grid-template-rows    : 1.5rem min-content; /* required to stop Safari stretching the dialog to the viewport height */
+  gap                   : 1rem;
+  width                 : 24rem;
+  max-width             : calc(100vw - 6rem);
+  padding               : 1rem;
+  border                : 0;
+  border-radius         : var(--rounding);
+  background            : var(--content-background);
+  color                 : var(--content-text)
+}
+
+dialog h2{
+  margin    : 0;
+  font-size : 1.5rem;
+}
+
+dialog div{
+  grid-area  : 2 / 1 / 3 / 3;
+  max-height : calc(100vh - 8.5rem);
+  max-height : calc(100dvh - 8.5rem);
+  overflow   : auto;
+}
+
+dialog p + p{
+  margin-top : 1rem;
+}
+
+dialog button{
+  padding    : 0;
+  border     : 0;
+  outline    : 0;
+  background : transparent;
+  cursor     : pointer;
+}
+
+dialog button::-moz-focus-inner{
+  padding : 0;
+  border  : 0;
+}
+
+dialog svg{
+  display : block;
+  width   : 1.5rem;
+  height  : 1.5rem;
+}
+
+dialog path{
+  stroke       : var(--content-text);
+  stroke-width : 4;
+}
+
+/* pie charts */
+
+.pie-chart-container{
+  display         : grid;
+  align-content   : center;
+  justify-content : center;
+  max-width       : 360px;
+  aspect-ratio    : 1;
+  margin          : 0 auto 1rem;
+}
+
+.pie-chart{
+  display   : grid;
+  max-width : 300px;
+  font-size : 16px;
+}
+
+.pie-chart > div,
+.pie-chart > svg{
+  grid-row    : 1 / 2;
+  grid-column : 1 / 2;
+}
+
+.pie-chart > div{
+  display       : grid;
+  justify-items : center;
+  align-content : center;
+  text-align    : center;
+}
+
+.pie-chart > div > div:nth-child(1){
+  padding-top : 1.25em;
+}
+
+.pie-chart > div > div:nth-child(2){
+  display    : block;
+  width      : 33%;
+  height     : 2px;
+  margin     : 0.25em 0;
+  background : currentcolor;
+}
+
+.pie-chart > svg{
+  width : 100%; /* required to stop Safari shrinking the pie chart to the width of the text */
+}
+
+.pie-chart > svg > path{
+  fill          : currentcolor;
+  stroke        : var(--content-background);
+  stroke-width  : 2;
+  vector-effect : non-scaling-stroke;
+}
+
+/* graphs */
+
+.graph{
+  --graph-height : 250px;
+  --axis-width   : 40px;
+  --axis-height  : 64px;
+  --axis-gap     : 10px;
+  --key-padding  : 8px;
+  display        : grid;
+  grid-template  : auto var(--axis-height) /  var(--axis-width) 1fr;
+  gap            : calc(var(--axis-gap) - 0.5em) var(--axis-gap);
+  position       : relative;
+  font-size      : 12px;
+  line-height    : 1;
+}
+
+.graph > div{
+  display    : grid;
+  text-align : right;
+}
+
+.graph > :nth-child(1){
+  grid-area             : 1 / 1 / 2 / 3;
+  grid-template-columns : var(--axis-width) 1fr;
+  column-gap            : var(--axis-gap);
+  align-content         : space-between;
+}
+
+.graph > :nth-child(1) > :nth-child(even){
+  margin-top : calc(0.5em - 1px);
+  border-top : 1px solid var(--graph-line);
+}
+
+.graph > :nth-child(2){
+  grid-area       : 2 / 2 / 3 / 3;
+  grid-auto-flow  : column;
+  justify-content : space-around;
+}
+
+.graph > :nth-child(2) > div {
+  writing-mode : vertical-lr;
+  transform    : rotate(180deg);
+}
+
+.graph svg{
+  grid-area : 1 / 2 / 2 / 3;
+  width     : 100%;
+  height    : var(--graph-height);
+  margin    : 0.5em 0;
+}
+
+polyline{
+  fill          : transparent;
+  stroke        : currentcolor;
+  stroke-width  : 2.5;
+  vector-effect : non-scaling-stroke;
+}
+
+.graph rect{
+  fill : transparent;
+}
+
+.graph rect:hover{
+  fill : var(--graph-highlight);
+}
+
+.graph svg + div{
+  position       : absolute;
+  top            : calc(var(--graph-height) / 2 + 0.5em);
+  width          : max-content;
+  max-width      : calc(100vw / 2 - 4 * var(--key-padding));
+  padding        : var(--key-padding);
+  background     : var(--content-background);
+  color          : var(--content-text);
+  border         : 1px solid var(--key-line);
+  border-radius  : var(--rounding);
+  text-align     : left;
+  transform      : translateY(-50%);
+  pointer-events : none;
+}
+
+.graph svg + div > div{
+  margin-bottom : var(--key-padding);
+  font-size     : 16px;
+  font-weight   : 400;
+  text-align    : center;
+}
+
+.graph svg + div td:nth-child(1)::after{
+  margin-top : 0;
+}
+
+.graph svg + div td:nth-child(3){
+  white-space : nowrap;
+}
+
+.graph svg + div td:nth-child(3)::after{
+  content : none;
+}
+
+/* wind milestones */
+
+.wind-milestones{
+  margin    : 1rem auto 0;
+  font-size : 1rem;
+}
+
+.wind-milestones th,
+.wind-milestones td{
+  padding : 0.25rem 0.5rem;
+}
+
+.wind-milestones th{
+  font-weight : 400;
+  text-align  : left;
+}
+
+.wind-milestones td:first-child{
+  text-align : right;
+}
+
+.wind-milestones tr:nth-child(even) td{
+  background : var(--background);
+}
