@@ -106,12 +106,10 @@ class UI {
       </div>
       <section>
         <h2>
-          Data sources
+          About this site
         </h2>
         <p>
-          Most data comes from the <a href="https://www.bmreports.com/">Balancing Mechanism Reporting System</a> and is updated at five minute intervals.
-          Embedded solar and wind data comes from <a href="https://data.nationalgrideso.com/">National Grid ESO</a> and is updated at half hour intervals.
-          Emissions data comes from the <a href="https://carbonintensity.org.uk/">Carbon Intensity</a> project by the National Grid and the University Of Oxford Department Of Computer Science, and is updated at half hour intervals.
+          This site is an open source project by <a href="https://iamkate.com/">Kate Rose Morley</a>. You can <a href="https://github.com/KateRoseMorley/grid">view the code on GitHub</a>.
         </p>
       </section>
     </main>
