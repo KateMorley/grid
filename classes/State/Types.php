@@ -2,7 +2,7 @@
 
 // Represents details of power generation by type
 
-namespace KateRoseMorley\Grid\State;
+namespace KateMorley\Grid\State;
 
 class Types extends Map {
 

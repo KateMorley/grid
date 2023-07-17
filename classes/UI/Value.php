@@ -2,7 +2,7 @@
 
 // Formats values
 
-namespace KateRoseMorley\Grid\UI;
+namespace KateMorley\Grid\UI;
 
 class Value {
 

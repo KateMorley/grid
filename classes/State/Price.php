@@ -2,7 +2,7 @@
 
 // Represents the wholesale price of energy
 
-namespace KateRoseMorley\Grid\State;
+namespace KateMorley\Grid\State;
 
 class Price extends Map {
 

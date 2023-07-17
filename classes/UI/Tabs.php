@@ -2,9 +2,9 @@
 
 // Outputs the tabs
 
-namespace KateRoseMorley\Grid\UI;
+namespace KateMorley\Grid\UI;
 
-use KateRoseMorley\Grid\State\State;
+use KateMorley\Grid\State\State;
 
 class Tabs {
 

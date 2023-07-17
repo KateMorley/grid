@@ -2,7 +2,7 @@
 
 // Parses CSV data from a URL
 
-namespace KateRoseMorley\Grid\Data;
+namespace KateMorley\Grid\Data;
 
 class Csv {
 

@@ -2,7 +2,7 @@
 
 // Represents a power generation record
 
-namespace KateRoseMorley\Grid\State;
+namespace KateMorley\Grid\State;
 
 class Record {
 

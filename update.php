@@ -2,22 +2,22 @@
 
 // Updates the site
 
-use KateRoseMorley\Grid\Database;
-use KateRoseMorley\Grid\Data\DataException;
-use KateRoseMorley\Grid\Data\Demand;
-use KateRoseMorley\Grid\Data\Emissions;
-use KateRoseMorley\Grid\Data\FiveMinuteGeneration;
-use KateRoseMorley\Grid\Data\HalfHourGeneration;
-use KateRoseMorley\Grid\Data\Interconnectors;
-use KateRoseMorley\Grid\Data\Pricing;
-use KateRoseMorley\Grid\UI\Favicon;
-use KateRoseMorley\Grid\UI\UI;
+use KateMorley\Grid\Database;
+use KateMorley\Grid\Data\DataException;
+use KateMorley\Grid\Data\Demand;
+use KateMorley\Grid\Data\Emissions;
+use KateMorley\Grid\Data\FiveMinuteGeneration;
+use KateMorley\Grid\Data\HalfHourGeneration;
+use KateMorley\Grid\Data\Interconnectors;
+use KateMorley\Grid\Data\Pricing;
+use KateMorley\Grid\UI\Favicon;
+use KateMorley\Grid\UI\UI;
 
 spl_autoload_register(function ($class) {
   require_once(
     __DIR__
     . '/classes/'
-    . strtr(substr($class, 20), '\\', '/')
+    . strtr(substr($class, 16), '\\', '/')
     . '.php'
   );
 });

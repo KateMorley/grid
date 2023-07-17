@@ -2,15 +2,15 @@
 
 // Outputs the latest data
 
-namespace KateRoseMorley\Grid\UI;
+namespace KateMorley\Grid\UI;
 
-use KateRoseMorley\Grid\State\Datum;
-use KateRoseMorley\Grid\State\Generation;
-use KateRoseMorley\Grid\State\Interconnectors;
-use KateRoseMorley\Grid\State\Map;
-use KateRoseMorley\Grid\State\Storage;
-use KateRoseMorley\Grid\State\Types;
-use KateRoseMorley\Grid\UI\PieChart;
+use KateMorley\Grid\State\Datum;
+use KateMorley\Grid\State\Generation;
+use KateMorley\Grid\State\Interconnectors;
+use KateMorley\Grid\State\Map;
+use KateMorley\Grid\State\Storage;
+use KateMorley\Grid\State\Types;
+use KateMorley\Grid\UI\PieChart;
 
 class Latest {
 

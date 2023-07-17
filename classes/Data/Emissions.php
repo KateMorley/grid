@@ -2,9 +2,9 @@
 
 // Updates emissions data
 
-namespace KateRoseMorley\Grid\Data;
+namespace KateMorley\Grid\Data;
 
-use KateRoseMorley\Grid\Database;
+use KateMorley\Grid\Database;
 
 class Emissions {
 

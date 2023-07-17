@@ -2,9 +2,9 @@
 
 // Outputs tables of sources
 
-namespace KateRoseMorley\Grid\UI;
+namespace KateMorley\Grid\UI;
 
-use KateRoseMorley\Grid\State\Datum;
+use KateMorley\Grid\State\Datum;
 
 class Tables {
 

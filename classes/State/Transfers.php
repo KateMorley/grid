@@ -2,7 +2,7 @@
 
 // Represents details of transfers
 
-namespace KateRoseMorley\Grid\State;
+namespace KateMorley\Grid\State;
 
 class Transfers extends Map {
 

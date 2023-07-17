@@ -2,7 +2,7 @@
 
 // Represents the emissions from power production
 
-namespace KateRoseMorley\Grid\State;
+namespace KateMorley\Grid\State;
 
 class Emissions extends Map {
 

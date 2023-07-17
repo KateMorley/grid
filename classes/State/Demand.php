@@ -2,7 +2,7 @@
 
 // Represents details of demand
 
-namespace KateRoseMorley\Grid\State;
+namespace KateMorley\Grid\State;
 
 class Demand extends Map {
 

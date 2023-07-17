@@ -2,7 +2,7 @@
 
 // Represents details of storage
 
-namespace KateRoseMorley\Grid\State;
+namespace KateMorley\Grid\State;
 
 class Storage extends Map {
 

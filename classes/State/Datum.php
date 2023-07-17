@@ -2,7 +2,7 @@
 
 // Represents a data point consisting of a price and details of power sources
 
-namespace KateRoseMorley\Grid\State;
+namespace KateMorley\Grid\State;
 
 class Datum {
 

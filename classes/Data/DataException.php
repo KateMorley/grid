@@ -2,7 +2,7 @@
 
 // Represents an exception when updating data
 
-namespace KateRoseMorley\Grid\Data;
+namespace KateMorley\Grid\Data;
 
 class DataException extends \Exception {
 }

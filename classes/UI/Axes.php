@@ -2,10 +2,10 @@
 
 // Represents graph axes
 
-namespace KateRoseMorley\Grid\UI;
+namespace KateMorley\Grid\UI;
 
-use KateRoseMorley\Grid\State\Datum;
-use KateRoseMorley\Grid\State\State;
+use KateMorley\Grid\State\Datum;
+use KateMorley\Grid\State\State;
 
 class Axes {
 

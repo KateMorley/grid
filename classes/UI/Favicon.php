@@ -2,9 +2,9 @@
 
 // Generates the favicon
 
-namespace KateRoseMorley\Grid\UI;
+namespace KateMorley\Grid\UI;
 
-use KateRoseMorley\Grid\State\Types;
+use KateMorley\Grid\State\Types;
 
 class Favicon {
 

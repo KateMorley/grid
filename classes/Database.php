@@ -2,16 +2,16 @@
 
 // Database functions
 
-namespace KateRoseMorley\Grid;
+namespace KateMorley\Grid;
 
-use KateRoseMorley\Grid\Data\Demand;
-use KateRoseMorley\Grid\Data\Emissions;
-use KateRoseMorley\Grid\Data\HalfHourGeneration;
-use KateRoseMorley\Grid\Data\Interconnectors;
-use KateRoseMorley\Grid\Data\Pricing;
-use KateRoseMorley\Grid\State\Datum;
-use KateRoseMorley\Grid\State\Record;
-use KateRoseMorley\Grid\State\State;
+use KateMorley\Grid\Data\Demand;
+use KateMorley\Grid\Data\Emissions;
+use KateMorley\Grid\Data\HalfHourGeneration;
+use KateMorley\Grid\Data\Interconnectors;
+use KateMorley\Grid\Data\Pricing;
+use KateMorley\Grid\State\Datum;
+use KateMorley\Grid\State\Record;
+use KateMorley\Grid\State\State;
 
 class Database {
 

@@ -2,9 +2,9 @@
 
 // Outputs a panel
 
-namespace KateRoseMorley\Grid\UI;
+namespace KateMorley\Grid\UI;
 
-use KateRoseMorley\Grid\State\Datum;
+use KateMorley\Grid\State\Datum;
 
 class Panel {
 

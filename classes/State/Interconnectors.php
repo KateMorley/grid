@@ -2,7 +2,7 @@
 
 // Represents details of interconnectors
 
-namespace KateRoseMorley\Grid\State;
+namespace KateMorley\Grid\State;
 
 class Interconnectors extends Map {
 

@@ -2,10 +2,10 @@
 
 // Outputs a pie chart
 
-namespace KateRoseMorley\Grid\UI;
+namespace KateMorley\Grid\UI;
 
-use KateRoseMorley\Grid\State\Datum;
-use KateRoseMorley\Grid\State\Map;
+use KateMorley\Grid\State\Datum;
+use KateMorley\Grid\State\Map;
 
 class PieChart {
 

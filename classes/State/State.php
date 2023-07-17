@@ -2,7 +2,7 @@
 
 // Represents the UI state
 
-namespace KateRoseMorley\Grid\State;
+namespace KateMorley\Grid\State;
 
 class State {
 

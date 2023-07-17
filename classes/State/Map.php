@@ -2,7 +2,7 @@
 
 // Represents a map from keys to values
 
-namespace KateRoseMorley\Grid\State;
+namespace KateMorley\Grid\State;
 
 abstract class Map {
 

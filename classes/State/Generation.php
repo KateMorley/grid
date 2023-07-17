@@ -2,7 +2,7 @@
 
 // Represents details of power generation
 
-namespace KateRoseMorley\Grid\State;
+namespace KateMorley\Grid\State;
 
 class Generation extends Map {
 

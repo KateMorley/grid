@@ -2,7 +2,7 @@
 
 // Converts settlement periods into times
 
-namespace KateRoseMorley\Grid\Data;
+namespace KateMorley\Grid\Data;
 
 class SettlementPeriod {
 

@@ -2,7 +2,7 @@
 
 // Parses BMRS data from a URL
 
-namespace KateRoseMorley\Grid\Data;
+namespace KateMorley\Grid\Data;
 
 class Bmrs {
 

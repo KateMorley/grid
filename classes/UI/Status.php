@@ -2,11 +2,11 @@
 
 // Outputs the status
 
-namespace KateRoseMorley\Grid\UI;
+namespace KateMorley\Grid\UI;
 
-use KateRoseMorley\Grid\State\Datum;
-use KateRoseMorley\Grid\State\Emissions;
-use KateRoseMorley\Grid\State\Price;
+use KateMorley\Grid\State\Datum;
+use KateMorley\Grid\State\Emissions;
+use KateMorley\Grid\State\Price;
 
 class Status {
 
