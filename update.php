@@ -13,6 +13,8 @@ use KateMorley\Grid\Data\Pricing;
 use KateMorley\Grid\UI\Favicon;
 use KateMorley\Grid\UI\UI;
 
+require_once __DIR__ . '/configuration.php';
+
 spl_autoload_register(function ($class) {
   require_once(
     __DIR__
@@ -71,18 +73,30 @@ foreach ([
 
   }
 
-] as $description => $callback) {
+] as $action => $callback) {
 
-  echo $description;
+  echo $action;
 
   $start = microtime(true);
 
   try {
+
     $callback($database);
+
     echo 'OK';
+
+    $database->clearErrors($action);
+
   } catch (DataException $e) {
-    echo 'ERROR: ' . $e->getMessage();
-    trigger_error(trim($description) . ' ' . $e->getMessage());
+
+    $error = $e->getMessage();
+    echo 'ERROR: ' . $error;
+
+    if ($database->getErrorCount($action, $error) >= ERROR_REPORTING_THRESHOLD) {
+      $database->clearErrors($action);
+      trigger_error(trim($action) . ' ' . $error);
+    }
+
   }
 
   echo ' (' . sprintf('%0.3f', microtime(true) - $start) . " seconds)\n";

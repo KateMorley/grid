@@ -24,8 +24,6 @@ class Database {
   /** Constructs a new instance */
   public function __construct() {
 
-    require_once __DIR__ . '/../configuration.php';
-
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
     $this->connection = new \mysqli(
@@ -34,6 +32,8 @@ class Database {
       DATABASE_PASSWORD,
       DATABASE_DATABASE
     );
+
+    $this->connection->set_charset('utf8mb4');
 
   }
 
@@ -409,6 +409,45 @@ class Database {
         )
       )
     );
+  }
+
+  /**
+   * Clears recorded errors for an action that completed successfully
+   *
+   * @param string $action The action
+   */
+  public function clearErrors(string $action): void {
+    $this->connection->query(
+      'DELETE FROM errors WHERE action="'
+      . $this->connection->real_escape_string($action)
+      . '"'
+    );
+  }
+
+  /**
+   * Returns the count of occurrences of an error
+   *
+   * @param string $action The action
+   * @param string $error  The error
+   */
+  public function getErrorCount(string $action, string $error): int {
+
+    $this->connection->query(
+      'INSERT INTO errors (action,error,count) VALUES ("'
+      . $this->connection->real_escape_string($action)
+      . '","'
+      . $this->connection->real_escape_string($error)
+      . '",1) ON DUPLICATE KEY UPDATE count=count+1'
+    );
+
+    return (int)$this->connection->query(
+      'SELECT count FROM errors WHERE action="'
+      . $this->connection->real_escape_string($action)
+      . '" AND error="'
+      . $this->connection->real_escape_string($error)
+      . '"'
+    )->fetch_row()[0];
+
   }
 
 }

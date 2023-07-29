@@ -10,7 +10,7 @@ Any officially supported versions of PHP and MySQL can be used.
 
 Create a database and a user with `SELECT`, `INSERT`, `UPDATE`, and `DELETE` privileges, and import `grid.sql` into the database.
 
-Copy `configuration.php.example` to `configuration.php` and enter the appropriate data connection settings into the PHP constants.
+Copy `configuration.php.example` to `configuration.php` and enter the appropriate database connection settings into the PHP constants.
 
 ### Web server
 
@@ -20,7 +20,7 @@ Configure the server to serve the contents of the `public` directory. Note that 
 
 Set up a cron job to execute the `update.php` script (using the [PHP CLI SAPI](https://www.php.net/manual/en/features.commandline.usage.php)) every five minutes. The cron job must run as a user with write access to `public/favicon.svg` and `public/index.html`.
 
-The script outputs details of the update process to standard output, and details of errors to standard error. An error with an individual data source does not abort the rest of the update process.
+The script outputs details of the update process to standard output, and details of errors to standard error. An error with an individual data source does not abort the rest of the update process. The APIs can be unreliable, so the `ERROR_REPORTING_THRESHOLD` constant in `configuration.php` is provided to control how many consecutive times an error must occur before it is reported.
 
 ### Fonts
 

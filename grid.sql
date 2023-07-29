@@ -1,3 +1,10 @@
+CREATE TABLE `errors` (
+  `action` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `error` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `count` tinyint(3) UNSIGNED NOT NULL,
+  PRIMARY KEY (`action`,`error`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE `latest` (
   `source` varchar(22) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `value` decimal(7,2) NOT NULL,
