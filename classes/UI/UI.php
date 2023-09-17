@@ -41,7 +41,7 @@ class UI {
     <link rel="preload" href="proza-light.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="grid.css?<?= filemtime(__DIR__ . '/../../public/grid.css') ?>" type="text/css">
     <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="icon" href="favicon.svg?<?= time() ?>" type="image/svg+xml">
+    <link rel="icon" href="favicon.svg?<?= floor(time() / 300) ?>" type="image/svg+xml">
     <script src="grid.js?<?= filemtime(__DIR__ . '/../../public/grid.js') ?>" defer></script>
   </head>
   <body>

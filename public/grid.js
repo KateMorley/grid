@@ -26,6 +26,7 @@ const KEY_MARGIN = 8
 
 let key    = document.createElement('div')
 let dialog = document.querySelector('dialog')
+let delay  = Math.random() * 60000
 
 document.body.addEventListener('click', handleClick)
 
@@ -43,6 +44,8 @@ document.querySelectorAll('.graph svg').forEach(graph => {
   graph.addEventListener('mouseover', showGraphKey)
   graph.addEventListener('mouseleave',  () => key.remove())
 })
+
+scheduleUpdate()
 
 // Handles a click by showing a help dialog if appropriate
 function handleClick(e) {
@@ -111,7 +114,7 @@ function handleTabClick(e) {
   }
 }
 
-// Handles a key down ona tab
+// Handles a key down on a tab
 function handleTabKeyDown(e) {
 
   let tabs  = Array.from(this.children)
@@ -193,5 +196,23 @@ function showGraphKey(e) {
   }
 
   key.style.left = left + 'px'
+
+}
+
+// Schedules an update. Updates occur every five minutes, with an offset of two
+// minutes plus a visitor-specific random delay of up to a minute to reduce
+// server load.
+function scheduleUpdate() {
+  setTimeout(update, (420000 - (Date.now() % 300000)  + delay) % 300000)
+}
+
+// Updates the user interface
+function update() {
+
+  document.querySelector(
+    'link[type="image/svg+xml"]'
+  ).href = 'favicon.svg?' + Math.floor(Date.now() / 300000)
+
+  scheduleUpdate()
 
 }
