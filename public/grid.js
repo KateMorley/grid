@@ -24,28 +24,45 @@ const LABELS = {
 
 const KEY_MARGIN = 8
 
+const IDS_TO_UPDATE = [
+  'status',
+  'latest',
+  'tab-panel-day',
+  'tab-panel-week',
+  'tab-panel-year',
+  'tab-panel-all',
+  'wind'
+]
+
 let key    = document.createElement('div')
 let dialog = document.querySelector('dialog')
 let delay  = Math.random() * 60000
+let parser = new DOMParser()
 
 document.body.addEventListener('click', handleClick)
-
-document.querySelectorAll('.pie-chart').forEach(pieChart => {
-  pieChart.addEventListener('mouseover', e => updatePieChartKey(e, true))
-  pieChart.addEventListener('mouseout',  e => updatePieChartKey(e, false))
-})
 
 let tabList = document.querySelector('[role="tablist"]')
 selectTab(tabList, tabList.firstElementChild)
 tabList.addEventListener('click', handleTabClick)
 tabList.addEventListener('keydown', handleTabKeyDown)
 
-document.querySelectorAll('.graph svg').forEach(graph => {
-  graph.addEventListener('mouseover', showGraphKey)
-  graph.addEventListener('mouseleave',  () => key.remove())
-})
-
+addGraphListeners()
 scheduleUpdate()
+
+// Adds the listeners to the graphs
+function addGraphListeners() {
+
+  document.querySelectorAll('.pie-chart').forEach(pieChart => {
+    pieChart.addEventListener('mouseover', e => updatePieChartKey(e, true))
+    pieChart.addEventListener('mouseout',  e => updatePieChartKey(e, false))
+  })
+
+  document.querySelectorAll('.graph svg').forEach(graph => {
+    graph.addEventListener('mouseover', showGraphKey)
+    graph.addEventListener('mouseleave',  () => key.remove())
+  })
+
+}
 
 // Handles a click by showing a help dialog if appropriate
 function handleClick(e) {
@@ -209,9 +226,25 @@ function scheduleUpdate() {
 // Updates the user interface
 function update() {
 
-  document.querySelector(
-    'link[type="image/svg+xml"]'
-  ).href = 'favicon.svg?' + Math.floor(Date.now() / 300000)
+  let time = Math.floor(Date.now() / 300000)
+
+  document.querySelector('link[type*="svg"]').href = 'favicon.svg?' + time
+
+  fetch('?v=' + time).then(response => response.text()).then(function (html) {
+
+    let update = parser.parseFromString(html, 'text/html')
+
+    IDS_TO_UPDATE.forEach(function (id) {
+      document.getElementById(id).replaceChildren(
+        ...update.getElementById(id).children
+      )
+    })
+
+    key.remove()
+
+    addGraphListeners()
+
+  })
 
   scheduleUpdate()
 

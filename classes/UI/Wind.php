@@ -18,7 +18,7 @@ class Wind {
     $record = $state->getWindRecord();
 
 ?>
-        <section>
+        <section id="wind">
           <h2>
             The rise of wind
           </h2>
