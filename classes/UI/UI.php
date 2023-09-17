@@ -109,7 +109,8 @@ class UI {
           About this site
         </h2>
         <p>
-          This site is an open source project by <a href="https://iamkate.com/">Kate Morley</a>. You can <a href="https://github.com/KateMorley/grid">view the code on GitHub</a>.
+          This site is an open source project by <a href="https://iamkate.com/">Kate Morley</a>: you can <a href="https://github.com/KateMorley/grid">view the code on GitHub</a>.
+          If you’d like to thank me for the time I’ve spent working on this project, or help me cover the costs of hosting a site that receives over 8,000,000 visits each year, <a href="https://ko-fi.com/katemorley">I do accept donations</a>.
         </p>
       </section>
     </main>
