@@ -39,6 +39,7 @@ let dialog = document.querySelector('dialog')
 let delay  = Math.random() * 60000
 let parser = new DOMParser()
 
+document.addEventListener('visibilitychange', () => update(true))
 document.body.addEventListener('click', handleClick)
 
 let tabList = document.querySelector('[role="tablist"]')
@@ -223,29 +224,41 @@ function scheduleUpdate() {
   setTimeout(update, (420000 - (Date.now() % 300000)  + delay) % 300000)
 }
 
-// Updates the user interface
-function update() {
+// Updates the user interface. The 'unscheduled' flag is used for updates
+// triggered when the page becomes visible again after updates were suspended
+// while the page was not visible.
+function update(unscheduled) {
 
   let time = Math.floor(Date.now() / 300000)
 
+  if (unscheduled && (Date.now() % 300000) < (120000 + delay)) {
+    time --
+  }
+
   document.querySelector('link[type*="svg"]').href = 'favicon.svg?' + time
 
-  fetch('?v=' + time).then(response => response.text()).then(function (html) {
+  if (document.visibilityState === 'visible') {
 
-    let update = parser.parseFromString(html, 'text/html')
+    fetch('?v=' + time).then(response => response.text()).then(function (html) {
 
-    IDS_TO_UPDATE.forEach(function (id) {
-      document.getElementById(id).replaceChildren(
-        ...update.getElementById(id).children
-      )
+      let update = parser.parseFromString(html, 'text/html')
+
+      IDS_TO_UPDATE.forEach(function (id) {
+        document.getElementById(id).replaceChildren(
+          ...update.getElementById(id).children
+        )
+      })
+
+      key.remove()
+
+      addGraphListeners()
+
     })
 
-    key.remove()
+  }
 
-    addGraphListeners()
-
-  })
-
-  scheduleUpdate()
+  if (!unscheduled) {
+    scheduleUpdate()
+  }
 
 }
