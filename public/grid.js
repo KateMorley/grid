@@ -39,7 +39,7 @@ let dialog = document.querySelector('dialog')
 let delay  = Math.random() * 60000
 let parser = new DOMParser()
 
-document.addEventListener('visibilitychange', () => update(true))
+document.addEventListener('visibilitychange', update)
 document.body.addEventListener('click', handleClick)
 
 let tabList = document.querySelector('[role="tablist"]')
@@ -60,7 +60,7 @@ function addGraphListeners() {
 
   document.querySelectorAll('.graph svg').forEach(graph => {
     graph.addEventListener('mouseover', showGraphKey)
-    graph.addEventListener('mouseleave',  () => key.remove())
+    graph.addEventListener('mouseleave', hideGraphKey)
   })
 
 }
@@ -217,6 +217,11 @@ function showGraphKey(e) {
 
 }
 
+// Hides the graph key
+function hideGraphKey() {
+  key.remove()
+}
+
 // Schedules an update. Updates occur every five minutes, with an offset of two
 // minutes plus a visitor-specific random delay of up to a minute to reduce
 // server load.
@@ -249,7 +254,7 @@ function update(unscheduled) {
         )
       })
 
-      key.remove()
+      hideGraphKey()
 
       addGraphListeners()
 
