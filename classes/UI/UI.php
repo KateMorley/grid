@@ -85,34 +85,22 @@ class UI {
 <?php Latest::output($latest); ?>
 <?php Tabs::output($state); ?>
       <div class="columns">
+<?php Wind::output($state); ?>
         <section>
           <h2>
-            The decline of coal
+            About this site
           </h2>
           <p>
-            The world’s first coal-fired power station, at 57 Holborn Viaduct in London, started producing power on 12th January 1882, lighting the surrounding streets and local buildings through 968 incandescent lamps. Coal fuelled the industrial revolution, and by 1900 Great Britain was mining 250,000,000 tonnes of coal every year.
+            This site is an open source project by <a href="https://iamkate.com/">Kate Morley</a>. I’ve published <a href="https://github.com/KateMorley/grid">the code on GitHub</a> under the terms of the <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode">Creative Commons CC0 1.0 Universal Legal Code</a>. This means I’ve waived all copyright and related rights to the extent possible under law, with the intention of dedicating the code to the public domain. You can use and adapt it without attribution.
           </p>
           <p>
-            Over time the negative environmental impacts of coal burning became an increasing problem, and in 2001 the European Union issued the Large Combustion Plant Directive, obliging power stations to limit their emissions or close by 2015.
+            If you’d like to thank me for the time I’ve spent working on this project, or help me cover the costs of hosting a site that receives over 8,000,000 visits each year, <a href="https://ko-fi.com/katemorley">I do accept donations</a>.
           </p>
           <p>
-            As a result, nine coal-fired power stations closed between 2012 and 2015. Great Britain’s largest power station, Drax, has been converted to burn wood pellets imported from North America (categorised as biomass in the data above).
-          </p>
-          <p>
-            Great Britain first went a full day without any power generation from coal on 21st April 2015, followed by a full week between 1st May and 8th May 2019.
+            The data comes from <a href="https://data.nationalgrideso.com/">National Grid ESO’s Data Portal</a>, Elexon’s <a href="https://www.bmreports.com/">Balancing Mechanism Reporting Service</a>, and the <a href="https://carbonintensity.org.uk/">Carbon Intensity API</a> (a project by National Grid ESO and the University Of Oxford Department Of Computer Science).
           </p>
         </section>
-<?php Wind::output($state); ?>
       </div>
-      <section>
-        <h2>
-          About this site
-        </h2>
-        <p>
-          This site is an open source project by <a href="https://iamkate.com/">Kate Morley</a>: you can <a href="https://github.com/KateMorley/grid">view the code on GitHub</a>.
-          If you’d like to thank me for the time I’ve spent working on this project, or help me cover the costs of hosting a site that receives over 8,000,000 visits each year, <a href="https://ko-fi.com/katemorley">I do accept donations</a>.
-        </p>
-      </section>
     </main>
     <footer>
       <a href="https://iamkate.com/ideas/free-content/">Free content</a> from Kate Morley
