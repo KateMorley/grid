@@ -30,7 +30,7 @@ class SettlementPeriod {
       throw new DataException('Invalid settlement date: ' . $date);
     }
 
-    if ($period < 0 || $period > 49) {
+    if ($period < 1 || $period > 50) {
       throw new DataException('Invalid settlement period: ' . $period);
     }
 
