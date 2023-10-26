@@ -121,10 +121,10 @@ class Bmrs {
     }
 
     foreach ($datum as $index => $value) {
-      if (!is_numeric($value)) {
+      if ($value !== '' && !is_numeric($value)) {
         throw new DataException('Non-numeric value: ' . $value);
       } elseif ($isPower) {
-        $datum[$index] = round($value / 1000, 2);
+        $datum[$index] = round((float)$value / 1000, 2);
       } else {
         $datum[$index] = (float)$value;
       }
