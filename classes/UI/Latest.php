@@ -94,8 +94,8 @@ class Latest {
 <?php
 
     self::outputTable($storage, [
-      Storage::PUMPED_STORAGE => '<p>Pumped storage systems use electricity when it is comparatively cheap to pump water from a lower reservoir into a higher reservoir. When electricty is comparatively expensive the water is released, driving turbines to produce power.</p><p>Negative values mean water is being pumped, while positive values mean power is being generated.</p>',
-      'battery' => '<p>Battery storage systems use electricity when it is comparatively cheap to charge a group of batteries. When electricty is comparatively expensive the batteries are discharged.</p><p>Several battery storage systems are in operation in Great Britain, but full reporting is not yet available: reports include discharging but not charging. As this would lead to double counting, with power being reported both when originally generated and when discharged from battery storage systems, battery storage data is not yet shown on this site.</p>'
+      Storage::PUMPED_STORAGE => '<p>Pumped storage systems use electricity when it is comparatively cheap to pump water from a lower reservoir into a higher reservoir. When electricity is comparatively expensive the water is released, driving turbines to produce power.</p><p>Negative values mean water is being pumped, while positive values mean power is being generated.</p>',
+      'battery' => '<p>Battery storage systems use electricity when it is comparatively cheap to charge a group of batteries. When electricity is comparatively expensive the batteries are discharged.</p><p>Several battery storage systems are in operation in Great Britain, but full reporting is not yet available: reports include discharging but not charging. As this would lead to double counting, with power being reported both when originally generated and when discharged from battery storage systems, battery storage data is not yet shown on this site.</p>'
     ], $demand, true);
 
 ?>
