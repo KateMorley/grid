@@ -44,6 +44,7 @@ class FiveMinuteGeneration {
         'intelec',
         'intifa2',
         'intnsl',
+        'intvkl',
         'activeFlag'
       ],
       true,

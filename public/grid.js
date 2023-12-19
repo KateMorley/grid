@@ -15,6 +15,7 @@ const LABELS = {
   nuclear     : 'Nuclear',
   biomass     : 'Biomass',
   belgium     : 'Belgium',
+  denmark     : 'Denmark',
   france      : 'France',
   ireland     : 'Ireland',
   netherlands : 'Netherlands',

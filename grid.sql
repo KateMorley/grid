@@ -42,6 +42,7 @@ CREATE TABLE `past_days` (
   `ifa2` decimal(3,2) NOT NULL,
   `nsl` decimal(3,2) NOT NULL,
   `eleclink` decimal(3,2) NOT NULL,
+  `viking` decimal(3,2) NOT NULL,
   `price` decimal(7,2) NOT NULL,
   `emissions` smallint(5) UNSIGNED NOT NULL,
   PRIMARY KEY (`time`)
@@ -70,6 +71,7 @@ CREATE TABLE `past_half_hours` (
   `ifa2` decimal(3,2) NOT NULL,
   `nsl` decimal(3,2) NOT NULL,
   `eleclink` decimal(3,2) NOT NULL,
+  `viking` decimal(3,2) NOT NULL,
   `price` decimal(7,2) NOT NULL,
   `emissions` smallint(5) UNSIGNED NOT NULL,
   PRIMARY KEY (`time`)
@@ -98,6 +100,7 @@ CREATE TABLE `past_weeks` (
   `ifa2` decimal(3,2) NOT NULL,
   `nsl` decimal(3,2) NOT NULL,
   `eleclink` decimal(3,2) NOT NULL,
+  `viking` decimal(3,2) NOT NULL,
   `price` decimal(7,2) NOT NULL,
   `emissions` smallint(5) UNSIGNED NOT NULL,
   PRIMARY KEY (`time`)
@@ -126,6 +129,7 @@ CREATE TABLE `past_years` (
   `ifa2` decimal(3,2) NOT NULL,
   `nsl` decimal(3,2) NOT NULL,
   `eleclink` decimal(3,2) NOT NULL,
+  `viking` decimal(3,2) NOT NULL,
   `price` decimal(7,2) NOT NULL,
   `emissions` smallint(5) UNSIGNED NOT NULL,
   PRIMARY KEY (`time`)

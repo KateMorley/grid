@@ -7,6 +7,7 @@ namespace KateMorley\Grid\State;
 class Transfers extends Map {
 
   public const BELGIUM         = 'belgium';
+  public const DENMARK         = 'denmark';
   public const FRANCE          = 'france';
   public const IRELAND         = 'ireland';
   public const NETHERLANDS     = 'netherlands';
@@ -15,6 +16,7 @@ class Transfers extends Map {
 
   public const KEYS = [
     self::BELGIUM         => 'Belgium',
+    self::DENMARK         => 'Denmark',
     self::FRANCE          => 'France',
     self::IRELAND         => 'Ireland',
     self::NETHERLANDS     => 'Netherlands',
@@ -24,6 +26,7 @@ class Transfers extends Map {
 
   protected const KEY_COMPONENTS = [
     self::BELGIUM        => ['nemo'],
+    self::DENMARK        => ['viking'],
     self::FRANCE         => ['ifa', 'ifa2', 'eleclink'],
     self::IRELAND        => ['moyle', 'ewic'],
     self::NETHERLANDS    => ['britned'],

@@ -219,10 +219,11 @@ a:visited{
 .nuclear     { color : #09c; }
 .biomass     { color : #36b; }
 .belgium     { color : #817; }
-.france      { color : #c66; }
-.ireland     { color : #e94; }
-.netherlands { color : #ed0; }
-.norway      { color : #9d5; }
+.denmark     { color : #c66; }
+.france      { color : #e94; }
+.ireland     { color : #ed0; }
+.netherlands { color : #9d5; }
+.norway      { color : #2cb; }
 .pumped      { color : #09c; }
 .battery     { color : #639; }
 

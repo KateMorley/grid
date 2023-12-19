@@ -56,6 +56,7 @@ class HalfHourGeneration {
         'intelec',
         'intifa2',
         'intnsl',
+        'intvkl',
         'activeFlag'
       ]
     );

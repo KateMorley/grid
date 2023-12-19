@@ -16,7 +16,8 @@ class Interconnectors {
     'nemo',
     'ifa2',
     'nsl',
-    'eleclink'
+    'eleclink',
+    'viking'
   ];
 
   /**
@@ -40,7 +41,8 @@ class Interconnectors {
         'intnemGeneration',
         'intifa2Generation',
         'intnslGeneration',
-        'intelecGeneration'
+        'intelecGeneration',
+        'intvklGeneration'
       ],
       [
         'recordType',
