@@ -83,7 +83,10 @@ class Emissions {
       );
     }
 
-    return ['"' . $item['to'] . '"', $item['intensity']['actual']];;
+    return [
+      '"' . str_replace(['T', 'Z'], [' ', ''], $item['to']) . '"',
+      $item['intensity']['actual']
+    ];
 
   }
 
