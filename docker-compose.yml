@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb
+    environment:
+      - MARIADB_USER=${DBUSER}
+      - MARIADB_PASSWORD=${DBPASSWORD}
+      - MARIADB_DATABASE=${DATABASE}
+      - MARIADB_RANDOM_ROOT_PASSWORD=1
+    volumes:
+      - ./grid.sql:/docker-entrypoint-initdb.d/grid.sql
+
+  web:
+    image: dunglas/frankenphp
+    depends_on:
+      - db
+    volumes:
+      - ./:/app
+    ports:
+      - "80:80"
+      - "443:443"
+    entrypoint: ["/bin/sh","-c"]
+    environment:
+      - DATABASE_HOSTNAME=db
+      - DATABASE_USERNAME=${DBUSER}
+      - DATABASE_PASSWORD=${DBPASSWORD}
+      - DATABASE_DATABASE=${DATABASE}
+    command:
+      - |
+        install-php-extensions mysqli
+        php update.php
+        frankenphp run --config /etc/caddy/Caddyfile
