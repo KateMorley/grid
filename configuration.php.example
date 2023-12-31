@@ -8,3 +8,6 @@ define('DATABASE_PASSWORD', '');
 define('DATABASE_DATABASE', '');
 
 define('ERROR_REPORTING_THRESHOLD', 1);
+
+define('CLOUDFLARE_API_TOKEN', '');
+define('CLOUDFLARE_ZONE_ID', '');

@@ -45,6 +45,7 @@ CREATE TABLE `past_days` (
   `viking` decimal(3,2) NOT NULL DEFAULT 0.00,
   `price` decimal(7,2) NOT NULL DEFAULT 0.00,
   `emissions` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
+  `visits` int(10) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -74,6 +75,7 @@ CREATE TABLE `past_half_hours` (
   `viking` decimal(3,2) NOT NULL DEFAULT 0.00,
   `price` decimal(7,2) NOT NULL DEFAULT 0.00,
   `emissions` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
+  `visits` int(10) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -103,6 +105,7 @@ CREATE TABLE `past_weeks` (
   `viking` decimal(3,2) NOT NULL DEFAULT 0.00,
   `price` decimal(7,2) NOT NULL DEFAULT 0.00,
   `emissions` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
+  `visits` int(10) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -132,6 +135,7 @@ CREATE TABLE `past_years` (
   `viking` decimal(3,2) NOT NULL DEFAULT 0.00,
   `price` decimal(7,2) NOT NULL DEFAULT 0.00,
   `emissions` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
+  `visits` int(10) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

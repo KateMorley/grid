@@ -378,6 +378,17 @@ class Database {
       . self::getOnDuplicateKeyUpdateClause($columns)
     );
 
+    $this->connection->query(
+      'INSERT INTO '
+      . $destinationTable
+      . ' (`time`,visits) SELECT '
+      . $timeExpression
+      . ' AS aggregated_time,SUM(visits) FROM '
+      . $sourceTable
+      . ' GROUP BY aggregated_time'
+      . self::getOnDuplicateKeyUpdateClause(['visits'])
+    );
+
   }
 
   /** Returns the list of database columns */

@@ -10,6 +10,7 @@ use KateMorley\Grid\Data\FiveMinuteGeneration;
 use KateMorley\Grid\Data\HalfHourGeneration;
 use KateMorley\Grid\Data\Interconnectors;
 use KateMorley\Grid\Data\Pricing;
+use KateMorley\Grid\Data\Visits;
 use KateMorley\Grid\UI\Favicon;
 use KateMorley\Grid\UI\UI;
 
@@ -51,6 +52,10 @@ foreach ([
 
   'Updating five-minute generation… ' => function ($database) {
     FiveMinuteGeneration::update($database);
+  },
+
+  'Updating visits…                 ' => function ($database) {
+    Visits::update($database);
   },
 
   'Finishing update…                ' => function ($database) {
