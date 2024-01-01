@@ -94,7 +94,7 @@ class UI {
             This site is an open source project by <a href="https://iamkate.com/">Kate Morley</a>. I’ve published <a href="https://github.com/KateMorley/grid">the code on GitHub</a> under the terms of the <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode">Creative Commons CC0 1.0 Universal Legal Code</a>. This means I’ve waived all copyright and related rights to the extent possible under law, with the intention of dedicating the code to the public domain. You can use and adapt it without attribution.
           </p>
           <p>
-            If you’d like to thank me for the time I’ve spent working on this project, or help me cover the costs of hosting a site that receives over 8,000,000 visits each year, <a href="https://ko-fi.com/katemorley">I do accept donations</a>.
+            If you’d like to thank me for the time I’ve spent working on this project, or help me cover the costs of hosting a site that receives over 14,000,000 visits each year, <a href="https://ko-fi.com/katemorley">I do accept donations</a>.
           </p>
           <p>
             The data comes from <a href="https://data.nationalgrideso.com/">National Grid ESO’s Data Portal</a>, Elexon’s <a href="https://www.bmreports.com/">Balancing Mechanism Reporting Service</a>, and the <a href="https://carbonintensity.org.uk/">Carbon Intensity API</a> (a project by National Grid ESO and the University Of Oxford Department Of Computer Science).
