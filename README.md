@@ -28,7 +28,7 @@ The CSS refers to `proza-light.woff2` and `proza-regular.woff2`. These are comme
 
 ### Cloudflare
 
-If the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ZONE_ID` constants in `configuration.php` are set to non-empty strings, visit counts will be retrieved from Cloudflare. The Cloudflare API token mst be configured to provide Analytics Read access for the zone.
+National Grid: Live uses [Cloudflare](https://www.cloudflare.com/)’s content delivery network. Visit counts will be retrieved from Cloudflare if the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ZONE_ID` constants in `configuration.php` are set to non-empty strings. The Cloudflare API token must be configured to provide Analytics Read access for the zone.
 
 ## Codebase structure
 
