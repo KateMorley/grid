@@ -26,6 +26,10 @@ The script outputs details of the update process to standard output, and details
 
 The CSS refers to `proza-light.woff2` and `proza-regular.woff2`. These are commercial fonts, so are not included in this repository. Licences for [Proza](http://bureauroffa.com/about-proza) can be purchased from [Bureau Roffa](http://bureauroffa.com/). Alterenatively, the simplified free version [Proza Libre](http://bureauroffa.com/about-proza-libre) can be used instead.
 
+### Cloudflare
+
+If the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ZONE_ID` constants in `configuration.php` are set to non-empty strings, visit counts will be retrieved from Cloudflare. The Cloudflare API token mst be configured to provide Analytics Read access for the zone.
+
 ## Codebase structure
 
 PHP classes can be found in the `classes` directory. The [Database](classes/Database.php) class directly within this directory is responsible for all database access. The other classes are divided into three namespaces:

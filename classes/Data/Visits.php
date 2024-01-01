@@ -21,6 +21,10 @@ class Visits {
    */
   public static function update(Database $database): void {
 
+    if (CLOUDFLARE_API_TOKEN === '' || CLOUDFLARE_ZONE_ID === '') {
+      return;
+    }
+
     $curl = curl_init();
 
     curl_setopt(
