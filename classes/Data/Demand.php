@@ -40,6 +40,7 @@ class Demand {
         'EMBEDDED_WIND_CAPACITY',
         'EMBEDDED_SOLAR_CAPACITY',
         'NON_BM_STOR',
+        'SCOTTISH_TRANSFER',
         'IFA_FLOW',
         'IFA2_FLOW',
         'BRITNED_FLOW',
@@ -47,7 +48,8 @@ class Demand {
         'EAST_WEST_FLOW',
         'NEMO_FLOW',
         'NSL_FLOW',
-        'ELECLINK_FLOW'
+        'ELECLINK_FLOW',
+        'VIKING_FLOW'
       ]
     );
 
