@@ -6,7 +6,7 @@ use KateMorley\Grid\Database;
 use KateMorley\Grid\Data\DataException;
 use KateMorley\Grid\Data\Demand;
 use KateMorley\Grid\Data\Emissions;
-use KateMorley\Grid\Data\FiveMinuteGeneration;
+use KateMorley\Grid\Data\Generation;
 use KateMorley\Grid\Data\HalfHourGeneration;
 use KateMorley\Grid\Data\Interconnectors;
 use KateMorley\Grid\Data\Pricing;
@@ -51,7 +51,7 @@ foreach ([
   },
 
   'Updating five-minute generation… ' => function ($database) {
-    FiveMinuteGeneration::update($database);
+    Generation::update($database);
   },
 
   'Updating visits…                 ' => function ($database) {

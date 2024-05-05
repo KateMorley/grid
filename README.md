@@ -42,13 +42,21 @@ The [UI](classes/UI) namespace contains classes that output the user interface. 
 
 ## Data sources
 
-### [Balancing Mechanism Reporting Service](https://www.bmreports.com/)
+### [Elexon Insights Solution](https://bmrs.elexon.co.uk/)
 
 This API, developed by Elexon, reports power generation connected to the national transmission network, interconnector imports and exports, and pricing.
 
+Data is available in JSON format at 30-minute or 5-minute granularity.
+
+PHP classes: [Generation](classes/Data/Generation.php)
+
+### [Balancing Mechanism Reporting Service](https://www.bmreports.com/)
+
+This API, developed by Elexon, reports power generation connected to the national transmission network, interconnector imports and exports, and pricing. This API is being phased out in favour of the Elexon Insights Solution API.
+
 Data is available in XML format at 30-minute or 5-minute granularity. Only power generation (and not power consumption for pumping) is reported for pumped storage. Only the separate 30-minute interconnector data reports negative power generation for exports.
 
-PHP classes:  [FiveMinuteGeneration](classes/Data/FiveMinuteGeneration.php),  [HalfHourGeneration](classes/Data/HalfHourGeneration.php),  [Interconnectors](classes/Data/Interconnectors.php),  [Pricing](classes/Data/Pricing.php)
+PHP classes: [HalfHourGeneration](classes/Data/HalfHourGeneration.php), [Interconnectors](classes/Data/Interconnectors.php), [Pricing](classes/Data/Pricing.php)
 
 ### [Carbon Intensity API](https://carbonintensity.org.uk/)
 
