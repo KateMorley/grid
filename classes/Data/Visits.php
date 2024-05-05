@@ -39,7 +39,7 @@ class Visits {
     ]);
 
     $zoneId     = CLOUDFLARE_ZONE_ID;
-    $time       = time();
+    $time       = time() - (30 * 60);
     $time      -= $time % (30 * 60);
     $startTime  = gmdate('Y-m-d\\TH:i:s\\Z', $time - 12 * 60 * 60);
     $endTime    = gmdate('Y-m-d\\TH:i:s\\Z', $time);
@@ -136,7 +136,7 @@ class Visits {
     $time = strtotime($item['dimensions']['datetimeHalfOfHour']) + (30 * 60);
 
     return [
-      '"' . date('Y-m-d H:i:s', $time) . '"',
+      '"' . gmdate('Y-m-d H:i:s', $time) . '"',
       $item['sum']['pageViews']
     ];
 

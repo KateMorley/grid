@@ -67,11 +67,11 @@ class Emissions {
    */
   private static function getDatum(array $item): ?array {
 
-    if (!isset($item['to'])) {
+    if (!isset($item['from'])) {
       throw new DataException('Missing time');
     }
 
-    SettlementPeriod::validateTime($item['to']);
+    SettlementPeriod::validateTime($item['from']);
 
     if (!isset($item['intensity']['actual'])) {
       return null;
@@ -84,7 +84,7 @@ class Emissions {
     }
 
     return [
-      '"' . str_replace(['T', 'Z'], [' ', ''], $item['to']) . '"',
+      '"' . str_replace(['T', 'Z'], [' ', ''], $item['from']) . '"',
       $item['intensity']['actual']
     ];
 

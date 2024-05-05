@@ -38,7 +38,7 @@ class SettlementPeriod {
       'Y-m-d H:i:s',
       (
         mktime(0, 0, 0, (int)$matches[2], (int)$matches[3], (int)$matches[1])
-        + $period * 1800
+        + ($period - 1) * 1800
       )
     );
 
