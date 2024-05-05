@@ -31,7 +31,7 @@ CREATE TABLE `past_days` (
   `oil` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `wind` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `hydro` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
-  `pumped` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `pumped` decimal(4,2) NOT NULL DEFAULT 0.00,
   `biomass` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `other` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `ifa` decimal(3,2) NOT NULL DEFAULT 0.00,
@@ -49,6 +49,30 @@ CREATE TABLE `past_days` (
   PRIMARY KEY (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE `past_five_minutes` (
+  `time` datetime NOT NULL,
+  `coal` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `ccgt` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `ocgt` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `nuclear` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `oil` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `wind` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `hydro` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `pumped` decimal(4,2) NOT NULL DEFAULT 0.00,
+  `biomass` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `other` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `ifa` decimal(3,2) NOT NULL DEFAULT 0.00,
+  `moyle` decimal(3,2) NOT NULL DEFAULT 0.00,
+  `britned` decimal(3,2) NOT NULL DEFAULT 0.00,
+  `ewic` decimal(3,2) NOT NULL DEFAULT 0.00,
+  `nemo` decimal(3,2) NOT NULL DEFAULT 0.00,
+  `ifa2` decimal(3,2) NOT NULL DEFAULT 0.00,
+  `nsl` decimal(3,2) NOT NULL DEFAULT 0.00,
+  `eleclink` decimal(3,2) NOT NULL DEFAULT 0.00,
+  `viking` decimal(3,2) NOT NULL DEFAULT 0.00,
+  PRIMARY KEY (`time`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE `past_half_hours` (
   `time` datetime NOT NULL,
   `embedded_wind` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
@@ -61,7 +85,7 @@ CREATE TABLE `past_half_hours` (
   `oil` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `wind` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `hydro` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
-  `pumped` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `pumped` decimal(4,2) NOT NULL DEFAULT 0.00,
   `biomass` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `other` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `ifa` decimal(3,2) NOT NULL DEFAULT 0.00,
@@ -91,7 +115,7 @@ CREATE TABLE `past_weeks` (
   `oil` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `wind` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `hydro` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
-  `pumped` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `pumped` decimal(4,2) NOT NULL DEFAULT 0.00,
   `biomass` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `other` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `ifa` decimal(3,2) NOT NULL DEFAULT 0.00,
@@ -121,7 +145,7 @@ CREATE TABLE `past_years` (
   `oil` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `wind` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `hydro` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
-  `pumped` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `pumped` decimal(4,2) NOT NULL DEFAULT 0.00,
   `biomass` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `other` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `ifa` decimal(3,2) NOT NULL DEFAULT 0.00,

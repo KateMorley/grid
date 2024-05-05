@@ -194,7 +194,9 @@ class Database {
 
     if ($isHalfHourly) {
       $this->updateLatest('latest_half_hours', $columns, $data);
-      $this->updatePastHalfHours($columns, $data);
+      $this->updatePastTimeSeries('past_half_hours', $columns, $data);
+    } else {
+      $this->updatePastTimeSeries('past_five_minutes', $columns, $data);
     }
 
   }
@@ -234,12 +236,17 @@ class Database {
   }
 
   /**
-   * Updates past half-hours
+   * Updates a past time series
    *
-   * @param array $columns The columns to update
-   * @param array $data    The data
+   * @param string $table   The table
+   * @param array  $columns The columns to update
+   * @param array  $data    The data
    */
-  private function updatePastHalfHours(array $columns, array $data): void {
+  private function updatePastTimeSeries(
+    string $table,
+    array  $columns,
+    array  $data
+  ): void {
 
     $rows = array_map(
       fn ($datum) => '(' . implode(',', $datum) . ')',
@@ -247,7 +254,9 @@ class Database {
     );
 
     $this->connection->query(
-      'INSERT INTO past_half_hours (`time`,'
+      'INSERT INTO '
+      . $table
+      . ' (`time`,'
       . implode(',', $columns)
       . ') VALUES '
       . implode(',', $rows)
@@ -316,7 +325,7 @@ class Database {
       $data[]    = $row['value'];
     }
 
-    $this->updatePastHalfHours($columns, [$data]);
+    $this->updatePastTimeSeries('past_half_hours', $columns, [$data]);
 
   }
 
