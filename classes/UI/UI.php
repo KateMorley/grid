@@ -97,7 +97,7 @@ class UI {
             If you’d like to thank me for the time I’ve spent working on this project, or help me cover the costs of hosting a site that receives over 14,000,000 visits each year, <a href="https://ko-fi.com/katemorley">I do accept donations</a>.
           </p>
           <p>
-            The data comes from <a href="https://data.nationalgrideso.com/">National Grid ESO’s Data Portal</a>, Elexon’s <a href="https://www.bmreports.com/">Balancing Mechanism Reporting Service</a>, and the <a href="https://carbonintensity.org.uk/">Carbon Intensity API</a> (a project by National Grid ESO and the University Of Oxford Department Of Computer Science).
+            The data comes from <a href="https://bmrs.elexon.co.uk/">Elexon Insights Solution</a>, <a href="https://data.nationalgrideso.com/">National Grid ESO’s Data Portal</a>, and the <a href="https://carbonintensity.org.uk/">Carbon Intensity API</a> (a project by National Grid ESO and the University Of Oxford Department Of Computer Science). <a href="https://www.elexon.co.uk/data/balancing-mechanism-reporting-agent/copyright-licence-bmrs-data/">Elexon’s licence</a> requires the following statement: Contains BMRS data © Elexon Limited copyright and database right <?= date('Y') ?>.
           </p>
         </section>
       </div>
