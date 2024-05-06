@@ -6,8 +6,7 @@ namespace KateMorley\Grid;
 
 use KateMorley\Grid\Data\Demand;
 use KateMorley\Grid\Data\Emissions;
-use KateMorley\Grid\Data\HalfHourGeneration;
-use KateMorley\Grid\Data\Interconnectors;
+use KateMorley\Grid\Data\Generation;
 use KateMorley\Grid\Data\Pricing;
 use KateMorley\Grid\State\Datum;
 use KateMorley\Grid\State\Record;
@@ -94,13 +93,7 @@ class Database {
 
     $row = $this->connection->query(
       'SELECT '
-      . implode(
-        ',',
-        array_map(
-          fn ($source) => 'AVG(' . $source . ') AS ' . $source,
-          self::getColumns()
-        )
-      )
+      . self::getAveragesExpression(self::getColumns())
       . ' FROM '
       . $table
       . ' AS t'
@@ -163,6 +156,94 @@ class Database {
     }
 
     return $milestones;
+
+  }
+
+  /**
+   * Updates the generation data
+   *
+   * @param array $data The generation data
+   */
+  public function updateGeneration(array $data): void {
+
+    if (count($data) === 0) {
+      return;
+    }
+
+    usort($data, fn ($a, $b) => $b[0] <=> $a[0]);
+
+    $this->updateLatest('latest', Generation::KEYS, $data);
+
+    $this->updatePastTimeSeries('past_five_minutes', Generation::KEYS, $data);
+
+    $this->deleteOldGeneration();
+    $this->aggregateGeneration();
+
+  }
+
+  /**
+   * Deletes old generation data to reduce the size of the database. Data older
+   * than the latest half-hour more than a day ago is deleted; this ensures
+   * that the remaining data represents complete half-hours for aggregation.
+   */
+  private function deleteOldGeneration(): void {
+
+    $oneDayAgo = time() - 24 * 60 *60;
+
+    $this->connection->query(
+      'DELETE FROM past_five_minutes WHERE time<"'
+      . gmdate('Y-m-d H:i:s', $oneDayAgo - $oneDayAgo % (30 * 60))
+      . '"'
+    );
+
+  }
+
+  /**
+   * Aggregates generation data from the five-minute time series into the
+   * half-hour time series, propagating forward the most recent half-hour
+   * non-generation values.
+   */
+  private function aggregateGeneration(): void {
+
+    // Store the most recent half-hour values so we can propagate them forwards
+    $previousHalfHour = $this->connection->query(
+      'SELECT * FROM past_half_hours ORDER BY time DESC LIMIT 1'
+    )->fetch_assoc();
+
+    // To determine the latest complete half-hour, we subtract 25 minutes from
+    // the most recent time and then round down to a multiple of 30 minutes.
+    // This works because a half-hour is complete once the five-minute period
+    // starting at 25 or 55 minutes past the hour is available.
+    $latestHalfHour = $this->connection->query(
+      'SELECT DATE_SUB(time,INTERVAL MOD(MINUTE(time),30) MINUTE) FROM (SELECT DATE_SUB(MAX(time),INTERVAL 25 MINUTE) AS time FROM past_five_minutes) AS t'
+    )->fetch_row()[0];
+
+    // Aggregate the five-minute data for complete half-hours
+    $this->connection->query(
+      'INSERT INTO past_half_hours (time,'
+      . implode(',', Generation::KEYS)
+      . ') SELECT DATE_SUB(time,INTERVAL MOD(MINUTE(time),30) MINUTE) AS aggregated_time,'
+      . self::getAveragesExpression(Generation::KEYS)
+      . ' FROM past_five_minutes GROUP BY aggregated_time HAVING aggregated_time<="'
+      . $latestHalfHour
+      . '"'
+      . self::getOnDuplicateKeyUpdateClause(Generation::KEYS)
+    );
+
+    // Propagate forwards the non-generation data for newly inserted half-hours
+    $this->connection->query(
+      'UPDATE past_half_hours SET '
+      . implode(
+        ',',
+        array_map(
+          fn ($column) => $column . '=' . $previousHalfHour[$column],
+          array_merge(Demand::KEYS, Pricing::KEYS, Emissions::KEYS)
+        )
+      )
+      . ' WHERE time>"'
+      . $previousHalfHour['time']
+      . '"'
+    );
 
   }
 
@@ -377,10 +458,7 @@ class Database {
       . ') SELECT '
       . $timeExpression
       . ' AS aggregated_time,'
-      . implode(
-        ',',
-        array_map(fn ($column) => 'AVG(' . $column . ')', $columns)
-      )
+      . self::getAveragesExpression($columns)
       . ' FROM '
       . $sourceTable
       . ' GROUP BY aggregated_time'
@@ -404,10 +482,21 @@ class Database {
   private static function getColumns(): array {
     return array_merge(
       Demand::KEYS,
-      HalfHourGeneration::KEYS,
-      Interconnectors::KEYS,
+      Generation::KEYS,
       Pricing::KEYS,
       Emissions::KEYS
+    );
+  }
+
+  /**
+   * Returns the expression for the averages for each of a set of columns
+   *
+   * @param array $columns The columns
+   */
+  private static function getAveragesExpression(array $columns): string {
+    return implode(
+      ',',
+      array_map(fn ($column) => 'AVG(' . $column . ') AS ' . $column, $columns)
     );
   }
 

@@ -98,7 +98,7 @@ class Generation {
 
     }
 
-    $database->update(self::KEYS, $data, true, false);
+    $database->updateGeneration($data);
 
   }
 

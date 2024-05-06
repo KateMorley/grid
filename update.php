@@ -7,8 +7,6 @@ use KateMorley\Grid\Data\DataException;
 use KateMorley\Grid\Data\Demand;
 use KateMorley\Grid\Data\Emissions;
 use KateMorley\Grid\Data\Generation;
-use KateMorley\Grid\Data\HalfHourGeneration;
-use KateMorley\Grid\Data\Interconnectors;
 use KateMorley\Grid\Data\Pricing;
 use KateMorley\Grid\Data\Visits;
 use KateMorley\Grid\UI\Favicon;
@@ -29,40 +27,32 @@ $database = new Database();
 
 foreach ([
 
-  'Updating emissions…              ' => function ($database) {
+  'Updating generation… ' => function ($database) {
+    Generation::update($database);
+  },
+
+  'Updating emissions…  ' => function ($database) {
     Emissions::update($database);
   },
 
-  'Updating half-hour generation…   ' => function ($database) {
-    HalfHourGeneration::update($database);
-  },
-
-  'Updating interconnectors…        ' => function ($database) {
-    Interconnectors::update($database);
-  },
-
-  'Updating pricing…                ' => function ($database) {
+  'Updating pricing…    ' => function ($database) {
     Pricing::update($database);
   },
 
   // demand must be updated after other half-hourly data to exclude future data
-  'Updating demand…                 ' => function ($database) {
+  'Updating demand…     ' => function ($database) {
     Demand::update($database);
   },
 
-  'Updating five-minute generation… ' => function ($database) {
-    Generation::update($database);
-  },
-
-  'Updating visits…                 ' => function ($database) {
+  'Updating visits…     ' => function ($database) {
     Visits::update($database);
   },
 
-  'Finishing update…                ' => function ($database) {
+  'Finishing update…    ' => function ($database) {
     $database->finishUpdate();
   },
 
-  'Outputting files…                ' => function ($database) {
+  'Outputting files…    ' => function ($database) {
 
     $state = $database->getState();
 

@@ -52,11 +52,11 @@ PHP classes: [Generation](classes/Data/Generation.php)
 
 ### [Balancing Mechanism Reporting Service](https://www.bmreports.com/)
 
-This API, developed by Elexon, reports power generation connected to the national transmission network, interconnector imports and exports, and pricing. This API is being phased out in favour of the Elexon Insights Solution API.
+This API, developed by Elexon, reports pricing. This API is being phased out in favour of the Elexon Insights Solution API.
 
-Data is available in XML format at 30-minute or 5-minute granularity. Only power generation (and not power consumption for pumping) is reported for pumped storage. Only the separate 30-minute interconnector data reports negative power generation for exports.
+Data is available in XML format at 30-minute granularity.
 
-PHP classes: [HalfHourGeneration](classes/Data/HalfHourGeneration.php), [Interconnectors](classes/Data/Interconnectors.php), [Pricing](classes/Data/Pricing.php)
+PHP class: [Pricing](classes/Data/Pricing.php)
 
 ### [Carbon Intensity API](https://carbonintensity.org.uk/)
 
