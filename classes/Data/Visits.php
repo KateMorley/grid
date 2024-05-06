@@ -105,7 +105,7 @@ class Visits {
 
     }
 
-    $database->update(self::KEYS, $data, true, true);
+    $database->update(self::KEYS, $data);
 
   }
 

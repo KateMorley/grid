@@ -250,17 +250,10 @@ class Database {
   /**
    * Updates data
    *
-   * @param array $columns      The columns to update
-   * @param array $data         The data
-   * @param bool  $isLatest     Whether the data is the latest available
-   * @param bool  $isHalfHourly Whether the data is half-hourly data
+   * @param array $columns The columns to update
+   * @param array $data    The data
    */
-  public function update(
-    array $columns,
-    array $data,
-    bool  $isLatest,
-    bool  $isHalfHourly
-  ): void {
+  public function update(array $columns, array $data): void {
 
     if (count($data) === 0) {
       return;
@@ -269,15 +262,8 @@ class Database {
     // updateLatest requires the most recent data at the start of the array
     usort($data, fn ($a, $b) => $b[0] <=> $a[0]);
 
-    if ($isLatest) {
-      $this->updateLatest('latest', $columns, $data);
-    }
-
-    if ($isHalfHourly) {
-      $this->updatePastTimeSeries('past_half_hours', $columns, $data);
-    } else {
-      $this->updatePastTimeSeries('past_five_minutes', $columns, $data);
-    }
+    $this->updateLatest('latest', $columns, $data);
+    $this->updatePastTimeSeries('past_half_hours', $columns, $data);
 
   }
 
