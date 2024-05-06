@@ -48,36 +48,26 @@ This API, developed by Elexon, reports power generation connected to the nationa
 
 Data is available in JSON format at 30-minute or 5-minute granularity.
 
-PHP classes: [Generation](classes/Data/Generation.php)
-
-### [Balancing Mechanism Reporting Service](https://www.bmreports.com/)
-
-This API, developed by Elexon, reports pricing. This API is being phased out in favour of the Elexon Insights Solution API.
-
-Data is available in XML format at 30-minute granularity.
-
-PHP class: [Pricing](classes/Data/Pricing.php)
-
-### [Carbon Intensity API](https://carbonintensity.org.uk/)
-
-This API, developed by National Grid ESO and the University Of Oxford Department Of Computer Science, estimates the carbon intensity of electricity generation in grams of carbon dioxide per kilowatt-hour.
-
-Data is available in JSON format at 30-minute granularity. Estimates may be retrospectively updated. Data is derived from the Balancing Mechanism Reporting System so outages occur whenever the BMRS has outages.
-
-PHP class: [Emissions](classes/Data/Emissions.php)
+PHP classes: [Generation](classes/Data/Generation.php), [Pricing](classes/Data/Pricing.php)
 
 ### [National Grid ESO Data Portal](https://data.nationalgrideso.com/)
 
-This API, developed by National Grid ESO, estimates power generation from embedded solar and wind (generation connected to the local distribution network rather than the national transmission network) and power consumption by pumped storage pumping.
+This API, developed by National Grid ESO, estimates power generation from embedded solar and wind (generation connected to the local distribution network rather than the national transmission network).
 
 Data is available in CSV format at 30-minute granularity. Estimates may be retrospectively updated.
 
 PHP class: [Demand](classes/Data/Demand.php)
 
+### [Carbon Intensity API](https://carbonintensity.org.uk/)
+
+This API, developed by National Grid ESO and the University Of Oxford Department Of Computer Science, estimates the carbon intensity of electricity generation in grams of carbon dioxide per kilowatt-hour.
+
+Data is available in JSON format at 30-minute granularity. Estimates may be retrospectively updated.
+
+PHP class: [Emissions](classes/Data/Emissions.php)
+
 ## Future plans
 
-Battery storage data isn’t yet shown. The Balancing Mechanism Reporting Service includes several battery storage systems in its ‘other’ category, but only discharging is reported, in the same way as with pumped storage systems. While the National Grid ESO Data Portal offers an API reporting on pumped storage pumping, they don’t yet report on battery charging.
-
-Elexon are in the process of testing a new API that will replace the Balancing Mechanism Reporting Service. Once this API has been finalised I’ll update the code to use it.
+Battery storage data isn’t yet shown. Elexon Insights Solution includes several battery storage systems in its ‘other’ category, but only discharging is reported. Without charging being reported, this would lead to double-counting of generation.
 
 I’m not currently planning any other major changes. I believe it’s better for a project like this to have a limited scope and a concise interface serving the general public than to attempt to offer specialised analysis for energy industry experts.

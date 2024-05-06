@@ -21,45 +21,73 @@ class Pricing {
    */
   public static function update(Database $database): void {
 
-    $data = Bmrs::parse(
-      'DERSYSDATA',
-      [
-        'settlementDate',
-        'settlementPeriod',
-        'systemBuyPrice',
-        'systemSellPrice'
-      ],
-      [
-        'recordType',
-        'bSADDefault',
-        'priceDerivationCode',
-        'reserveScarcityPrice',
-        'indicativeNetImbalanceVolume',
-        'sellPriceAdjustment',
-        'buyPriceAdjustment',
-        'replacementPrice',
-        'replacementPriceCalculationVolume',
-        'totalSystemAcceptedOfferVolume',
-        'totalSystemAcceptedBidVolume',
-        'totalSystemTaggedAcceptedOfferVolume',
-        'totalSystemTaggedAcceptedBidVolume',
-        'totalSystemAdjustmentSellVolume',
-        'totalSystemAdjustmentBuyVolume',
-        'totalSystemTaggedAdjustmentSellVolume',
-        'totalSystemTaggedAdjustmentBuyVolume',
-        'activeFlag'
-      ],
-      false
+    $time = $database->getLatestHalfHourTimestamp();
+
+    $rawData = @file_get_contents(
+      sprintf(
+        'https://data.elexon.co.uk/bmrs/api/v1/balancing/pricing/market-index?from=%s&to=%s&dataProviders=APXMIDP',
+        gmdate('Y-m-d\\TH:i:s\\Z', $time - 24 * 60 * 60),
+        gmdate('Y-m-d\\TH:i:s\\Z', $time)
+      )
     );
 
-    foreach ($data as $index => $datum) {
-      $data[$index] = [
-        $datum[0],
-        (($datum[1] + $datum[2]) / 2)
-      ];
+    if ($rawData === false) {
+      throw new DataException('Failed to read data');
+    }
+
+    $jsonData = json_decode($rawData, true);
+
+    if (
+      !is_array($jsonData)
+      || !isset($jsonData['data'])
+      || !is_array($jsonData['data'])
+    ) {
+      throw new DataException('Missing data');
+    }
+
+    $data = [];
+
+    foreach ($jsonData['data'] as $item) {
+
+      if (!is_array($item)) {
+        throw new DataException('Invalid item');
+      }
+
+      $data[] = self::getDatum($item);
+
     }
 
     $database->update(self::KEYS, $data);
+
+  }
+
+  /**
+   * Returns the datum for an item
+   *
+   * @param array $item The item
+   *
+   * @throws DataException If the data was invalid
+   */
+  private static function getDatum(array $item): array {
+
+    if (!isset($item['startTime'])) {
+      throw new DataException('Missing time');
+    }
+
+    SettlementPeriod::validateTime($item['startTime']);
+
+    if (!isset($item['price'])) {
+      throw new DataException('Missing price');
+    }
+
+    if (!is_float($item['price']) && !is_int($item['price'])) {
+      throw new DataException('Invalid price: ' . $item['price']);
+    }
+
+    return [
+      '"' . str_replace(['T', 'Z'], [' ', ''], $item['startTime']) . '"',
+      $item['price']
+    ];
 
   }
 
