@@ -10,8 +10,7 @@ class Demand {
 
   public const KEYS = [
     'embedded_wind',
-    'embedded_solar',
-    'pumped_storage_pumping'
+    'embedded_solar'
   ];
 
   /**
@@ -29,8 +28,7 @@ class Demand {
         'SETTLEMENT_DATE',
         'SETTLEMENT_PERIOD',
         'EMBEDDED_WIND_GENERATION',
-        'EMBEDDED_SOLAR_GENERATION',
-        'PUMP_STORAGE_PUMPING'
+        'EMBEDDED_SOLAR_GENERATION'
       ],
       [
         'ND',
@@ -40,6 +38,7 @@ class Demand {
         'EMBEDDED_WIND_CAPACITY',
         'EMBEDDED_SOLAR_CAPACITY',
         'NON_BM_STOR',
+        'PUMP_STORAGE_PUMPING',
         'SCOTTISH_TRANSFER',
         'IFA_FLOW',
         'IFA2_FLOW',
@@ -100,7 +99,7 @@ class Demand {
       return null;
     }
 
-    for ($i = 2; $i <= 4; $i ++) {
+    for ($i = 2; $i <= 3; $i ++) {
       if (!ctype_digit($item[$i])) {
         throw new DataException('Non-integer value: ' . $item[$i]);
       }
@@ -109,8 +108,7 @@ class Demand {
     return [
       '"' . $time . '"',
       (int)$item[2] / 1000,
-      (int)$item[3] / 1000,
-      -(int)$item[4] / 1000 // pumped storage pumping is negative generation
+      (int)$item[3] / 1000
     ];
 
   }

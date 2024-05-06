@@ -13,7 +13,7 @@ class Storage extends Map {
   ];
 
   protected const KEY_COMPONENTS = [
-    self::PUMPED_STORAGE => ['pumped_storage_pumping', 'pumped']
+    self::PUMPED_STORAGE => ['pumped']
   ];
 
 }

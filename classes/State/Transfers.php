@@ -31,7 +31,7 @@ class Transfers extends Map {
     self::IRELAND        => ['moyle', 'ewic'],
     self::NETHERLANDS    => ['britned'],
     self::NORWAY         => ['nsl'],
-    self::PUMPED_STORAGE => ['pumped_storage_pumping', 'pumped']
+    self::PUMPED_STORAGE => ['pumped']
   ];
 
 }
