@@ -39,7 +39,7 @@ class Visits {
     ]);
 
     $zoneId    = CLOUDFLARE_ZONE_ID;
-    $time      = strtotime($database->getLatestHalfHour());
+    $time      = $database->getLatestHalfHourTimestamp();
     $startTime = gmdate('Y-m-d\\TH:i:s\\Z', $time - 12 * 60 * 60);
     $endTime   = gmdate('Y-m-d\\TH:i:s\\Z', $time);
 

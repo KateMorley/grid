@@ -54,9 +54,14 @@ class Database {
     );
   }
 
-  /** Returns the latest half hour */
+  /** Returns the latest half hour, as a YYYY-MM-DD HH:MM:SS string */
   public function getLatestHalfHour(): string {
     return $this->getLatestTime('past_half_hours');
+  }
+
+  /** Returns the latest half hour, as a Unix timestamp */
+  public function getLatestHalfHourTimestamp(): int {
+    return strtotime($this->getLatestHalfHour() . ' UTC');
   }
 
   /**
