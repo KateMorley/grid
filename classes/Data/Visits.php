@@ -38,11 +38,10 @@ class Visits {
       'Content-Type: application/json'
     ]);
 
-    $zoneId     = CLOUDFLARE_ZONE_ID;
-    $time       = time() - (30 * 60);
-    $time      -= $time % (30 * 60);
-    $startTime  = gmdate('Y-m-d\\TH:i:s\\Z', $time - 12 * 60 * 60);
-    $endTime    = gmdate('Y-m-d\\TH:i:s\\Z', $time);
+    $zoneId    = CLOUDFLARE_ZONE_ID;
+    $time      = strtotime($database->getLatestHalfHour());
+    $startTime = gmdate('Y-m-d\\TH:i:s\\Z', $time - 12 * 60 * 60);
+    $endTime   = gmdate('Y-m-d\\TH:i:s\\Z', $time);
 
     curl_setopt($curl, CURLOPT_POST, 1);
     curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode([
