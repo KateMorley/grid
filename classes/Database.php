@@ -274,7 +274,6 @@ class Database {
     }
 
     if ($isHalfHourly) {
-      $this->updateLatest('latest_half_hours', $columns, $data);
       $this->updatePastTimeSeries('past_half_hours', $columns, $data);
     } else {
       $this->updatePastTimeSeries('past_five_minutes', $columns, $data);
@@ -350,7 +349,6 @@ class Database {
   public function finishUpdate(): void {
 
     $this->deleteOldHalfHours();
-    $this->updateLatestHalfHour();
     $this->updateWindRecords();
 
     $this->aggregateTimeSeries(
@@ -384,30 +382,6 @@ class Database {
       . gmdate('Y-m-d H:i:s', gmmktime(0, 0, 0, gmdate('n'), gmdate('j') - 28))
       . '"'
     );
-  }
-
-  /**
-   * Updates the latest half hour. Because the different data sources may update
-   * at different times, the row for the latest half hour may be incomplete. To
-   * work around this, we fill it with the most recent values; these will be
-   * overwritten in a subsequent update when the final values are available.
-   */
-  private function updateLatestHalfHour(): void {
-
-    $columns = [];
-    $data    = ['"' . $this->getLatestHalfHour(). '"'];
-
-    $latest = $this->connection->query(
-      'SELECT source,value FROM latest_half_hours'
-    );
-
-    while ($row = $latest->fetch_assoc()) {
-      $columns[] = $row['source'];
-      $data[]    = $row['value'];
-    }
-
-    $this->updatePastTimeSeries('past_half_hours', $columns, [$data]);
-
   }
 
   /** Updates the wind records */
