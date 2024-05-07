@@ -38,9 +38,12 @@ class Database {
 
   /** Returns the latest state */
   public function getState(): State {
+
+    list($time, $latest) = $this->getLatest();
+
     return new State(
-      strtotime($this->getLatestTime('latest') . ' UTC'),
-      $this->getLatest(),
+      $time,
+      $latest,
       $this->getPastPeriod(self::PAST_DAY),
       $this->getPastPeriod(self::PAST_WEEK),
       $this->getPastPeriod(self::PAST_YEAR),
@@ -56,7 +59,9 @@ class Database {
 
   /** Returns the latest half hour, as a YYYY-MM-DD HH:MM:SS string */
   public function getLatestHalfHour(): string {
-    return $this->getLatestTime('past_half_hours');
+    return $this->connection->query(
+      'SELECT MAX(time) FROM past_half_hours'
+    )->fetch_row()[0];
   }
 
   /** Returns the latest half hour, as a Unix timestamp */
@@ -64,28 +69,18 @@ class Database {
     return strtotime($this->getLatestHalfHour() . ' UTC');
   }
 
-  /**
-   * Returns the latest time from a table
-   *
-   * @param string $table The table
-   */
-  private function getLatestTime(string $table): string {
-    return $this->connection->query(
-      'SELECT MAX(time) FROM ' . $table
-    )->fetch_row()[0];
-  }
+  /** Returns the latest time and datum */
+  private function getLatest(): array {
 
-  /** Returns the latest datum */
-  private function getLatest(): Datum {
+    $map = array_merge(
+      $this->getLatestMap('past_half_hours'),
+      $this->getLatestMap('past_five_minutes')
+    );
 
-    $map = [];
-
-    $rows = $this->connection->query('SELECT source,value FROM latest');
-    while ($source = $rows->fetch_row()) {
-      $map[$source[0]] = $source[1];
-    }
-
-    return new Datum($map);
+    return [
+      strtotime($map['time'] . ' UTC'),
+      new Datum($map)
+    ];
 
   }
 
@@ -133,12 +128,10 @@ class Database {
 
   }
 
-  /** Returns the wind power generation records */
+  /** Returns the wind power generation record */
   private function getWindRecord(): Record {
 
-    $record = $this->connection->query(
-      'SELECT value,time FROM wind_records ORDER BY value DESC'
-    )->fetch_assoc();
+    $record = $this->getLatestMap('wind_records');
 
     return new Record(
       strtotime($record['time'] . ' UTC'),
@@ -170,20 +163,9 @@ class Database {
    * @param array $data The generation data
    */
   public function updateGeneration(array $data): void {
-
-    if (count($data) === 0) {
-      return;
-    }
-
-    usort($data, fn ($a, $b) => $b[0] <=> $a[0]);
-
-    $this->updateLatest('latest', Generation::KEYS, $data);
-
     $this->updatePastTimeSeries('past_five_minutes', Generation::KEYS, $data);
-
     $this->deleteOldGeneration();
     $this->aggregateGeneration();
-
   }
 
   /**
@@ -211,9 +193,7 @@ class Database {
   private function aggregateGeneration(): void {
 
     // Store the most recent half-hour values so we can propagate them forwards
-    $previousHalfHour = $this->connection->query(
-      'SELECT * FROM past_half_hours ORDER BY time DESC LIMIT 1'
-    )->fetch_assoc();
+    $previousHalfHour = $this->getLatestMap('past_half_hours');
 
     // To determine the latest complete half-hour, we subtract 25 minutes from
     // the most recent time and then round down to a multiple of 30 minutes.
@@ -259,51 +239,7 @@ class Database {
    * @param array $data    The data
    */
   public function update(array $columns, array $data): void {
-
-    if (count($data) === 0) {
-      return;
-    }
-
-    // updateLatest requires the most recent data at the start of the array
-    usort($data, fn ($a, $b) => $b[0] <=> $a[0]);
-
-    $this->updateLatest('latest', $columns, $data);
     $this->updatePastTimeSeries('past_half_hours', $columns, $data);
-
-  }
-
-  /**
-   * Updates the latest data
-   *
-   * @param string $table   The table
-   * @param array  $sources The sources to update
-   * @param array  $data    The data
-   */
-  private function updateLatest(
-    string $table,
-    array  $sources,
-    array  $data
-  ): void {
-
-    if (count($data) === 0) {
-      return;
-    }
-
-    foreach ($sources as $index => $source) {
-      $this->connection->query(
-        'INSERT INTO '
-        . $table
-        . ' (source,value,time) VALUES ("'
-        . $source
-        . '",'
-        . $data[0][$index + 1]
-        . ','
-        . $data[0][0]
-        . ')'
-        . self::getOnDuplicateKeyUpdateClause(['value', 'time'])
-      );
-    }
-
   }
 
   /**
@@ -318,6 +254,10 @@ class Database {
     array  $columns,
     array  $data
   ): void {
+
+    if (count($data) === 0) {
+      return;
+    }
 
     $rows = array_map(
       fn ($datum) => '(' . implode(',', $datum) . ')',
@@ -441,6 +381,17 @@ class Database {
       . self::getOnDuplicateKeyUpdateClause(['visits'])
     );
 
+  }
+
+  /**
+   * Returns a map from keys to values for the most recent row in a table
+   *
+   * @param string $table The table
+   */
+  private function getLatestMap(string $table): array {
+    return $this->connection->query(
+      'SELECT * FROM ' . $table . ' ORDER BY time DESC LIMIT 1'
+    )->fetch_assoc();
   }
 
   /** Returns the list of database columns */

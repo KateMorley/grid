@@ -5,13 +5,6 @@ CREATE TABLE `errors` (
   PRIMARY KEY (`action`,`error`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `latest` (
-  `source` varchar(22) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
-  `value` decimal(7,2) NOT NULL,
-  `time` datetime NOT NULL,
-  PRIMARY KEY (`source`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 CREATE TABLE `past_days` (
   `time` datetime NOT NULL,
   `embedded_wind` decimal(4,2) UNSIGNED NOT NULL DEFAULT 0.00,
@@ -155,5 +148,6 @@ CREATE TABLE `past_years` (
 CREATE TABLE `wind_records` (
   `value` decimal(4,2) UNSIGNED NOT NULL,
   `time` datetime NOT NULL,
-  PRIMARY KEY (`value`)
+  PRIMARY KEY (`value`),
+  KEY `time` (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
