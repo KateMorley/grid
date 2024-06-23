@@ -57,6 +57,18 @@ class Database {
     );
   }
 
+  /**
+   * Returns the earliest half hour, as a YYYY-MM-DD HH:MM:SS string. The return
+   * value represents the latest midnight more than four weeks ago; this ensures
+   * that the half-hourly data represents complete days for aggregation.
+   */
+  public function getEarliestHalfHour(): string {
+    return gmdate(
+      'Y-m-d H:i:s',
+      gmmktime(0, 0, 0, gmdate('n'), gmdate('j') - 28)
+    );
+  }
+
   /** Returns the latest half hour, as a YYYY-MM-DD HH:MM:SS string */
   public function getLatestHalfHour(): string {
     return $this->connection->query(
@@ -233,13 +245,22 @@ class Database {
   }
 
   /**
-   * Updates data
+   * Updates data, ignoring data prior to the earliest half hour or past the
+   * latest half hour
    *
    * @param array $columns The columns to update
    * @param array $data    The data
    */
   public function update(array $columns, array $data): void {
-    $this->updatePastTimeSeries('past_half_hours', $columns, $data);
+
+    $earliest = '"' . $this->getEarliestHalfHour() . '"';
+    $latest   = '"' . $this->getLatestHalfHour() . '"';
+
+    $this->updatePastTimeSeries('past_half_hours', $columns, array_filter(
+      $data,
+      fn ($datum) => $datum[0] >= $earliest && $datum[0] <= $latest
+    ));
+
   }
 
   /**
@@ -302,15 +323,11 @@ class Database {
 
   }
 
-  /**
-   * Deletes old half-hourly data to reduce the size of the database. Data older
-   * than the latest midnight more than four weeks ago is deleted; this ensures
-   * that the remaining data represents complete days for aggregation.
-   */
+  /** Deletes old half-hourly data to reduce the size of the database */
   private function deleteOldHalfHours(): void {
     $this->connection->query(
       'DELETE FROM past_half_hours WHERE time<"'
-      . gmdate('Y-m-d H:i:s', gmmktime(0, 0, 0, gmdate('n'), gmdate('j') - 28))
+      . $this->getEarliestHalfHour()
       . '"'
     );
   }

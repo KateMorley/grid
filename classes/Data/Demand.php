@@ -52,52 +52,23 @@ class Demand {
       ]
     );
 
-    $data = [];
-
-    // we import 28 days of data as the estimates can be retrospectively updated
-    $earliestTime = gmdate(
-      'Y-m-d H:i:s',
-      gmmktime(0, 0, 0, gmdate('n'), gmdate('j') - 28)
+    $database->update(
+      self::KEYS,
+      array_map(fn ($item) => self::getDatum($item), $rows)
     );
-
-    // we ignore future predictions
-    $latestTime = $database->getLatestHalfHour();
-
-    foreach ($rows as $item) {
-
-      $datum = self::getDatum($item, $earliestTime, $latestTime);
-
-      if ($datum !== null) {
-        $data[] = $datum;
-      }
-
-    }
-
-    $database->update(self::KEYS, $data);
 
   }
 
   /**
-   * Returns the datum for an item, or null if the item is not from a relevant
-   * time period
+   * Returns the datum for an item
    *
-   * @param array  $item         The item
-   * @param string $earliestTime The earliest relevant time
-   * @param string $latestTime   The latest relevant time
+   * @param array $item The item
    *
    * @throws DataException If the data was invalid
    */
-  private static function getDatum(
-    array  $item,
-    string $earliestTime,
-    string $latestTime
-  ): ?array {
+  private static function getDatum(array $item): array {
 
     $time = SettlementPeriod::getTime($item[0], $item[1]);
-
-    if ($time < $earliestTime || $time > $latestTime) {
-      return null;
-    }
 
     for ($i = 2; $i <= 3; $i ++) {
       if (!ctype_digit($item[$i])) {
