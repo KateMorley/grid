@@ -121,19 +121,7 @@ class Generation {
       throw new DataException('Invalid start time: ' . $time);
     }
 
-    if (!preg_match(
-      '/^(\d\d\d\d)-(\d\d)-(\d\d)T(2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][05]Z$/',
-      $time,
-      $matches
-    )) {
-      throw new DataException('Invalid start time format: ' . $time);
-    }
-
-    if (!checkdate((int)$matches[2], (int)$matches[3], (int)$matches[1])) {
-      throw new DataException('Invalid start date: ' . $time);
-    }
-
-    return '"' . str_replace(['T', 'Z'], [' ', ''], $time) . '"';
+    return Time::normalise($item['startTime'], 5);
 
   }
 

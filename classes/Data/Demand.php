@@ -68,8 +68,6 @@ class Demand {
    */
   private static function getDatum(array $item): array {
 
-    $time = SettlementPeriod::getTime($item[0], $item[1]);
-
     for ($i = 2; $i <= 3; $i ++) {
       if (!ctype_digit($item[$i])) {
         throw new DataException('Non-integer value: ' . $item[$i]);
@@ -77,7 +75,7 @@ class Demand {
     }
 
     return [
-      '"' . $time . '"',
+      Time::getSettlementTime($item[0], $item[1]),
       (int)$item[2] / 1000,
       (int)$item[3] / 1000
     ];

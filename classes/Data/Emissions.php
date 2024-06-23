@@ -67,8 +67,6 @@ class Emissions {
       throw new DataException('Missing time');
     }
 
-    SettlementPeriod::validateTime($item['from']);
-
     if (
       !isset($item['intensity']['actual'])
       && !isset($item['intensity']['forecast'])
@@ -82,10 +80,7 @@ class Emissions {
       throw new DataException('Invalid emissions value: ' . $emissions);
     }
 
-    return [
-      '"' . str_replace(['T', 'Z'], [' ', ''], $item['from']) . '"',
-      $emissions
-    ];
+    return [Time::normalise($item['from'], 30), $emissions];
 
   }
 

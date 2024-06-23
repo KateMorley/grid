@@ -1,10 +1,42 @@
 <?php
 
-// Converts settlement periods into times
+// Functions for handling times
 
 namespace KateMorley\Grid\Data;
 
-class SettlementPeriod {
+class Time {
+
+  /**
+   * Normalises a time and returns it as a "YYYY-MM-DD HH:MM:SS" string
+   *
+   * @param string $time     The time
+   * @param int    $interval The time interval, in minutes
+   *
+   * @throws DataException If the time is invalid
+   */
+  public static function normalise(string $time, int $interval): string {
+
+    if (!preg_match(
+      '/^(\d\d\d\d)-(\d\d)-(\d\d)(T| )(2[0-3]|[01]\d):([0-5]\d)(:00)?Z?$/',
+      $time,
+      $matches
+    )) {
+      throw new DataException('Invalid time format: ' . $time);
+    }
+
+    if (!checkdate((int)$matches[2], (int)$matches[3], (int)$matches[1])) {
+      throw new DataException('Invalid date: ' . $time);
+    }
+
+    if ((int)$matches[6] % $interval !== 0) {
+      throw new DataException(
+        'Not a multiple of ' . $interval . ' minutes: ' . $time
+      );
+    }
+
+    return '"' . str_replace(['T', 'Z'], [' ', ''], $time) . '"';
+
+  }
 
   /**
    * Returns the time corresponding to a settlement period. Settlement periods
@@ -20,7 +52,7 @@ class SettlementPeriod {
    *
    * @throws DataException If the date or period is invalid
    */
-  public static function getTime(string $date, int $period): string {
+  public static function getSettlementTime(string $date, int $period): string {
 
     if (!preg_match('/^(\d\d\d\d)-(\d\d)-(\d\d)$/', $date, $matches)) {
       throw new DataException('Invalid settlement date format: ' . $date);
@@ -35,33 +67,12 @@ class SettlementPeriod {
     }
 
     return gmdate(
-      'Y-m-d H:i:s',
+      '"Y-m-d H:i:s"',
       (
         mktime(0, 0, 0, (int)$matches[2], (int)$matches[3], (int)$matches[1])
         + ($period - 1) * 1800
       )
     );
-
-  }
-
-  /**
-   * Validates a time
-   *
-   * @throws DataException If the time is invalid
-   */
-  public static function validateTime(string $time): void {
-
-    if (!preg_match(
-      '/^(\d\d\d\d)-(\d\d)-(\d\d)(T| )(2[0-3]|[01][0-9]):[0-5][0-9](:00)?Z?$/',
-      $time,
-      $matches
-    )) {
-      throw new DataException('Invalid settlement time format: ' . $time);
-    }
-
-    if (!checkdate((int)$matches[2], (int)$matches[3], (int)$matches[1])) {
-      throw new DataException('Invalid settlement date: ' . $time);
-    }
 
   }
 

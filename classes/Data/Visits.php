@@ -122,8 +122,6 @@ class Visits {
       throw new DataException('Missing time');
     }
 
-    SettlementPeriod::validateTime($item['dimensions']['datetimeHalfOfHour']);
-
     if (!isset($item['sum']['pageViews'])) {
       throw new DataException('Missing visits');
     }
@@ -132,10 +130,8 @@ class Visits {
       throw new DataException('Invalid visits: ' . $item['sum']['pageViews']);
     }
 
-    $time = strtotime($item['dimensions']['datetimeHalfOfHour']) + (30 * 60);
-
     return [
-      '"' . gmdate('Y-m-d H:i:s', $time) . '"',
+      Time::normalise($item['dimensions']['datetimeHalfOfHour'], 30),
       $item['sum']['pageViews']
     ];
 

@@ -74,8 +74,6 @@ class Pricing {
       throw new DataException('Missing time');
     }
 
-    SettlementPeriod::validateTime($item['startTime']);
-
     if (!isset($item['price'])) {
       throw new DataException('Missing price');
     }
@@ -84,10 +82,7 @@ class Pricing {
       throw new DataException('Invalid price: ' . $item['price']);
     }
 
-    return [
-      '"' . str_replace(['T', 'Z'], [' ', ''], $item['startTime']) . '"',
-      $item['price']
-    ];
+    return [Time::normalise($item['startTime'], 30), $item['price']];
 
   }
 
