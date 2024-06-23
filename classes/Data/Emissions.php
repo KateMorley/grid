@@ -46,11 +46,7 @@ class Emissions {
         throw new DataException('Invalid item');
       }
 
-      $datum = self::getDatum($item);
-
-      if ($datum !== null) {
-        $data[] = $datum;
-      }
+      $data[] = self::getDatum($item);
 
     }
 
@@ -59,13 +55,13 @@ class Emissions {
   }
 
   /**
-   * Returns the datum for an item, or null if emissions are not yet available
+   * Returns the datum for an item
    *
    * @param array $item The item
    *
    * @throws DataException If the data was invalid
    */
-  private static function getDatum(array $item): ?array {
+  private static function getDatum(array $item): array {
 
     if (!isset($item['from'])) {
       throw new DataException('Missing time');
@@ -73,19 +69,22 @@ class Emissions {
 
     SettlementPeriod::validateTime($item['from']);
 
-    if (!isset($item['intensity']['actual'])) {
-      return null;
+    if (
+      !isset($item['intensity']['actual'])
+      && !isset($item['intensity']['forecast'])
+    ) {
+      throw new DataException('Missing emissions value');
     }
 
-    if (!is_int($item['intensity']['actual'])) {
-      throw new DataException(
-        'Invalid emissions value: ' . $item['intensity']['actual']
-      );
+    $emissions = $item['intensity']['actual'] ?? $item['intensity']['forecast'];
+
+    if (!is_int($emissions)) {
+      throw new DataException('Invalid emissions value: ' . $emissions);
     }
 
     return [
       '"' . str_replace(['T', 'Z'], [' ', ''], $item['from']) . '"',
-      $item['intensity']['actual']
+      $emissions
     ];
 
   }
