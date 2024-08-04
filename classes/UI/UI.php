@@ -27,7 +27,6 @@ class UI {
     </title>
     <meta name="description" content="Shows the live status of Great Britain’s electric power transmission network">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="#696">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="National Grid: Live">
     <meta name="twitter:description" content="Shows the live status of Great Britain’s electric power transmission network">
@@ -46,24 +45,17 @@ class UI {
   </head>
   <body>
     <header>
-      <a href="https://iamkate.com/"><svg viewbox="0 0 30 30"><title>Home</title><path d="m13,3 13,13h-4v11h-6v-9h-6v9h-6v-11h-4"/></svg></a>
       <nav>
-        <ul>
-          <li>
-            <a href="https://iamkate.com/code/">Code</a>
-          </li>
-          <li>
-            <a href="https://iamkate.com/data/" class="section">Data</a>
-          </li>
-          <li>
-            <a href="https://iamkate.com/games/">Games</a>
-          </li>
-          <li>
-            <a href="https://iamkate.com/ideas/">Ideas</a>
-          </li>
-        </ul>
+        <a href="https://iamkate.com/"><svg viewBox="0 0 160 272"><title>Home</title><path d="m8,256 30-3 12-77c5-32 31-53 48-53s19 11 19 16-3 37-69 37l-3 22c22 2 20 58 70 58 15 0 29-8 29-28s-14-25-16-26l-5 7c2 1 10 6 10 16s-6 16-13 16c-25 0-35-44-45-51 39-3 69-26 69-54s-20-33-39-33-41 14-46 19l7-44c8-53 30-58 42-58s12 10 12 13c0 24-50 50-88 50-15 0-20-6-20-16s12-19 14-20l-5-7c-2 1-21 10-21 30s14 28 34 28c46 0 110-33 110-70 0-20-15-28-34-28s-62 14-72 78z"/></svg></a>
+        <div>
+          <a href="https://iamkate.com/code/">Code</a>
+          <a href="https://iamkate.com/data/" class="section">Data</a>
+        </div>
+        <div>
+          <a href="https://iamkate.com/games/">Games</a>
+          <a href="https://iamkate.com/ideas/">Ideas</a>
+        </div>
       </nav>
-      <a href="https://fosstodon.org/@kate"><svg viewBox="0 0 740 790"><title>Kate Morley on Mastodon</title><path d="M737 174C726 91 652 24 564 12C549 10 494 2 364 2H363C233 2 205 10 191 12C106 24 28 83 9 168C0 210-1 256 1 299C3 360 4 420 9 481C13 521 20 561 29 601C47 673 120 734 191 759C267 784 349 789 427 771C436 769 444 767 453 764C472 758 494 751 511 740C511 740 511 739 511 739C511 739 511 738 511 738V679C511 679 511 679 511 679C511 678 511 678 511 678C510 678 510 678 510 678C51 678 509 678 509 678C459 690 407 696 356 695C267 695 243 654 236 636C231 621 227 606 226 590C226 589 226 589 226 589C226 589 226 589 226 588C227 588 227 588 227 588C227 588 228 588 228 588C277 600 328 606 379 606C391 606 403 606 415 605C467 604 520 601 571 592C572 591 573 591 574 591C654 576 729 529 737 409C737 404 738 359 738 355C738 338 743 237 737 174ZM615 473H532V271C532 229 513 207 477 207C437 207 417 232 417 283V394H334V283C334 232 314 207 274 207C238 207 220 229 220 271V473H136V265C136 222 147 189 169 164C192 139 221 126 258 126C301 126 333 142 355 174L376 209L396 174C418 142 450 126 493 126C520 126 559 139 582 164C604 189 615 222 615 265L615 473Z"/></svg></a>
     </header>
     <main>
       <section id="introduction">
@@ -103,7 +95,16 @@ class UI {
       </div>
     </main>
     <footer>
-      <a href="https://iamkate.com/ideas/free-content/">Free content</a> from Kate Morley
+      <img src="https://iamkate.com/avatar-128.webp" width="128" height="128" sizes="128px" srcset="https://iamkate.com/avatar-128.webp 128w,https://iamkate.com/avatar-256.webp 256w" alt="" loading="lazy">
+      <div>
+        <span>This site is <a href="https://iamkate.com/ideas/free-content/">free content</a> from Kate Morley.</span>
+        <span>Follow me on:</span>
+      </div>
+      <nav>
+        <a rel="me" href="https://fosstodon.org/@kate">Mastodon</a>
+        <a href="https://github.com/KateMorley">GitHub</a>
+        <a href="https://www.instagram.com/katerosemorley/">Instagram</a>
+      </nav>
     </footer>
     <dialog>
       <h2></h2>
