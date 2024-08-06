@@ -68,6 +68,7 @@ body {
   height: 100%;
   margin: 0;
   background: var(--background);
+  color: var(--content-text);
 }
 
 header {
@@ -89,18 +90,17 @@ header nav > a {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background: #000;
+  background: var(--content-text);
   transition: background-color 0.2s;
 }
 
-header nav > a.section,
 header nav > a:hover {
   background: var(--accent);
 }
 
 header nav svg {
   height: 1.7rem;
-  fill: #fff;
+  fill: var(--content-background);
 }
 
 header nav div,
