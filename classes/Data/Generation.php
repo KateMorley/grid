@@ -27,7 +27,8 @@ class Generation {
     'ifa2',
     'nsl',
     'eleclink',
-    'viking'
+    'viking',
+    'greenlink'
   ];
 
   private const COLUMNS = [
@@ -49,7 +50,8 @@ class Generation {
     'INTIFA2' => 16,
     'INTNSL'  => 17,
     'INTELEC' => 18,
-    'INTVKL'  => 19
+    'INTVKL'  => 19,
+    'INTGRNL' => 20
   ];
 
   /**

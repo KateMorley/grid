@@ -28,7 +28,7 @@ class Transfers extends Map {
     self::BELGIUM        => ['nemo'],
     self::DENMARK        => ['viking'],
     self::FRANCE         => ['ifa', 'ifa2', 'eleclink'],
-    self::IRELAND        => ['moyle', 'ewic'],
+    self::IRELAND        => ['moyle', 'ewic', 'greenlink'],
     self::NETHERLANDS    => ['britned'],
     self::NORWAY         => ['nsl'],
     self::PUMPED_STORAGE => ['pumped']

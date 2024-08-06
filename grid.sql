@@ -28,6 +28,7 @@ CREATE TABLE `past_days` (
   `nsl` decimal(3,2) NOT NULL DEFAULT 0.00,
   `eleclink` decimal(3,2) NOT NULL DEFAULT 0.00,
   `viking` decimal(3,2) NOT NULL DEFAULT 0.00,
+  `greenlink` decimal(3,2) NOT NULL DEFAULT 0.00,
   `price` decimal(7,2) NOT NULL DEFAULT 0.00,
   `emissions` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
   `visits` int(10) UNSIGNED NOT NULL DEFAULT 0,
@@ -55,6 +56,7 @@ CREATE TABLE `past_five_minutes` (
   `nsl` decimal(3,2) NOT NULL DEFAULT 0.00,
   `eleclink` decimal(3,2) NOT NULL DEFAULT 0.00,
   `viking` decimal(3,2) NOT NULL DEFAULT 0.00,
+  `greenlink` decimal(3,2) NOT NULL DEFAULT 0.00,
   PRIMARY KEY (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -81,6 +83,7 @@ CREATE TABLE `past_half_hours` (
   `nsl` decimal(3,2) NOT NULL DEFAULT 0.00,
   `eleclink` decimal(3,2) NOT NULL DEFAULT 0.00,
   `viking` decimal(3,2) NOT NULL DEFAULT 0.00,
+  `greenlink` decimal(3,2) NOT NULL DEFAULT 0.00,
   `price` decimal(7,2) NOT NULL DEFAULT 0.00,
   `emissions` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
   `visits` int(10) UNSIGNED NOT NULL DEFAULT 0,
@@ -110,6 +113,7 @@ CREATE TABLE `past_weeks` (
   `nsl` decimal(3,2) NOT NULL DEFAULT 0.00,
   `eleclink` decimal(3,2) NOT NULL DEFAULT 0.00,
   `viking` decimal(3,2) NOT NULL DEFAULT 0.00,
+  `greenlink` decimal(3,2) NOT NULL DEFAULT 0.00,
   `price` decimal(7,2) NOT NULL DEFAULT 0.00,
   `emissions` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
   `visits` int(10) UNSIGNED NOT NULL DEFAULT 0,
@@ -139,6 +143,7 @@ CREATE TABLE `past_years` (
   `nsl` decimal(3,2) NOT NULL DEFAULT 0.00,
   `eleclink` decimal(3,2) NOT NULL DEFAULT 0.00,
   `viking` decimal(3,2) NOT NULL DEFAULT 0.00,
+  `greenlink` decimal(3,2) NOT NULL DEFAULT 0.00,
   `price` decimal(7,2) NOT NULL DEFAULT 0.00,
   `emissions` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
   `visits` int(10) UNSIGNED NOT NULL DEFAULT 0,
