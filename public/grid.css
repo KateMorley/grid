@@ -480,6 +480,7 @@ dd:nth-child(6) {
   border-radius: 50%;
   background: var(--help-background);
   color: var(--help-text);
+  font-weight: 400;
   font-variant: small-caps;
   line-height: 1;
   text-align: center;
