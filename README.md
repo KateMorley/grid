@@ -2,19 +2,18 @@
 
 This repository contains the source code for [National Grid: Live](https://grid.iamkate.com/).
 
-## Installation
+## Running locally
 
-Any officially supported versions of PHP and MySQL can be used.
+Create an `.env` file with the following variables and example values:
 
-### Database
+    DATABASE=grid
+    DBUSER=griduser
+    DBPASSWORD=gridpass
 
-Create a database and a user with `SELECT`, `INSERT`, `UPDATE`, and `DELETE` privileges, and import `grid.sql` into the database.
+Then run:
 
-Copy `configuration.php.example` to `configuration.php` and enter the appropriate database connection settings into the PHP constants.
-
-### Web server
-
-Configure the server to serve the contents of the `public` directory. Note that this directory contains only static files, so the web server does not need to support PHP.
+    docker-compose up --wait
+    curl -i -k https://localhost
 
 ### Cron
 
