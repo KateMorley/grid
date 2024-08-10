@@ -15,6 +15,7 @@
   --graph-highlight: #0001;
   --key-line: #999;
   --unit-opacity: 0.4;
+  --table-stripe: #f8f8f8;
 }
 
 @media (prefers-color-scheme:dark) {
@@ -30,6 +31,7 @@
     --graph-highlight: #fff1;
     --key-line: #666;
     --unit-opacity: 0.6;
+    --table-stripe: #181818;
   }
 }
 
@@ -154,7 +156,7 @@ footer {
 }
 
 footer div {
-  padding: 1rem 1.25rem 0.5rem;
+  padding: 1rem 1.25rem 0.25rem;
 }
 
 footer span {
@@ -239,6 +241,10 @@ a {
 
 a:hover {
   text-decoration-color: var(--accent);
+}
+
+img {
+  vertical-align: bottom;
 }
 
 /* colours */
@@ -831,8 +837,14 @@ polyline {
 /* wind milestones */
 
 .wind-milestones {
-  margin: 1rem auto 0;
+  margin: 0.75rem auto 0;
   font-size: 1rem;
+}
+
+.wind-milestones tr:nth-child(even){
+  background: var(--table-stripe);
+  border: solid var(--background);
+  border-width: 2px 0;
 }
 
 .wind-milestones th,
@@ -843,12 +855,4 @@ polyline {
 .wind-milestones th {
   font-weight: 400;
   text-align: left;
-}
-
-.wind-milestones td:first-child {
-  text-align: right;
-}
-
-.wind-milestones tr:nth-child(even) td {
-  background: var(--background);
 }
