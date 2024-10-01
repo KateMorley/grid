@@ -253,11 +253,11 @@ img {
 .price       { color: #000; }
 .emissions   { color: #000; }
 .demand      { color: #000; }
-.fossils     { color: #b46; }
+.fossils     { color: #c45; }
 .renewables  { color: #5b5; }
-.others      { color: #18c; }
+.others      { color: #27c; }
 .transfers   { color: #aaa; }
-.coal        { color: #a36; }
+.coal        { color: #a35; }
 .gas         { color: #e94; }
 .solar       { color: #ed0; }
 .wind        { color: #9d5; }
@@ -500,7 +500,7 @@ dd:nth-child(6) {
 }
 
 #fossils h2 {
-  background: #b46;
+  background: #c45;
 }
 
 #renewables h2 {
@@ -508,7 +508,7 @@ dd:nth-child(6) {
 }
 
 #others h2 {
-  background: #18c;
+  background: #27c;
 }
 
 /* tabs */

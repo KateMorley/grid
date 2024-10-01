@@ -7,13 +7,12 @@ namespace KateMorley\Grid\UI;
 use KateMorley\Grid\State\Types;
 
 class Favicon {
-
   private const RADIUS       = 7.5;
   private const STROKE_WIDTH = 1;
 
-  private const FOSSILS_COLOUR    = '#b46';
+  private const FOSSILS_COLOUR    = '#c45';
   private const RENEWABLES_COLOUR = '#5b5';
-  private const OTHERS_COLOUR     = '#18c';
+  private const OTHERS_COLOUR     = '#27c';
 
   /**
    * Creates and returns the SVG for the favicon
@@ -21,7 +20,6 @@ class Favicon {
    * @param Types $types The details of power generation by type
    */
   public static function create(Types $types): string {
-
     $svg = (
       '<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 -8 16 16" width="16" height="16"><g stroke="#fff" stroke-width="'
       . self::STROKE_WIDTH
@@ -54,7 +52,6 @@ class Favicon {
     $svg .= '</g></svg>';
 
     return $svg;
-
   }
 
   /**
@@ -69,7 +66,6 @@ class Favicon {
     float  $angleOffset,
     float  $angle
   ): string {
-
     if ($angle === 0) {
       return '';
     }
@@ -89,7 +85,6 @@ class Favicon {
       . self::getArcPoint($angleOffset + $angle)
       . 'L0,0z"/>'
     );
-
   }
 
   /**
@@ -104,5 +99,4 @@ class Favicon {
       . sprintf('%0.1f', self::RADIUS * -cos($angle * 2 * M_PI))
     );
   }
-
 }
