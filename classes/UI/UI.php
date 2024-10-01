@@ -1,20 +1,18 @@
 <?php
 
-// Outputs the user interface
 
 namespace KateMorley\Grid\UI;
 
 use KateMorley\Grid\State\State;
 
+/** Outputs the user interface. */
 class UI {
-
   /**
-   * Outputs the user interface
+   * Outputs the user interface.
    *
    * @param State $state The state
    */
   public static function output(State $state): void {
-
     $time   = $state->getTime();
     $latest = $state->getLatest();
 
@@ -77,7 +75,7 @@ class UI {
 <?php Latest::output($latest); ?>
 <?php Tabs::output($state); ?>
       <div class="columns">
-<?php Wind::output($state); ?>
+<?php Transition::output($state); ?>
         <section>
           <h2>
             About this site
@@ -114,7 +112,5 @@ class UI {
   </body>
 </html>
 <?php
-
   }
-
 }

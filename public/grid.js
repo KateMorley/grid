@@ -32,7 +32,7 @@ const IDS_TO_UPDATE = [
   'tab-panel-week',
   'tab-panel-year',
   'tab-panel-all',
-  'wind'
+  'transition'
 ]
 
 let key    = document.createElement('div')
@@ -53,7 +53,6 @@ scheduleUpdate()
 
 // Adds the listeners to the graphs
 function addGraphListeners() {
-
   document.querySelectorAll('.pie-chart').forEach(pieChart => {
     pieChart.addEventListener('mouseover', e => updatePieChartKey(e, true))
     pieChart.addEventListener('mouseout',  e => updatePieChartKey(e, false))
@@ -63,12 +62,10 @@ function addGraphListeners() {
     graph.addEventListener('mouseover', showGraphKey)
     graph.addEventListener('mouseleave', hideGraphKey)
   })
-
 }
 
 // Handles a click by showing a help dialog if appropriate
 function handleClick(e) {
-
   let help = e.target.dataset.help
 
   if (help) {
@@ -76,14 +73,11 @@ function handleClick(e) {
     dialog.children[2].innerHTML = help
     dialog.showModal()
   }
-
 }
 
 // Updates a pie chart key
 function updatePieChartKey(e, showDetails) {
-
   if (e.target.nodeName === 'path') {
-
     let sourceNode = e.target.parentNode
     let source     = 'generation'
     let pieChart   = sourceNode.parentNode
@@ -99,29 +93,23 @@ function updatePieChartKey(e, showDetails) {
     nodes[2].className   = source
     nodes[4].textContent = sourceNode.dataset.power
     nodes[6].textContent = sourceNode.dataset.percentage
-
   }
-
 }
 
 // Selects a tab
 function selectTab(tabList, tab) {
-
   let panels = Array.from(
     tabList.parentNode.querySelectorAll('[role="tabpanel"]')
   )
 
   for (let node of tabList.children) {
-
     let selected = (node === tab)
 
     node.setAttribute('aria-selected', (selected ? 'true' : 'false'))
     node.tabIndex = (selected ? 0 : -1)
 
     panels.shift().style.display = (selected ? 'grid' : 'none')
-
   }
-
 }
 
 // Handles a click on a tab
@@ -135,7 +123,6 @@ function handleTabClick(e) {
 
 // Handles a key down on a tab
 function handleTabKeyDown(e) {
-
   let tabs  = Array.from(this.children)
   let count = tabs.length
   let index = tabs.indexOf(this.querySelector('[aria-selected="true"'))
@@ -156,12 +143,10 @@ function handleTabKeyDown(e) {
 
   selectTab(this, tabs[index])
   tabs[index].focus()
-
 }
 
 // Shows the graph key
 function showGraphKey(e) {
-
   if (e.target.nodeName !== 'rect') {
     return
   }
@@ -184,7 +169,6 @@ function showGraphKey(e) {
   let body  = table.createTBody()
 
   for (let i = 0; i < values.length; i ++) {
-
     let isNegative = values[i].substring(0,1) === '-'
 
     let row = body.insertRow()
@@ -196,7 +180,6 @@ function showGraphKey(e) {
       + values[i].substring(isNegative ? 1 : 0)
       + suffix
     )
-
   }
 
   key.innerHTML = ''
@@ -215,7 +198,6 @@ function showGraphKey(e) {
   }
 
   key.style.left = left + 'px'
-
 }
 
 // Hides the graph key
@@ -234,7 +216,6 @@ function scheduleUpdate() {
 // triggered when the page becomes visible again after updates were suspended
 // while the page was not visible.
 function update(unscheduled) {
-
   let time = Math.floor(Date.now() / 300000)
 
   if (unscheduled && (Date.now() % 300000) < (120000 + delay)) {
@@ -244,27 +225,20 @@ function update(unscheduled) {
   document.querySelector('link[type*="svg"]').href = 'favicon.svg?' + time
 
   if (document.visibilityState === 'visible') {
-
-    fetch('?v=' + time).then(response => response.text()).then(function (html) {
-
+    fetch('?v=' + time).then(response => response.text()).then(html => {
       let update = parser.parseFromString(html, 'text/html')
 
-      IDS_TO_UPDATE.forEach(function (id) {
-        document.getElementById(id).replaceChildren(
-          ...update.getElementById(id).children
-        )
-      })
+      IDS_TO_UPDATE.forEach(id => document.getElementById(id).replaceChildren(
+        ...update.getElementById(id).children
+      ))
 
       hideGraphKey()
 
       addGraphListeners()
-
     })
-
   }
 
   if (!unscheduled) {
     scheduleUpdate()
   }
-
 }

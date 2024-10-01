@@ -1,7 +1,5 @@
 <?php
 
-// Outputs the latest data
-
 namespace KateMorley\Grid\UI;
 
 use KateMorley\Grid\State\Datum;
@@ -12,15 +10,14 @@ use KateMorley\Grid\State\Storage;
 use KateMorley\Grid\State\Types;
 use KateMorley\Grid\UI\PieChart;
 
+/** Outputs the latest data. */
 class Latest {
-
   /**
-   * Outputs the latest data
+   * Outputs the latest data.
    *
    * @param Datum $datum The datum
    */
   public static function output(Datum $datum): void {
-
 ?>
       <div id="latest">
         <section id="generation">
@@ -46,7 +43,6 @@ class Latest {
 <?php
 
     self::outputTable($generation, [
-      Generation::COAL => '<p>Coal-fired power stations burn coal to produce steam to drive a turbine. The world’s first coal-fired power station, at 57 Holborn Viaduct in London, started producing power on 12th January 1882, lighting the surrounding streets and local buildings through 968 incandescent lamps. Coal fuelled the industrial revolution, and by 1900 Great Britain was mining 250,000,000 tonnes of coal every year. </p><p>Burning coal causes carbon dioxide and other pollutants to be emitted, worsening the climate crisis and damaging human health. In 2001 the European Union issued the Large Combustion Plant Directive, obliging power stations to limit their emissions or close by 2015. Most coal-fired power stations in Great Britain closed in response, and those remaining operate only in times of high demand.</p><p>Great Britain first went a full day without any power generation from coal on 21st April 2015, followed by a full week between 1st May and 8th May 2019.</p>',
       Generation::GAS  => '<p>Gas-fired power stations burn natural gas to drive a turbine. Most gas-fired power stations use the excess heat from burning the gas to produce steam to drive a second turbine. Burning natural gas causes carbon dioxide and other pollutants to be emitted, worsening the climate crisis and damaging human health.</p><p>In 2001 the European Union issued the Large Combustion Plant Directive, obliging power stations to limit their emissions or close by 2015. Most coal-fired power stations in Great Britain closed in response, with gas-fired power stations taking over as the largest source of Great Britain’s power.</p>'
     ], $demand);
 
@@ -103,16 +99,15 @@ class Latest {
         </section>
       </div>
 <?php
-
   }
 
   /**
-   * Outputs a table
+   * Outputs a table.
    *
-   * @param Map   $map         The map
-   * @param array $keys        An array mapping keys to help
-   * @param float $demand      The total demand
-   * @param bool  $isTransfers Whether the table shows transfers
+   * @param Map           $map         The map
+   * @param array<string> $keys        An array mapping keys to help
+   * @param float         $demand      The total demand
+   * @param bool          $isTransfers Whether the table shows transfers
    */
   private static function outputTable(
     Map   $map,
@@ -120,7 +115,6 @@ class Latest {
     float $demand,
     bool  $isTransfers = false
   ): void {
-
 ?>
           <table class="sources<?= ($isTransfers ? ' transfers' : '') ?>">
 <?php
@@ -156,13 +150,10 @@ class Latest {
       }
 
       echo "</td></tr>\n";
-
     }
 
 ?>
           </table>
 <?php
-
   }
-
 }
