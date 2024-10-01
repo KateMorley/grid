@@ -1,15 +1,13 @@
 <?php
 
-// Outputs a graph
-
 namespace KateMorley\Grid\UI;
 
 use KateMorley\Grid\State\Datum;
 
+/** Outputs a graph. */
 class Graph {
-
   /**
-   * Outputs a graph
+   * Outputs a graph.
    *
    * @param array  $series        The series
    * @param Axes   $axes          The axes information
@@ -31,7 +29,6 @@ class Graph {
     string $timeFormat,
     int    $decimalPlaces
   ): void {
-
     $lines   = self::getLines($series, $graph);
     $minimum = $axes->getMinimum($graph);
     $maximum = $axes->getMaximum($graph);
@@ -56,18 +53,16 @@ class Graph {
     echo '</svg>';
 
     echo "</div>\n";
-
   }
 
   /**
    * Returns the lines to show on the graph, as an array mapping map keys to
-   * arrays of values
+   * arrays of values.
    *
    * @param array $series The series
    * @param int   $graph  One of the Datum class constants identifying a graph
    */
   private static function getLines(array $series, int $graph): array {
-
     $lines = [];
 
     foreach ($series as $datum) {
@@ -81,11 +76,10 @@ class Graph {
     }
 
     return $lines;
-
   }
 
   /**
-   * Outputs the value axis
+   * Outputs the value axis.
    *
    * @param int    $minimum The minimum value
    * @param int    $maximum The maximum value
@@ -100,11 +94,9 @@ class Graph {
     string $prefix,
     string $suffix
   ): void {
-
     echo '<div>';
 
     for ($label = $maximum; $label >= $minimum; $label -= $step) {
-
       echo '<div>';
 
       if ($label < 0) {
@@ -112,18 +104,16 @@ class Graph {
       }
 
       echo $prefix;
-      echo abs($label);
+      echo number_format(abs($label));
       echo $suffix;
       echo '</div><div></div>';
-
     }
 
     echo '</div>';
-
   }
 
   /**
-   * Outputs the time axis
+   * Outputs the time axis.
    *
    * @param array  $times  The times
    * @param string $step   The time step
@@ -134,13 +124,11 @@ class Graph {
     string $step,
     string $format
   ): void {
-
     echo '<div>';
 
     $index = ceil($step / 2);
 
     foreach ($times as $time) {
-
       if ($index % $step === 0) {
         echo '<div>';
         echo date($format, $time);
@@ -148,15 +136,13 @@ class Graph {
       }
 
       $index ++;
-
     }
 
     echo '</div>';
-
   }
 
   /**
-   * Outputs the lines
+   * Outputs the lines.
    *
    * @param array $lines   An array mapping map keys to arrays of values
    * @param int   $minimum The minimum value
@@ -177,7 +163,7 @@ class Graph {
   }
 
   /**
-   * Returns the point co-ordinates for a line
+   * Returns the point co-ordinates for a line.
    *
    * @param array $values  The values
    * @param int   $minimum The minimum value
@@ -188,7 +174,6 @@ class Graph {
     int   $minimum,
     int   $range
   ): array {
-
     $width = count($values);
 
     $points = [];
@@ -202,11 +187,10 @@ class Graph {
     }
 
     return $points;
-
   }
 
   /**
-   * Outputs the overlay
+   * Outputs the overlay.
    *
    * @param array  $series        The series
    * @param int    $graph         One of the Datum class constants identifying a
@@ -219,15 +203,12 @@ class Graph {
     int    $graph,
     string $timeFormat,
     int    $decimalPlaces
-
   ): void {
-
     $width = count($series);
 
     $index = 0;
 
     foreach ($series as $time => $datum) {
-
       $map = $datum->get($graph);
 
       echo '<rect x="';
@@ -241,17 +222,14 @@ class Graph {
       echo implode(
         ' ',
         array_map(
-          fn ($key) => sprintf('%0.' . $decimalPlaces . 'f', $map->get($key)),
+          fn ($key) => number_format($map->get($key), $decimalPlaces),
           array_keys($map::KEYS)
-          )
+        )
       );
 
       echo '"/>';
 
       $index ++;
-
     }
-
   }
-
 }

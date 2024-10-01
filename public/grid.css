@@ -834,6 +834,10 @@ polyline {
   content: none;
 }
 
+.visits-graph {
+  margin: 1rem 0;
+}
+
 /* wind milestones */
 
 .wind-milestones {

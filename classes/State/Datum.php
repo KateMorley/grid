@@ -1,11 +1,9 @@
 <?php
 
-// Represents a data point consisting of a price and details of power sources
-
 namespace KateMorley\Grid\State;
 
+/** Represents a data point consisting of details of power sources. */
 class Datum {
-
   public const PRICE           = 0;
   public const EMISSIONS       = 1;
   public const GENERATION      = 2;
@@ -14,6 +12,7 @@ class Datum {
   public const STORAGE         = 5;
   public const TRANSFERS       = 6;
   public const DEMAND          = 7;
+  public const VISITS          = 8;
 
   private Price           $price;
   private Emissions       $emissions;
@@ -23,6 +22,7 @@ class Datum {
   private Storage         $storage;
   private Transfers       $transfers;
   private Demand          $demand;
+  private Visits          $visits;
 
   /**
    * Constructs a new instance
@@ -38,6 +38,7 @@ class Datum {
     $this->storage         = new Storage($map);
     $this->transfers       = new Transfers($map);
     $this->demand          = new Demand($this->types, $this->transfers);
+    $this->visits          = new Visits($map);
   }
 
   /**
@@ -55,6 +56,7 @@ class Datum {
       case self::STORAGE         : return $this->storage;
       case self::TRANSFERS       : return $this->transfers;
       case self::DEMAND          : return $this->demand;
+      case self::VISITS          : return $this->visits;
       default                    : throw new \Exception('Invalid map type');
     }
   }
@@ -107,5 +109,4 @@ class Datum {
   public function getTotal(): float {
     return ($this->generation->getTotal() + $this->transfers->getTotal());
   }
-
 }

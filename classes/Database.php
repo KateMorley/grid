@@ -8,6 +8,7 @@ use KateMorley\Grid\Data\Demand;
 use KateMorley\Grid\Data\Emissions;
 use KateMorley\Grid\Data\Generation;
 use KateMorley\Grid\Data\Pricing;
+use KateMorley\Grid\Data\Visits;
 use KateMorley\Grid\State\Datum;
 use KateMorley\Grid\State\Record;
 use KateMorley\Grid\State\State;
@@ -417,7 +418,8 @@ class Database {
       Demand::KEYS,
       Generation::KEYS,
       Pricing::KEYS,
-      Emissions::KEYS
+      Emissions::KEYS,
+      Visits::KEYS
     );
   }
 
