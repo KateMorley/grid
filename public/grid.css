@@ -687,8 +687,8 @@ dialog path {
   display: grid;
   align-content: center;
   justify-content: center;
-  max-width: 360px;
-  aspect-ratio: 1.1;
+  max-width: 330px;
+  aspect-ratio: 1;
   margin: 0 auto 1rem;
 }
 
