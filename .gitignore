@@ -1,3 +1,5 @@
-/configuration.php
+/.env
+/public/favicon.svg
+/public/index.html
 /public/proza-light.woff2
 /public/proza-regular.woff2

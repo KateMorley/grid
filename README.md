@@ -2,15 +2,45 @@
 
 This repository contains the source code for [National Grid: Live](https://grid.iamkate.com/).
 
-## Installation
+## Development
 
-Any officially supported versions of PHP and MySQL can be used.
+The development environment uses [Docker](https://www.docker.com/).
+
+Copy `.env.example` to `.env` and edit the values as appropriate. At a minimum, `DATABASE_PASSWORD` must be given a value.
+
+To start the containers:
+
+```
+docker compose up --detach
+```
+
+Once the containers are running, you can view the site at [http://localhost:9714/](http://localhost:9714/). Port 9714 was chosen due to its slight resemblance to the word ‘grid’.
+
+To run the update script:
+
+```
+docker compose exec php php /var/grid/update.php
+```
+
+To stop the containers:
+
+```
+docker compose down
+```
+
+## Production
+
+The production environment does not use Docker, instead running directly on the server. PHP 8.3 and a recent version MariaDB or MySQL are required.
+
+### Files
+
+Copy `.env.example` to `.env` and edit the values as appropriate. At a minimum, `DATABASE_PASSWORD` must be given a value. `DATABASE_HOSTNAME` should be changed to `localhost` if the database is running on the same server.
+
+Upload `.env`, `update.php`, and the `classes` and `public` directories to the server.
 
 ### Database
 
 Create a database and a user with `SELECT`, `INSERT`, `UPDATE`, and `DELETE` privileges, and import `grid.sql` into the database.
-
-Copy `configuration.php.example` to `configuration.php` and enter the appropriate database connection settings into the PHP constants.
 
 ### Web server
 
@@ -20,15 +50,15 @@ Configure the server to serve the contents of the `public` directory. Note that 
 
 Set up a cron job to execute the `update.php` script (using the [PHP CLI SAPI](https://www.php.net/manual/en/features.commandline.usage.php)) every five minutes. The cron job must run as a user with write access to `public/favicon.svg` and `public/index.html`.
 
-The script outputs details of the update process to standard output, and details of errors to standard error. An error with an individual data source does not abort the rest of the update process. The APIs can be unreliable, so the `ERROR_REPORTING_THRESHOLD` constant in `configuration.php` is provided to control how many consecutive times an error must occur before it is reported.
+The script outputs details of the update process to standard output, and details of errors to standard error. An error with an individual data source does not abort the rest of the update process.
 
 ### Fonts
 
-The CSS refers to `proza-light.woff2` and `proza-regular.woff2`. These are commercial fonts, so are not included in this repository. Licences for [Proza](http://bureauroffa.com/about-proza) can be purchased from [Bureau Roffa](http://bureauroffa.com/). Alterenatively, the simplified free version [Proza Libre](http://bureauroffa.com/about-proza-libre) can be used instead.
+The CSS refers to `proza-light.woff2` and `proza-regular.woff2`. These are commercial fonts, so are not included in this repository. Licences for [Proza](http://bureauroffa.com/about-proza) can be purchased from [Bureau Roffa](http://bureauroffa.com/). Alternatively, the simplified free version [Proza Libre](http://bureauroffa.com/about-proza-libre) can be used instead.
 
 ### Cloudflare
 
-National Grid: Live uses [Cloudflare](https://www.cloudflare.com/)’s content delivery network. Visit counts will be retrieved from Cloudflare if the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ZONE_ID` constants in `configuration.php` are set to non-empty strings. The Cloudflare API token must be configured to provide Analytics Read access for the zone.
+National Grid: Live uses [Cloudflare](https://www.cloudflare.com/)’s content delivery network. Visit counts will be retrieved from Cloudflare if the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ZONE_ID` environment variables are set to non-empty strings. The Cloudflare API token must be configured to provide Analytics Read access for the zone.
 
 ## Codebase structure
 

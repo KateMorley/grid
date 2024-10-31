@@ -21,7 +21,10 @@ class Visits {
    */
   public static function update(Database $database): void {
 
-    if (CLOUDFLARE_API_TOKEN === '' || CLOUDFLARE_ZONE_ID === '') {
+    if (
+      getenv('CLOUDFLARE_API_TOKEN') === ''
+      || getenv('CLOUDFLARE_ZONE_ID') === ''
+    ) {
       return;
     }
 
@@ -34,11 +37,11 @@ class Visits {
     );
 
     curl_setopt($curl, CURLOPT_HTTPHEADER, [
-      'Authorization: Bearer ' . CLOUDFLARE_API_TOKEN,
+      'Authorization: Bearer ' . getenv('CLOUDFLARE_API_TOKEN'),
       'Content-Type: application/json'
     ]);
 
-    $zoneId    = CLOUDFLARE_ZONE_ID;
+    $zoneId    = getenv('CLOUDFLARE_ZONE_ID');
     $time      = $database->getLatestHalfHourTimestamp();
     $startTime = gmdate('Y-m-d\\TH:i:s\\Z', $time - 12 * 60 * 60);
     $endTime   = gmdate('Y-m-d\\TH:i:s\\Z', $time);

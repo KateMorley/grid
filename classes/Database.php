@@ -27,10 +27,10 @@ class Database {
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
     $this->connection = new \mysqli(
-      DATABASE_HOSTNAME,
-      DATABASE_USERNAME,
-      DATABASE_PASSWORD,
-      DATABASE_DATABASE
+      getenv('DATABASE_HOSTNAME'),
+      getenv('DATABASE_USERNAME'),
+      getenv('DATABASE_PASSWORD'),
+      getenv('DATABASE_DATABASE')
     );
 
     $this->connection->set_charset('utf8mb4');

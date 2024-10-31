@@ -3,6 +3,7 @@
 // Updates the site
 
 use KateMorley\Grid\Database;
+use KateMorley\Grid\Environment;
 use KateMorley\Grid\Data\DataException;
 use KateMorley\Grid\Data\Demand;
 use KateMorley\Grid\Data\Emissions;
@@ -11,8 +12,6 @@ use KateMorley\Grid\Data\Pricing;
 use KateMorley\Grid\Data\Visits;
 use KateMorley\Grid\UI\Favicon;
 use KateMorley\Grid\UI\UI;
-
-require_once __DIR__ . '/configuration.php';
 
 spl_autoload_register(function ($class) {
   require_once(
@@ -23,10 +22,11 @@ spl_autoload_register(function ($class) {
   );
 });
 
+Environment::load(__DIR__ . '/.env');
+
 $database = new Database();
 
 foreach ([
-
   'Updating generation… ' => function ($database) {
     Generation::update($database);
   },
@@ -53,7 +53,6 @@ foreach ([
   },
 
   'Outputting files…    ' => function ($database) {
-
     $state = $database->getState();
 
     ob_start();
@@ -65,35 +64,33 @@ foreach ([
       Favicon::create($state->getLatest()->getTypes()),
       LOCK_EX
     );
-
   }
-
 ] as $action => $callback) {
-
   echo $action;
 
   $start = microtime(true);
 
   try {
-
     $callback($database);
 
     echo 'OK';
 
     $database->clearErrors($action);
-
   } catch (DataException $e) {
-
     $error = $e->getMessage();
     echo 'ERROR: ' . $error;
 
-    if ($database->getErrorCount($action, $error) >= ERROR_REPORTING_THRESHOLD) {
+    if (
+      $database->getErrorCount($action, $error)
+      >= (int)getenv('ERROR_REPORTING_THRESHOLD')
+    ) {
       $database->clearErrors($action);
-      trigger_error(trim($action) . ' ' . $error);
-    }
 
+      if ((int)getenv('ERROR_REPORTING_THRESHOLD') > 0) {
+        trigger_error(trim($action) . ' ' . $error);
+      }
+    }
   }
 
   echo ' (' . sprintf('%0.3f', microtime(true) - $start) . " seconds)\n";
-
 }

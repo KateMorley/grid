@@ -1,0 +1,47 @@
+services:
+  database:
+    image: mariadb
+    volumes:
+      - ./grid.sql:/docker-entrypoint-initdb.d/grid.sql
+      - database:/var/lib/mysql
+    environment:
+      - MARIADB_USER=${DATABASE_USERNAME}
+      - MARIADB_PASSWORD=${DATABASE_PASSWORD}
+      - MARIADB_DATABASE=${DATABASE_DATABASE}
+      - MARIADB_RANDOM_ROOT_PASSWORD=1
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "/usr/local/bin/healthcheck.sh",
+          "--su-mysql",
+          "--connect",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  php:
+    build:
+      target: php
+    depends_on:
+      database:
+        condition: service_healthy
+    volumes:
+      - ./.env:/var/grid/.env
+      - ./update.php:/var/grid/update.php
+      - ./classes:/var/grid/classes
+      - ./public:/var/grid/public
+    command:
+      sh -c "php /var/grid/update.php && sleep infinity"
+
+  web:
+    build:
+      target: web
+    ports:
+      - "9714:80"
+    volumes:
+      - ./public:/usr/share/nginx/html
+
+volumes:
+  database:
