@@ -407,9 +407,17 @@ class Database {
    * @param string $table The table
    */
   private function getLatestMap(string $table): array {
-    return $this->connection->query(
+    $map = $this->connection->query(
       'SELECT * FROM ' . $table . ' ORDER BY time DESC LIMIT 1'
     )->fetch_assoc();
+
+    // create a map of all zeroes for new instances with an empty database
+    if ($map === null) {
+      $map = array_fill_keys(self::getColumns(), '0');
+      $map['time'] = '0000-00-00 00:00:00';
+    }
+
+    return $map;
   }
 
   /** Returns the list of database columns */

@@ -153,6 +153,11 @@ class Graph {
     int   $minimum,
     int   $range
   ): void {
+    // avoid division by zero for new instances with only a single point
+    if ($range === 0) {
+      $range = 1;
+    }
+
     foreach ($lines as $key => $values) {
       echo '<polyline class="';
       echo $key;
