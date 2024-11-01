@@ -200,14 +200,25 @@ class Graph {
     $points = [];
 
     foreach ($values as $index => $value) {
-      $points[] = (
-        round(self::SIZE * ($index + 0.5) / $width)
-        . ' '
-        . round(self::SIZE * (1 - ($value - $minimum) / $range))
-      );
+      $x = round(self::SIZE * ($index + 0.5) / $width);
+      $y = round(self::SIZE * (1 - ($value - $minimum) / $range));
+
+      // if there are at least two preceding points, and the three points form a
+      // straight line, then we remove the middle point as it does not affect
+      // the appearance of the graph
+      if (count($points) > 1) {
+        list($x1, $y1) = $points[count($points) - 2];
+        list($x2, $y2) = $points[count($points) - 1];
+
+        if (($y - $y2) * ($x2 - $x1) === ($y2 - $y1) * ($x - $x2)) {
+          array_pop($points);
+        }
+      }
+
+      $points[] = [$x, $y];
     }
 
-    return $points;
+    return array_map(fn ($point) => $point[0] . ' ' . $point[1], $points);
   }
 
   /**
