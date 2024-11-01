@@ -1,26 +1,23 @@
 <?php
 
-// Updates pricing data
-
 namespace KateMorley\Grid\Data;
 
 use KateMorley\Grid\Database;
 
+/** Updates pricing data. */
 class Pricing {
-
   public const KEYS = [
     'price'
   ];
 
   /**
-   * Updates the pricing data
+   * Updates the pricing data.
    *
    * @param Database $database The database instance
    *
    * @throws DataException If the data was invalid
    */
   public static function update(Database $database): void {
-
     $time = $database->getLatestHalfHourTimestamp();
 
     $rawData = @file_get_contents(
@@ -48,28 +45,24 @@ class Pricing {
     $data = [];
 
     foreach ($jsonData['data'] as $item) {
-
       if (!is_array($item)) {
         throw new DataException('Invalid item');
       }
 
       $data[] = self::getDatum($item);
-
     }
 
     $database->update(self::KEYS, $data);
-
   }
 
   /**
-   * Returns the datum for an item
+   * Returns the datum for an item.
    *
    * @param array $item The item
    *
    * @throws DataException If the data was invalid
    */
   private static function getDatum(array $item): array {
-
     if (!isset($item['startTime'])) {
       throw new DataException('Missing time');
     }
@@ -83,7 +76,5 @@ class Pricing {
     }
 
     return [Time::normalise($item['startTime'], 30), $item['price']];
-
   }
-
 }

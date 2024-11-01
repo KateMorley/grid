@@ -1,13 +1,11 @@
 <?php
 
-// Formats values
-
 namespace KateMorley\Grid\UI;
 
+/** Formats values. */
 class Value {
-
   /**
-   * Formats a power value
+   * Formats a power value.
    *
    * @param float $value The value
    */
@@ -16,7 +14,7 @@ class Value {
   }
 
   /**
-   * Formats a total power value
+   * Formats a total power value.
    *
    * @param float $value The value
    */
@@ -25,7 +23,7 @@ class Value {
   }
 
   /**
-   * Formats a percentage
+   * Formats a percentage.
    *
    * @param float $value The value, as a fraction
    */
@@ -34,7 +32,7 @@ class Value {
   }
 
   /**
-   * Formats a price
+   * Formats a price.
    *
    * @param float $value The value
    */
@@ -43,7 +41,7 @@ class Value {
   }
 
   /**
-   * Formats a value
+   * Formats a value.
    *
    * @param float  $value,        The value
    * @param int    $decimalPlaces The number of decimal places to show
@@ -60,5 +58,4 @@ class Value {
       . sprintf('%0.' . $decimalPlaces . 'f', abs($value))
     );
   }
-
 }

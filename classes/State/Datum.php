@@ -25,7 +25,7 @@ class Datum {
   private Visits          $visits;
 
   /**
-   * Constructs a new instance
+   * Constructs a new instance.
    *
    * @param array $map The map of data
    */
@@ -42,7 +42,7 @@ class Datum {
   }
 
   /**
-   * Returns the specified Map
+   * Returns the specified Map.
    *
    * @param int $map One of the class constants identifying a map
    */
@@ -61,42 +61,42 @@ class Datum {
     }
   }
 
-  /** Returns the wholesale price of energy */
+  /** Returns the wholesale price of energy. */
   public function getPrice(): Price {
     return $this->price;
   }
 
-  /** Returns the emissions from power production */
+  /** Returns the emissions from power production. */
   public function getEmissions(): Emissions {
     return $this->emissions;
   }
 
-  /** Returns the details of generation by type */
+  /** Returns the details of generation by type. */
   public function getTypes(): Types {
     return $this->types;
   }
 
-  /** Returns the details of generation */
+  /** Returns the details of generation. */
   public function getGeneration(): Generation {
     return $this->generation;
   }
 
-  /** Returns the details of interconnectors */
+  /** Returns the details of interconnectors. */
   public function getInterconnectors(): Interconnectors {
     return $this->interconnectors;
   }
 
-  /** Returns the details of storage */
+  /** Returns the details of storage. */
   public function getStorage(): Storage {
     return $this->storage;
   }
 
-  /** Returns the details of transfers */
+  /** Returns the details of transfers. */
   public function getTransfers(): Transfers {
     return $this->transfers;
   }
 
-  /** Returns the details of demand */
+  /** Returns the details of demand. */
   public function getDemand(): Demand {
     return $this->demand;
   }

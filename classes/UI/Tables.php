@@ -1,20 +1,17 @@
 <?php
 
-// Outputs tables of sources
-
 namespace KateMorley\Grid\UI;
 
 use KateMorley\Grid\State\Datum;
 
+/** Outputs tables of sources. */
 class Tables {
-
   /**
-   * Outputs tables of sources
+   * Outputs tables of sources.
    *
    * @param Datum $datum The datum
    */
   public static function output(Datum $datum): void {
-
     $demand = $datum->getTotal();
 
 ?>
@@ -63,11 +60,10 @@ class Tables {
 ?>
             </table>
 <?php
-
  }
 
   /**
-   * Outputs a table row
+   * Outputs a table row.
    *
    * @param string $source      The source
    * @param string $description The description
@@ -86,5 +82,4 @@ class Tables {
               <tr><td class="<?= $source ?>"></td><td><?= $description ?></td><td><?= ($isTotal ? Value::formatTotalPower($power) : Value::formatPower($power)) ?></td><td><?= Value::formatPercentage($power / $demand) ?></td></tr>
 <?php
   }
-
 }

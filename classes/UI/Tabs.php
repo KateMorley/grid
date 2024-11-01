@@ -1,20 +1,17 @@
 <?php
 
-// Outputs the tabs
-
 namespace KateMorley\Grid\UI;
 
 use KateMorley\Grid\State\State;
 
+/** Outputs the tabs. */
 class Tabs {
-
   /**
-   * Outputs the tabs
+   * Outputs the tabs.
    *
    * @param State $state The state
    */
   public static function output(State $state): void {
-
     $axes = new Axes($state);
 
 ?>
@@ -39,7 +36,5 @@ class Tabs {
         </div>
       </section>
 <?php
-
   }
-
 }

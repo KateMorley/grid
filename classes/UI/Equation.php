@@ -1,22 +1,19 @@
 <?php
 
-// Outputs the demand equation
-
 namespace KateMorley\Grid\UI;
 
 use KateMorley\Grid\State\Datum;
 use KateMorley\Grid\State\Demand;
 
+/** Outputs the demand equation. */
 class Equation {
-
   /**
-   * Outputs the demand equation
+   * Outputs the demand equation.
    *
    * @param Datum $datum The datum
    * @param bool  $help  Whether to show the help
    */
   public static function output(Datum $datum, bool $help = false): void {
-
     $transfers = $datum->getDemand()->get(Demand::TRANSFERS);
 
 ?>
@@ -29,7 +26,5 @@ class Equation {
             <dd><?= Value::formatTotalPower(abs($transfers)) ?><abbr>GW</abbr></dd>
           </dl>
 <?php
-
   }
-
 }

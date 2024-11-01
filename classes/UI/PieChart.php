@@ -1,24 +1,21 @@
 <?php
 
-// Outputs a pie chart
-
 namespace KateMorley\Grid\UI;
 
 use KateMorley\Grid\State\Datum;
 use KateMorley\Grid\State\Map;
 
+/** Outputs a pie chart. */
 class PieChart {
-
   private const OUTER_RADIUS = 0.75;
   private const INNER_RADIUS = 0.50;
 
   /**
-   * Outputs a pie chart
+   * Outputs a pie chart.
    *
    * @param Datum $datum The datum
    */
   public static function output(Datum $datum): void {
-
     $generation = $datum->getGeneration()->getTotal();
     $demand     = $datum->getTotal();
 
@@ -53,11 +50,10 @@ class PieChart {
     );
 
     echo "</svg></div>\n";
-
   }
 
   /**
-   * Outputs a ring
+   * Outputs a ring.
    *
    * @param Map   $sources     The sources
    * @param float $generation  The total generation
@@ -74,14 +70,12 @@ class PieChart {
     float $outerRadius,
     bool  $isTotal = false
   ): void {
-
     $offset = 0;
 
     foreach ($sources::KEYS as $key => $description) {
-
       $power = $sources->get($key);
-      if ($power > 0) {
 
+      if ($power > 0) {
         $fraction = $power / $generation;
 
         self::outputArc(
@@ -95,15 +89,12 @@ class PieChart {
         );
 
         $offset += $fraction;
-
       }
-
     }
-
   }
 
   /**
-   * Outputs an arc
+   * Outputs an arc.
    *
    * @param string $source      The source
    * @param string $power       The power
@@ -152,7 +143,7 @@ class PieChart {
   }
 
   /**
-   * Outputs the co-ordinates of a point on an arc
+   * Outputs the co-ordinates of a point on an arc.
    *
    * @param float $faction The fraction of the circle
    * @param float $radius  The radius
@@ -162,5 +153,4 @@ class PieChart {
     echo ',';
     printf('%0.4f', $radius * -cos($faction * 2 * M_PI));
   }
-
 }

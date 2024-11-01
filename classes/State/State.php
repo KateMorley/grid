@@ -1,11 +1,9 @@
 <?php
 
-// Represents the UI state
-
 namespace KateMorley\Grid\State;
 
+/** Represents the UI state. */
 class State {
-
   private int    $time;
   private Datum  $latest;
   private Datum  $pastDay;
@@ -20,7 +18,7 @@ class State {
   private array  $windMilestones;
 
   /**
-   * Constructs a new instance
+   * Constructs a new instance.
    *
    * @param int    $time           The time of the latest data
    * @param Datum  $latest         The latest datum
@@ -63,64 +61,63 @@ class State {
     $this->windMilestones = $windMilestones;
   }
 
-  /** Returns the time of the state */
+  /** Returns the time of the state. */
   public function getTime(): int {
     return $this->time;
   }
 
-  /** Returns the latest datum */
+  /** Returns the latest datum. */
   public function getLatest(): Datum {
     return $this->latest;
   }
 
-  /** Returns the past day's datum */
+  /** Returns the past day's datum. */
   public function getPastDay(): Datum {
     return $this->pastDay;
   }
 
-  /** Returns the past week's datum */
+  /** Returns the past week's datum. */
   public function getPastWeek(): Datum {
     return $this->pastWeek;
   }
 
-  /** Returns the past year's datum */
+  /** Returns the past year's datum. */
   public function getPastYear(): Datum {
     return $this->pastYear;
   }
 
-  /** Returns the all-time datum */
+  /** Returns the all-time datum. */
   public function getAllTime(): Datum {
     return $this->allTime;
   }
 
-  /** Returns the series for the past day */
+  /** Returns the series for the past day. */
   public function getPastDaySeries(): array {
     return $this->pastDaySeries;
   }
 
-  /** Returns the series for the past week */
+  /** Returns the series for the past week. */
   public function getPastWeekSeries(): array {
     return $this->pastWeekSeries;
   }
 
-  /** Returns the series for the past year */
+  /** Returns the series for the past year. */
   public function getPastYearSeries(): array {
     return $this->pastYearSeries;
   }
 
-  /** Returns the series for all time */
+  /** Returns the series for all time. */
   public function getAllTimeSeries(): array {
     return $this->allTimeSeries;
   }
 
-  /** Returns the wind power generation record */
+  /** Returns the wind power generation record. */
   public function getWindRecord(): Record {
     return $this->windRecord;
   }
 
-  /** Returns the wind power generation milestones */
+  /** Returns the wind power generation milestones. */
   public function getWindMilestones(): array {
     return $this->windMilestones;
   }
-
 }

@@ -1,7 +1,5 @@
 <?php
 
-// Database functions
-
 namespace KateMorley\Grid;
 
 use KateMorley\Grid\Data\Demand;
@@ -13,17 +11,16 @@ use KateMorley\Grid\State\Datum;
 use KateMorley\Grid\State\Record;
 use KateMorley\Grid\State\State;
 
+/** Database functions. */
 class Database {
-
   private const PAST_DAY  = '(SELECT * FROM past_half_hours ORDER BY time DESC LIMIT 48)';
   private const PAST_WEEK = '(SELECT * FROM past_days ORDER BY time DESC LIMIT 1,7)';
   private const PAST_YEAR = '(SELECT * FROM past_weeks ORDER BY time DESC LIMIT 1,52)';
 
   private \mysqli $connection;
 
-  /** Constructs a new instance */
+  /** Constructs a new instance. */
   public function __construct() {
-
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
     $this->connection = new \mysqli(
@@ -34,12 +31,10 @@ class Database {
     );
 
     $this->connection->set_charset('utf8mb4');
-
   }
 
-  /** Returns the latest state */
+  /** Returns the latest state. */
   public function getState(): State {
-
     list($time, $latest) = $this->getLatest();
 
     return new State(
@@ -70,21 +65,20 @@ class Database {
     );
   }
 
-  /** Returns the latest half hour, as a YYYY-MM-DD HH:MM:SS string */
+  /** Returns the latest half hour, as a YYYY-MM-DD HH:MM:SS string. */
   public function getLatestHalfHour(): string {
     return $this->connection->query(
       'SELECT MAX(time) FROM past_half_hours'
     )->fetch_row()[0];
   }
 
-  /** Returns the latest half hour, as a Unix timestamp */
+  /** Returns the latest half hour, as a Unix timestamp. */
   public function getLatestHalfHourTimestamp(): int {
     return strtotime($this->getLatestHalfHour() . ' UTC');
   }
 
-  /** Returns the latest time and datum */
+  /** Returns the latest time and datum. */
   private function getLatest(): array {
-
     $map = array_merge(
       $this->getLatestMap('past_half_hours'),
       $this->getLatestMap('past_five_minutes')
@@ -94,16 +88,14 @@ class Database {
       strtotime($map['time'] . ' UTC'),
       new Datum($map)
     ];
-
   }
 
   /**
-   * Returns a past period's datum
+   * Returns a past period's datum.
    *
    * @param string $table The table
    */
   private function getPastPeriod(string $table): Datum {
-
     $row = $this->connection->query(
       'SELECT '
       . self::getAveragesExpression(self::getColumns())
@@ -113,16 +105,14 @@ class Database {
     )->fetch_assoc();
 
     return new Datum($row);
-
   }
 
   /**
-   * Returns a past period's series
+   * Returns a past period's series.
    *
    * @param string $table The table
    */
   private function getSeries(string $table): array {
-
     $series = [];
 
     $rows = $this->connection->query(
@@ -138,24 +128,20 @@ class Database {
     }
 
     return $series;
-
   }
 
-  /** Returns the wind power generation record */
+  /** Returns the wind power generation record. */
   private function getWindRecord(): Record {
-
     $record = $this->getLatestMap('wind_records');
 
     return new Record(
       strtotime($record['time'] . ' UTC'),
       $record['value']
     );
-
   }
 
-  /** Returns the wind power generation milestones */
+  /** Returns the wind power generation milestones. */
   private function getWindMilestones(): array {
-
     $milestones = [];
 
     $rows = $this->connection->query(
@@ -167,11 +153,10 @@ class Database {
     }
 
     return $milestones;
-
   }
 
   /**
-   * Updates the generation data
+   * Updates the generation data.
    *
    * @param array $data The generation data
    */
@@ -187,7 +172,6 @@ class Database {
    * that the remaining data represents complete half-hours for aggregation.
    */
   private function deleteOldGeneration(): void {
-
     $oneDayAgo = time() - 24 * 60 *60;
 
     $this->connection->query(
@@ -195,7 +179,6 @@ class Database {
       . gmdate('Y-m-d H:i:s', $oneDayAgo - $oneDayAgo % (30 * 60))
       . '"'
     );
-
   }
 
   /**
@@ -204,8 +187,7 @@ class Database {
    * non-generation values.
    */
   private function aggregateGeneration(): void {
-
-    // Store the most recent half-hour values so we can propagate them forwards
+    // store the most recent half-hour values so we can propagate them forwards
     $previousHalfHour = $this->getLatestMap('past_half_hours');
 
     // To determine the latest complete half-hour, we subtract 25 minutes from
@@ -216,7 +198,7 @@ class Database {
       'SELECT DATE_SUB(time,INTERVAL MOD(MINUTE(time),30) MINUTE) FROM (SELECT DATE_SUB(MAX(time),INTERVAL 25 MINUTE) AS time FROM past_five_minutes) AS t'
     )->fetch_row()[0];
 
-    // Aggregate the five-minute data for complete half-hours
+    // aggregate the five-minute data for complete half-hours
     $this->connection->query(
       'INSERT INTO past_half_hours (time,'
       . implode(',', Generation::KEYS)
@@ -228,7 +210,7 @@ class Database {
       . self::getOnDuplicateKeyUpdateClause(Generation::KEYS)
     );
 
-    // Propagate forwards the non-generation data for newly inserted half-hours
+    // propagate forwards the non-generation data for newly inserted half-hours
     $this->connection->query(
       'UPDATE past_half_hours SET '
       . implode(
@@ -242,18 +224,16 @@ class Database {
       . $previousHalfHour['time']
       . '"'
     );
-
   }
 
   /**
    * Updates data, ignoring data prior to the earliest half hour or past the
-   * latest half hour
+   * latest half hour.
    *
    * @param array $columns The columns to update
    * @param array $data    The data
    */
   public function update(array $columns, array $data): void {
-
     $earliest = '"' . $this->getEarliestHalfHour() . '"';
     $latest   = '"' . $this->getLatestHalfHour() . '"';
 
@@ -261,11 +241,10 @@ class Database {
       $data,
       fn ($datum) => $datum[0] >= $earliest && $datum[0] <= $latest
     ));
-
   }
 
   /**
-   * Updates a past time series
+   * Updates a past time series.
    *
    * @param string $table   The table
    * @param array  $columns The columns to update
@@ -276,7 +255,6 @@ class Database {
     array  $columns,
     array  $data
   ): void {
-
     if (count($data) === 0) {
       return;
     }
@@ -295,12 +273,10 @@ class Database {
       . implode(',', $rows)
       . self::getOnDuplicateKeyUpdateClause($columns)
     );
-
   }
 
-  /** Finishes a database update */
+  /** Finishes a database update. */
   public function finishUpdate(): void {
-
     $this->deleteOldHalfHours();
     $this->updateWindRecords();
 
@@ -321,10 +297,9 @@ class Database {
       'past_years',
       'DATE_SUB(DATE_SUB(time,INTERVAL (DAYOFMONTH(time) - 1) DAY),INTERVAL (MONTH(time) - 1) MONTH)'
     );
-
   }
 
-  /** Deletes old half-hourly data to reduce the size of the database */
+  /** Deletes old half-hourly data to reduce the size of the database. */
   private function deleteOldHalfHours(): void {
     $this->connection->query(
       'DELETE FROM past_half_hours WHERE time<"'
@@ -333,9 +308,8 @@ class Database {
     );
   }
 
-  /** Updates the wind records */
+  /** Updates the wind records. */
   private function updateWindRecords(): void {
-
     $time = '"' . $this->getLatestHalfHour() . '"';
 
     $record = (float)$this->connection->query(
@@ -355,11 +329,10 @@ class Database {
         . ')'
       );
     }
-
   }
 
   /**
-   * Aggregates a time series
+   * Aggregates a time series.
    *
    * @param string $sourceTable      The source table
    * @param string $destinationTable The destination table
@@ -370,7 +343,6 @@ class Database {
     string $destinationTable,
     string $timeExpression
   ): void {
-
     $columns = self::getColumns();
 
     $this->connection->query(
@@ -398,11 +370,10 @@ class Database {
       . ' GROUP BY aggregated_time'
       . self::getOnDuplicateKeyUpdateClause(['visits'])
     );
-
   }
 
   /**
-   * Returns a map from keys to values for the most recent row in a table
+   * Returns a map from keys to values for the most recent row in a table.
    *
    * @param string $table The table
    */
@@ -420,7 +391,7 @@ class Database {
     return $map;
   }
 
-  /** Returns the list of database columns */
+  /** Returns the list of database columns. */
   private static function getColumns(): array {
     return array_merge(
       Demand::KEYS,
@@ -432,7 +403,7 @@ class Database {
   }
 
   /**
-   * Returns the expression for the averages for each of a set of columns
+   * Returns the expression for the averages for each of a set of columns.
    *
    * @param array $columns The columns
    */
@@ -444,7 +415,7 @@ class Database {
   }
 
   /**
-   * Returns an ON DUPLICATE KEY UPDATE clause
+   * Returns an ON DUPLICATE KEY UPDATE clause.
    *
    * @param array $columns The columns
    */
@@ -464,7 +435,7 @@ class Database {
   }
 
   /**
-   * Clears recorded errors for an action that completed successfully
+   * Clears recorded errors for an action that completed successfully.
    *
    * @param string $action The action
    */
@@ -477,13 +448,12 @@ class Database {
   }
 
   /**
-   * Returns the count of occurrences of an error
+   * Returns the count of occurrences of an error.
    *
    * @param string $action The action
    * @param string $error  The error
    */
   public function getErrorCount(string $action, string $error): int {
-
     $this->connection->query(
       'INSERT INTO errors (action,error,count) VALUES ("'
       . $this->connection->real_escape_string($action)
@@ -499,7 +469,5 @@ class Database {
       . $this->connection->real_escape_string($error)
       . '"'
     )->fetch_row()[0];
-
   }
-
 }

@@ -1,11 +1,9 @@
 <?php
 
-// Represents a map from keys to values
-
 namespace KateMorley\Grid\State;
 
+/** Represents a map from keys to values. */
 abstract class Map {
-
   public const KEYS = [];
 
   protected const KEY_COMPONENTS = [];
@@ -13,7 +11,7 @@ abstract class Map {
   protected array $map = [];
 
   /**
-   * Constructs a new instance
+   * Constructs a new instance.
    *
    * @param array $map An array mapping keys to values
    */
@@ -27,7 +25,7 @@ abstract class Map {
   }
 
   /**
-   * Returns the value for a key
+   * Returns the value for a key.
    *
    * @param string $key The key
    */
@@ -35,19 +33,18 @@ abstract class Map {
     return ($this->map[$key] ?? 0);
   }
 
-  /** Returns the minimum value across all keys */
+  /** Returns the minimum value across all keys. */
   public function getMinimum(): float {
     return min($this->map);
   }
 
-  /** Returns the maximum value across all keys */
+  /** Returns the maximum value across all keys. */
   public function getMaximum(): float {
     return max($this->map);
   }
 
-  /** Returns the total value for all keys */
+  /** Returns the total value for all keys. */
   public function getTotal(): float {
     return array_sum($this->map);
   }
-
 }

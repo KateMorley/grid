@@ -1,13 +1,11 @@
 <?php
 
-// Updates generation data
-
 namespace KateMorley\Grid\Data;
 
 use KateMorley\Grid\Database;
 
+/** Updates generation data. */
 class Generation {
-
   public const KEYS = [
     'coal',
     'ccgt',
@@ -55,14 +53,13 @@ class Generation {
   ];
 
   /**
-   * Updates the generation data
+   * Updates the generation data.
    *
    * @param Database $database The database instance
    *
    * @throws DataException If the data was invalid
    */
   public static function update(Database $database): void {
-
     $rawData = @file_get_contents(
       sprintf(
         'https://data.elexon.co.uk/bmrs/api/v1/datasets/FUELINST/stream?publishDateTimeFrom=%s&publishDateTimeTo=%s',
@@ -84,7 +81,6 @@ class Generation {
     $data = [];
 
     foreach ($jsonData as $item) {
-
       if (!is_array($item)) {
         throw new DataException('Invalid item');
       }
@@ -97,22 +93,19 @@ class Generation {
       }
 
       $data[$time][self::getColumn($item)] = self::getGeneration($item);
-
     }
 
     $database->updateGeneration($data);
-
   }
 
   /**
-   * Returns the time for an item
+   * Returns the time for an item.
    *
    * @param array $item The item
    *
    * @throws DataException If the time was invalid
    */
   private static function getTime(array $item): string {
-
     if (!isset($item['startTime'])) {
       throw new DataException('Missing start time');
     }
@@ -124,18 +117,16 @@ class Generation {
     }
 
     return Time::normalise($item['startTime'], 5);
-
   }
 
   /**
-   * Returns the column for an item
+   * Returns the column for an item.
    *
    * @param array $item The item
    *
    * @throws DataException If the fuel type was invalid
    */
   private static function getColumn(array $item): int {
-
     if (!isset($item['fuelType'])) {
       throw new DataException('Missing fuel type');
     }
@@ -147,18 +138,16 @@ class Generation {
     }
 
     return self::COLUMNS[$fuelType];
-
   }
 
   /**
-   * Returns the generation for an item
+   * Returns the generation for an item.
    *
    * @param array $item The item
    *
    * @throws DataException If the generation was invalid
    */
   private static function getGeneration(array $item): float {
-
     if (!isset($item['generation'])) {
       throw new DataException('Missing generation');
     }
@@ -170,7 +159,5 @@ class Generation {
     }
 
     return round($generation / 1000, 2);
-
   }
-
 }

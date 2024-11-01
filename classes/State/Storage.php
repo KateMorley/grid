@@ -1,11 +1,9 @@
 <?php
 
-// Represents details of storage
-
 namespace KateMorley\Grid\State;
 
+/** Represents details of storage. */
 class Storage extends Map {
-
   public const PUMPED_STORAGE = 'pumped';
 
   public const KEYS = [
@@ -15,5 +13,4 @@ class Storage extends Map {
   protected const KEY_COMPONENTS = [
     self::PUMPED_STORAGE => ['pumped']
   ];
-
 }

@@ -1,11 +1,10 @@
 <?php
 
-// Generates the favicon
-
 namespace KateMorley\Grid\UI;
 
 use KateMorley\Grid\State\Types;
 
+/** Generates the favicon. */
 class Favicon {
   private const RADIUS       = 7.5;
   private const STROKE_WIDTH = 1;
@@ -15,7 +14,7 @@ class Favicon {
   private const OTHERS_COLOUR     = '#27c';
 
   /**
-   * Creates and returns the SVG for the favicon
+   * Creates and returns the SVG for the favicon.
    *
    * @param Types $types The details of power generation by type
    */
@@ -55,7 +54,7 @@ class Favicon {
   }
 
   /**
-   * Creates and returns the SVG for an arc
+   * Creates and returns the SVG for an arc.
    *
    * @param string $colour      The colour
    * @param float  $angleOffset The angle offset
@@ -88,7 +87,7 @@ class Favicon {
   }
 
   /**
-   * Returns the co-ordinates of a point on an arc
+   * Returns the co-ordinates of a point on an arc.
    *
    * @param float $angle The angle
    */

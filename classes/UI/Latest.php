@@ -120,7 +120,6 @@ class Latest {
 <?php
 
     foreach ($keys as $key => $help) {
-
       echo '            <tr><td class="';
       echo $key;
       echo '"><td>';

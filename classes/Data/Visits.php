@@ -1,26 +1,23 @@
 <?php
 
-// Updates visit data
-
 namespace KateMorley\Grid\Data;
 
 use KateMorley\Grid\Database;
 
+/** Updates visit data. */
 class Visits {
-
   public const KEYS = [
     'visits'
   ];
 
   /**
-   * Updates the visit data
+   * Updates the visit data.
    *
    * @param Database $database The database instance
    *
    * @throws DataException If the data was invalid
    */
   public static function update(Database $database): void {
-
     if (
       getenv('CLOUDFLARE_API_TOKEN') === ''
       || getenv('CLOUDFLARE_ZONE_ID') === ''
@@ -99,28 +96,24 @@ class Visits {
     foreach (
       $jsonData['data']['viewer']['zones'][0]['httpRequests1mGroups'] as $item
     ) {
-
       if (!is_array($item)) {
         throw new DataException('Invalid item');
       }
 
       $data[] = self::getDatum($item);
-
     }
 
     $database->update(self::KEYS, $data);
-
   }
 
   /**
-   * Returns the datum for an item
+   * Returns the datum for an item.
    *
    * @param array $item The item
    *
    * @throws DataException If the data was invalid
    */
   private static function getDatum(array $item): array {
-
     if (!isset($item['dimensions']['datetimeHalfOfHour'])) {
       throw new DataException('Missing time');
     }
@@ -137,7 +130,5 @@ class Visits {
       Time::normalise($item['dimensions']['datetimeHalfOfHour'], 30),
       $item['sum']['pageViews']
     ];
-
   }
-
 }

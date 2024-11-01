@@ -1,11 +1,9 @@
 <?php
 
-// Represents details of power generation by type
-
 namespace KateMorley\Grid\State;
 
+/** Represents details of power generation by type. */
 class Types extends Map {
-
   public const FOSSILS    = 'fossils';
   public const RENEWABLES = 'renewables';
   public const OTHERS     = 'others';
@@ -21,5 +19,4 @@ class Types extends Map {
     self::RENEWABLES => ['embedded_solar', 'embedded_wind', 'wind', 'hydro'],
     self::OTHERS     => ['nuclear', 'biomass']
   ];
-
 }

@@ -1,15 +1,13 @@
 <?php
 
-// Outputs a panel
-
 namespace KateMorley\Grid\UI;
 
 use KateMorley\Grid\State\Datum;
 
+/** Outputs a panel. */
 class Panel {
-
   /**
-   * Outputs a panel
+   * Outputs a panel.
    *
    * @param string $time       The time
    * @param Datum  $average    The average
@@ -26,7 +24,6 @@ class Panel {
     int    $timeStep,
     string $timeFormat
   ): void {
-
 ?>
           <div>
 <?php Status::output($average, $time); ?>
@@ -61,7 +58,5 @@ class Panel {
             <?php Graph::output($series, $axes, Datum::TRANSFERS, '', 'GW', $timeStep, $timeFormat, 2); ?>
           </div>
 <?php
-
   }
-
 }

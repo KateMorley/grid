@@ -1,11 +1,9 @@
 <?php
 
-// Represents details of power generation
-
 namespace KateMorley\Grid\State;
 
+/** Represents details of power generation. */
 class Generation extends Map {
-
   public const COAL          = 'coal';
   public const GAS           = 'gas';
   public const SOLAR         = 'solar';
@@ -33,5 +31,4 @@ class Generation extends Map {
     self::NUCLEAR       => ['nuclear'],
     self::BIOMASS       => ['biomass']
   ];
-
 }

@@ -1,11 +1,9 @@
 <?php
 
-// Represents details of transfers
-
 namespace KateMorley\Grid\State;
 
+/** Represents details of transfers. */
 class Transfers extends Map {
-
   public const BELGIUM         = 'belgium';
   public const DENMARK         = 'denmark';
   public const FRANCE          = 'france';
@@ -33,5 +31,4 @@ class Transfers extends Map {
     self::NORWAY         => ['nsl'],
     self::PUMPED_STORAGE => ['pumped']
   ];
-
 }

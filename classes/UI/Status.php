@@ -1,17 +1,15 @@
 <?php
 
-// Outputs the status
-
 namespace KateMorley\Grid\UI;
 
 use KateMorley\Grid\State\Datum;
 use KateMorley\Grid\State\Emissions;
 use KateMorley\Grid\State\Price;
 
+/** Outputs the status. */
 class Status {
-
   /**
-   * Outputs the status
+   * Outputs the status.
    *
    * @param Datum   $datum  The datum
    * @param string  $time   The time
@@ -35,5 +33,4 @@ class Status {
           </dl>
 <?php
   }
-
 }

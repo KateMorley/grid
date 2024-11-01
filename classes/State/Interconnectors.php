@@ -1,11 +1,9 @@
 <?php
 
-// Represents details of interconnectors
-
 namespace KateMorley\Grid\State;
 
+/** Represents details of interconnectors. */
 class Interconnectors extends Map {
-
   public const BELGIUM     = 'belgium';
   public const DENMARK     = 'denmark';
   public const FRANCE      = 'france';
@@ -14,12 +12,12 @@ class Interconnectors extends Map {
   public const NORWAY      = 'norway';
 
   public const KEYS = [
-    self::BELGIUM         => 'Belgium',
-    self::DENMARK         => 'Denmark',
-    self::FRANCE          => 'France',
-    self::IRELAND         => 'Ireland',
-    self::NETHERLANDS     => 'Netherlands',
-    self::NORWAY          => 'Norway'
+    self::BELGIUM     => 'Belgium',
+    self::DENMARK     => 'Denmark',
+    self::FRANCE      => 'France',
+    self::IRELAND     => 'Ireland',
+    self::NETHERLANDS => 'Netherlands',
+    self::NORWAY      => 'Norway'
   ];
 
   protected const KEY_COMPONENTS = [
@@ -30,5 +28,4 @@ class Interconnectors extends Map {
     self::NETHERLANDS => ['britned'],
     self::NORWAY      => ['nsl']
   ];
-
 }

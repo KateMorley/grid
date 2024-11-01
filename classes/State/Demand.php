@@ -1,11 +1,9 @@
 <?php
 
-// Represents details of demand
-
 namespace KateMorley\Grid\State;
 
+/** Represents details of demand. */
 class Demand extends Map {
-
   public const DEMAND     = 'demand';
   public const FOSSILS    = 'fossils';
   public const RENEWABLES = 'renewables';
@@ -23,13 +21,12 @@ class Demand extends Map {
   private float $generation;
 
   /**
-   * Constructs a new instance
+   * Constructs a new instance.
    *
    * @param Types     $types     Details of power generation by type
    * @param Transfers $transfers Details of transfers
    */
   public function __construct(Types $types, Transfers $transfers) {
-
     $fossils    = round($types->get(Types::FOSSILS), 1);
     $renewables = round($types->get(Types::RENEWABLES), 1);
     $others     = round($types->get(Types::OTHERS), 1);
@@ -42,7 +39,6 @@ class Demand extends Map {
     $this->map[self::RENEWABLES] = $renewables;
     $this->map[self::OTHERS]     = $others;
     $this->map[self::TRANSFERS]  = $transfers;
-
   }
 
   /**
@@ -53,5 +49,4 @@ class Demand extends Map {
   public function getGeneration(): float {
     return $this->generation;
   }
-
 }

@@ -1,14 +1,12 @@
 <?php
 
-// Parses CSV data from a URL
-
 namespace KateMorley\Grid\Data;
 
+/** Parses CSV data from a URL. */
 class Csv {
-
   /**
    * Reads CSV data from a URL and returns an array with an item for each line,
-   * with each item being an array of values for the required headers
+   * with each item being an array of values for the required headers.
    *
    * @param string $url             The URL of the CSV data
    * @param array  $requiredHeaders The required headers
@@ -21,7 +19,6 @@ class Csv {
     array  $requiredHeaders,
     array  $ignoredHeaders
   ): array {
-
     $file = @fopen($url, 'r');
     if (!$file) {
       throw new DataException('Failed to read data');
@@ -55,17 +52,13 @@ class Csv {
     $data = [];
 
     while ($row = fgetcsv($file)) {
-
       if (count($row) !== $columnCount) {
         throw new DataException('Column count does not match header count');
       }
 
       $data[] = array_map(fn ($column) => $row[$column], $columns);
-
     }
 
     return $data;
-
   }
-
 }

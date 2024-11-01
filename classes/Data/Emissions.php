@@ -1,26 +1,23 @@
 <?php
 
-// Updates emissions data
-
 namespace KateMorley\Grid\Data;
 
 use KateMorley\Grid\Database;
 
+/** Updates emissions data. */
 class Emissions {
-
   public const KEYS = [
     'emissions'
   ];
 
   /**
-   * Updates the emissions data
+   * Updates the emissions data.
    *
    * @param Database $database The database instance
    *
    * @throws DataException If the data was invalid
    */
   public static function update(Database $database): void {
-
     $rawData = @file_get_contents(
       sprintf(
         'https://api.carbonintensity.org.uk/intensity/%s/pt24h',
@@ -41,28 +38,24 @@ class Emissions {
     $data = [];
 
     foreach ($jsonData['data'] as $item) {
-
       if (!is_array($item)) {
         throw new DataException('Invalid item');
       }
 
       $data[] = self::getDatum($item);
-
     }
 
     $database->update(self::KEYS, $data);
-
   }
 
   /**
-   * Returns the datum for an item
+   * Returns the datum for an item.
    *
    * @param array $item The item
    *
    * @throws DataException If the data was invalid
    */
   private static function getDatum(array $item): array {
-
     if (!isset($item['from'])) {
       throw new DataException('Missing time');
     }
@@ -81,7 +74,5 @@ class Emissions {
     }
 
     return [Time::normalise($item['from'], 30), $emissions];
-
   }
-
 }
