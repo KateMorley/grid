@@ -31,10 +31,10 @@ class Latest {
         </section>
 <?php
 
-    $generation      = $datum->getGeneration();
-    $types           = $datum->getTypes();
-    $interconnectors = $datum->getInterconnectors();
-    $storage         = $datum->getStorage();
+    $generation      = $datum->generation;
+    $types           = $datum->types;
+    $interconnectors = $datum->interconnectors;
+    $storage         = $datum->storage;
     $demand          = $datum->getTotal();
 
 ?>

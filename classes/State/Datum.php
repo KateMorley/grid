@@ -14,15 +14,15 @@ class Datum {
   public const DEMAND          = 7;
   public const VISITS          = 8;
 
-  private Price           $price;
-  private Emissions       $emissions;
-  private Generation      $generation;
-  private Types           $types;
-  private Interconnectors $interconnectors;
-  private Storage         $storage;
-  private Transfers       $transfers;
-  private Demand          $demand;
-  private Visits          $visits;
+  public readonly Price           $price;
+  public readonly Emissions       $emissions;
+  public readonly Generation      $generation;
+  public readonly Types           $types;
+  public readonly Interconnectors $interconnectors;
+  public readonly Storage         $storage;
+  public readonly Transfers       $transfers;
+  public readonly Demand          $demand;
+  public readonly Visits          $visits;
 
   /**
    * Constructs a new instance.
@@ -59,46 +59,6 @@ class Datum {
       case self::VISITS          : return $this->visits;
       default                    : throw new \Exception('Invalid map type');
     }
-  }
-
-  /** Returns the wholesale price of energy. */
-  public function getPrice(): Price {
-    return $this->price;
-  }
-
-  /** Returns the emissions from power production. */
-  public function getEmissions(): Emissions {
-    return $this->emissions;
-  }
-
-  /** Returns the details of generation by type. */
-  public function getTypes(): Types {
-    return $this->types;
-  }
-
-  /** Returns the details of generation. */
-  public function getGeneration(): Generation {
-    return $this->generation;
-  }
-
-  /** Returns the details of interconnectors. */
-  public function getInterconnectors(): Interconnectors {
-    return $this->interconnectors;
-  }
-
-  /** Returns the details of storage. */
-  public function getStorage(): Storage {
-    return $this->storage;
-  }
-
-  /** Returns the details of transfers. */
-  public function getTransfers(): Transfers {
-    return $this->transfers;
-  }
-
-  /** Returns the details of demand. */
-  public function getDemand(): Demand {
-    return $this->demand;
   }
 
   /**

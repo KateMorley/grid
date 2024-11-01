@@ -19,7 +19,7 @@ class Tables {
             <table class="sources">
 <?php
 
-    $map = $datum->getTypes();
+    $map = $datum->types;
     foreach ($map::KEYS as $key => $description) {
       self::outputTableRow($key, $description, $map->get($key), $demand, true);
     }
@@ -30,7 +30,7 @@ class Tables {
             <table class="sources">
 <?php
 
-    $map = $datum->getGeneration();
+    $map = $datum->generation;
     foreach ($map::KEYS as $key => $description) {
       self::outputTableRow($key, $description, $map->get($key), $demand);
     }
@@ -41,7 +41,7 @@ class Tables {
             <table class="sources transfers">
 <?php
 
-    $map = $datum->getInterconnectors();
+    $map = $datum->interconnectors;
     foreach ($map::KEYS as $key => $description) {
       self::outputTableRow($key, $description, $map->get($key), $demand);
     }
@@ -52,7 +52,7 @@ class Tables {
             <table class="sources transfers">
 <?php
 
-    $map = $datum->getStorage();
+    $map = $datum->storage;
     foreach ($map::KEYS as $key => $description) {
       self::outputTableRow($key, $description, $map->get($key), $demand);
     }

@@ -16,10 +16,10 @@ class PieChart {
    * @param Datum $datum The datum
    */
   public static function output(Datum $datum): void {
-    $generation = $datum->getGeneration()->getTotal();
+    $generation = $datum->generation->getTotal();
     $demand     = $datum->getTotal();
 
-    $generationPower      = Value::formatTotalPower($datum->getDemand()->getGeneration());
+    $generationPower      = Value::formatTotalPower($datum->demand->getGeneration());
     $generationPercentage = Value::formatPercentage($generation / $demand);
 
     echo '<div class="pie-chart"><div><div>Generation</div><div class="generation"></div><div><span>';
@@ -33,7 +33,7 @@ class PieChart {
     echo '">';
 
     self::outputRing(
-      $datum->getGeneration(),
+      $datum->generation,
       $generation,
       $demand,
       self::OUTER_RADIUS,
@@ -41,7 +41,7 @@ class PieChart {
     );
 
     self::outputRing(
-      $datum->getTypes(),
+      $datum->types,
       $generation,
       $demand,
       self::INNER_RADIUS,
