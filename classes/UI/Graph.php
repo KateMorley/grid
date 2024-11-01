@@ -7,6 +7,14 @@ use KateMorley\Grid\State\Datum;
 /** Outputs a graph. */
 class Graph {
   /**
+   * The graph size.
+   *
+   * Chosen to be large enough to allow pixel-perfect placement, but not so
+   * large as to increase the output size due to excessive precision.
+   */
+  private const SIZE = 500;
+
+  /**
    * Outputs a graph.
    *
    * @param array  $series        The series
@@ -47,7 +55,15 @@ class Graph {
     self::outputValueAxis($minimum, $maximum, $step, $prefix, $suffix);
     self::outputTimeAxis(array_keys($series), $timeStep, $timeFormat);
 
-    echo '<svg viewBox="0 0 1000 1000" width="1000" height="1000" preserveAspectRatio="none">';
+    echo '<svg viewBox="0 0 ';
+    echo self::SIZE;
+    echo ' ';
+    echo self::SIZE;
+    echo '" width="';
+    echo self::SIZE;
+    echo '" height="';
+    echo self::SIZE;
+    echo '" preserveAspectRatio="none">';
     self::outputLines($lines, $minimum, $maximum - $minimum);
     self::outputOverlay($series, $graph, $timeFormat, $decimalPlaces);
     echo '</svg>';
@@ -185,9 +201,9 @@ class Graph {
 
     foreach ($values as $index => $value) {
       $points[] = (
-        round(1000 * ($index + 0.5) / $width)
+        round(self::SIZE * ($index + 0.5) / $width)
         . ' '
-        . round(1000 * (1 - ($value - $minimum) / $range))
+        . round(self::SIZE * (1 - ($value - $minimum) / $range))
       );
     }
 
@@ -217,10 +233,12 @@ class Graph {
       $map = $datum->get($graph);
 
       echo '<rect x="';
-      echo round(1000 * $index / $width);
+      echo round(self::SIZE * $index / $width);
       echo '" y="0" width="';
-      echo round(1000 / $width);
-      echo '" height="1000" data-time="';
+      echo round(self::SIZE / $width);
+      echo '" height="';
+      echo self::SIZE;
+      echo '" data-time="';
       echo date($timeFormat, $time);
       echo '" data-values="';
 
