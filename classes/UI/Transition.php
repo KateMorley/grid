@@ -29,7 +29,7 @@ class Transition {
             At the same time, renewable power generation was steadily rising. Great Britain’s exposed position in the north-east Atlantic makes it one of the best locations in the world for wind power, and the shallow waters of the North Sea host several of the world’s largest offshore wind farms.
           </p>
           <p>
-            New wind power records are set regularly, and between <?= date('g:ia', $record->getTime() - 1800) ?> and <?= date('g:ia', $record->getTime()) ?> on <?= date('jS F Y', $record->getTime()) ?> British wind farms averaged a record <?= Value::formatPower($record->getPower()) ?>GW of generation.
+            New wind power records are set regularly, and between <?= date('g:ia', $record->time - 1800) ?> and <?= date('g:ia', $record->time) ?> on <?= date('jS F Y', $record->time) ?> British wind farms averaged a record <?= Value::formatPower($record->power) ?>GW of generation.
           </p>
           <table class="wind-milestones">
             <tr><th>Power</th><th>Date first achieved</th></tr>
