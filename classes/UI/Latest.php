@@ -31,28 +31,24 @@ class Latest {
         </section>
 <?php
 
-    $generation      = $datum->generation;
-    $types           = $datum->types;
-    $interconnectors = $datum->interconnectors;
-    $storage         = $datum->storage;
-    $demand          = $datum->getTotal();
+    $demand = $datum->getTotal();
 
 ?>
         <section id="fossils">
-          <h2><?= Value::formatPercentage($types->get(Types::FOSSILS) / $demand) ?>% fossil fuels</h2>
+          <h2><?= Value::formatPercentage($datum->types->get(Types::FOSSILS) / $demand) ?>% fossil fuels</h2>
 <?php
 
-    self::outputTable($generation, [
+    self::outputTable($datum->generation, [
       Generation::GAS  => '<p>Gas-fired power stations burn natural gas to drive a turbine. Most gas-fired power stations use the excess heat from burning the gas to produce steam to drive a second turbine. Burning natural gas causes carbon dioxide and other pollutants to be emitted, worsening the climate crisis and damaging human health.</p><p>In 2001 the European Union issued the Large Combustion Plant Directive, obliging power stations to limit their emissions or close by 2015. Most coal-fired power stations in Great Britain closed in response, with gas-fired power stations taking over as the largest source of Great Britain’s power.</p>'
     ], $demand);
 
 ?>
         </section>
         <section id="renewables">
-          <h2><?= Value::formatPercentage($types->get(Types::RENEWABLES) / $demand) ?>% renewables</h2>
+          <h2><?= Value::formatPercentage($datum->types->get(Types::RENEWABLES) / $demand) ?>% renewables</h2>
 <?php
 
-    self::outputTable($generation, [
+    self::outputTable($datum->generation, [
       Generation::SOLAR         => '<p>Solar panels generate power from the photovoltaic effect, where light falling on a material produces an electric current.</p><p>Despite Great Britain’s northerly latitude and frequently cloudy conditions, solar panels are still able to generate a useful amount of power. Rooftop solar panels on residential buildings have become increasingly popular as the price of solar panels has fallen.</p><p>Solar panels are connected to the local distribution network rather than the national transmission network, so their reported power generation is an estimate from National Grid ESO, based on weather conditions and observed transmission network demand.</p>',
       Generation::WIND          => '<p>Wind turbines generate power from the movement of air. Turbines can be located on land (onshore) or at sea (offshore). Offshore wind turbines benefit from higher and more consistent wind speeds.</p><p>Great Britain’s exposed position in the north-east Atlantic makes it one of the best locations in the world for wind power generation, and the shallow waters of the North Sea host several of the world’s largest offshore wind farms.</p><p>Onshore wind turbines in England and Wales (and some in Scotland) are connected to the local distribution network rather than the national transmission network, so their reported power generation is an estimate from National Grid ESO, based on weather conditions and observed transmission network demand. Offshore wind turbines (and many onshore wind turbines in Scotland) are connected to the transmission network and their power generation is measured directly.</p>',
       Generation::HYDROELECTRIC => '<p>Hydroelectric turbines generate power from the movement of water. Large hydroelectric systems use a reservoir held back by a dam to provide water at a controlled rate. Smaller hydroelectric systems located on rivers rely on the variable flow of the river.</p><p>Large hydroelectric systems make use of mountainous topography to contain their reservoirs, so most of Great Britain’s hydroelectric systems are located in Scotland, with a smaller number in Wales and a few in England.</p>'
@@ -61,10 +57,10 @@ class Latest {
 ?>
         </section>
         <section id="others">
-          <h2><?= Value::formatPercentage($types->get(Types::OTHERS) / $demand) ?>% other sources</h2>
+          <h2><?= Value::formatPercentage($datum->types->get(Types::OTHERS) / $demand) ?>% other sources</h2>
 <?php
 
-    self::outputTable($generation, [
+    self::outputTable($datum->generation, [
       Generation::NUCLEAR => '<p>Nuclear power stations use the heat produced from the radioactive decay of uranium to produce steam to drive a turbine. The world’s first commercial nuclear power station, Calder Hall in Cumbria, started producing power on 27th August 1956.</p><p>The risk of accidents releasing radioactive material makes nuclear power controversial. Great Britain’s worst nuclear accident happened on 10th October 1957 when a reactor at Windscale (now known as Sellafield) in Cumbria caught fire. The accident is believed to have caused around 240 cases of cancer, about half of which were fatal. Decommissioning of the site is ongoing.</p><p>Great Britain’s nuclear programme has produced around 150,000 cubic metres of radioactive waste to date, most of which is stored in temporary facilities at Sellafield in Cumbria and Dounreay in Scotland. There are plans for a permanent disposal site deep underground, but it has been difficult to find a location suitable for storing radioactive waste for 100,000 years.</p>',
       Generation::BIOMASS => '<p>Biomass power stations burn plant material to produce steam to drive a turbine. Great Britain’s largest power station, Drax, is a former coal-fired power station converted to burn wood pellets.</p><p>Biomass power stations qualify for renewable energy subsidies (over £6bn so far in the case of Drax) because newly planted trees can absorb the carbon dioxide produced by burning wood from mature trees. However, this process can take decades, during which time the effects on atmospheric carbon dioxide levels are worse than those from burning fossil fuels.</p><p>Furthermore, Drax imports most of its wood pellets, and <a href=\'https://www.bbc.co.uk/news/science-environment-63089348\'>a BBC investigation</a> found that Drax was clearfelling irreplaceable old-growth forests in Canada.</p>'
     ], $demand);
@@ -72,10 +68,10 @@ class Latest {
 ?>
         </section>
         <section id="transfers">
-          <h2><?= Value::formatPercentage($interconnectors->getTotal() / $demand) ?>% interconnectors</h2>
+          <h2><?= Value::formatPercentage($datum->interconnectors->getTotal() / $demand) ?>% interconnectors</h2>
 <?php
 
-    self::outputTable($interconnectors, [
+    self::outputTable($datum->interconnectors, [
       Interconnectors::BELGIUM     => '<p>There is one link between Great Britain and Belgium:</p><p>Nemo Link is a 1<abbr>GW</abbr> link between Richborough in England and Zeebrugge in Belgium. It entered service in 2019.</p>',
       Interconnectors::DENMARK     => '<p>There is one link between Great Britain and Denmark:</p><p>Viking Link is a 1.4<abbr>GW</abbr> link between Bicker Fen in England and Revsing in Denmark. It entered service in 2023.</p>',
       Interconnectors::FRANCE      => '<p>There are three links between Great Britain and France:</p><p>IFA (Interconnexion France–Angleterre) is a 2<abbr>GW</abbr> link between Sellindge in England and Bonningues-lès-Calais in France. It entered service in 1986.</p><p>IFA-2 (Interconnexion France–Angleterre 2) is a 1<abbr>GW</abbr> link between Warsash in England and Tourbe in France. It entered service in 2021.</p><p>ElecLink is a 1<abbr>GW</abbr> link between Folkestone in England and Peuplingues in France, running through the Channel Tunnel. It entered service in 2022.</p>',
@@ -87,10 +83,10 @@ class Latest {
 ?>
         </section>
         <section id="storage">
-          <h2><?= Value::formatPercentage($storage->getTotal() / $demand) ?>% storage</h2>
+          <h2><?= Value::formatPercentage($datum->storage->getTotal() / $demand) ?>% storage</h2>
 <?php
 
-    self::outputTable($storage, [
+    self::outputTable($datum->storage, [
       Storage::PUMPED_STORAGE => '<p>Pumped storage systems use electricity when it is comparatively cheap to pump water from a lower reservoir into a higher reservoir. When electricity is comparatively expensive the water is released, driving turbines to produce power.</p><p>Negative values mean water is being pumped, while positive values mean power is being generated.</p>',
       'battery' => '<p>Battery storage systems use electricity when it is comparatively cheap to charge a group of batteries. When electricity is comparatively expensive the batteries are discharged.</p><p>Several battery storage systems are in operation in Great Britain, but full reporting is not yet available: reports include discharging but not charging. As this would lead to double counting, with power being reported both when originally generated and when discharged from battery storage systems, battery storage data is not yet shown on this site.</p>'
     ], $demand, true);

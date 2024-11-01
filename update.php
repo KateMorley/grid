@@ -61,7 +61,7 @@ foreach ([
 
     file_put_contents(
       __DIR__ . '/public/favicon.svg',
-      Favicon::create($state->getLatest()->types),
+      Favicon::create($state->latest->types),
       LOCK_EX
     );
   }

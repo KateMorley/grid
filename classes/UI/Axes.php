@@ -30,10 +30,10 @@ class Axes {
       $maximums = [];
 
       foreach ([
-        $state->getPastDaySeries(),
-        $state->getPastWeekSeries(),
-        $state->getPastYearSeries(),
-        $state->getAllTimeSeries()
+        $state->pastDaySeries,
+        $state->pastWeekSeries,
+        $state->pastYearSeries,
+        $state->allTimeSeries
       ] as $series) {
         foreach ($series as $datum) {
           $minimums[] = $datum->get($graph)->getMinimum();
@@ -73,7 +73,7 @@ class Axes {
       0,
       max(...array_map(
         fn ($datum) => $datum->get(Datum::VISITS)->getMaximum(),
-        $state->getPastYearSeries()
+        $state->pastYearSeries
       )),
       self::VISITS_STEP
     );

@@ -26,7 +26,7 @@ class About {
           </p>
           <div class="visits-graph">
             <h3>Weekly visits</h3>
-            <?php Graph::output($state->getPastYearSeries(), new Axes($state), Datum::VISITS, '', '', 13, 'd/m/Y', 0); ?>
+            <?php Graph::output($state->pastYearSeries, new Axes($state), Datum::VISITS, '', '', 13, 'd/m/Y', 0); ?>
           </div>
           <p>
             The data comes from <a href="https://bmrs.elexon.co.uk/">Elexon Insights Solution</a>, <a href="https://data.nationalgrideso.com/">National Grid ESO’s Data Portal</a>, and the <a href="https://carbonintensity.org.uk/">Carbon Intensity API</a> (a project by National Grid ESO and the University Of Oxford Department Of Computer Science). <a href="https://www.elexon.co.uk/data/balancing-mechanism-reporting-agent/copyright-licence-bmrs-data/">Elexon’s licence</a> requires the following statement: Contains BMRS data © Elexon Limited copyright and database right <?= date('Y') ?>.

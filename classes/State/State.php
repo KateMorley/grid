@@ -4,19 +4,6 @@ namespace KateMorley\Grid\State;
 
 /** Represents the UI state. */
 class State {
-  private int    $time;
-  private Datum  $latest;
-  private Datum  $pastDay;
-  private Datum  $pastWeek;
-  private Datum  $pastYear;
-  private Datum  $allTime;
-  private array  $pastDaySeries;
-  private array  $pastWeekSeries;
-  private array  $pastYearSeries;
-  private array  $allTimeSeries;
-  private Record $windRecord;
-  private array  $windMilestones;
-
   /**
    * Constructs a new instance.
    *
@@ -34,90 +21,18 @@ class State {
    * @param array  $windMilestones The wind power generation milestones
    */
   public function __construct(
-    int    $time,
-    Datum  $latest,
-    Datum  $pastDay,
-    Datum  $pastWeek,
-    Datum  $pastYear,
-    Datum  $allTime,
-    array  $pastDaySeries,
-    array  $pastWeekSeries,
-    array  $pastYearSeries,
-    array  $allTimeSeries,
-    Record $windRecord,
-    array  $windMilestones
+    public readonly int    $time,
+    public readonly Datum  $latest,
+    public readonly Datum  $pastDay,
+    public readonly Datum  $pastWeek,
+    public readonly Datum  $pastYear,
+    public readonly Datum  $allTime,
+    public readonly array  $pastDaySeries,
+    public readonly array  $pastWeekSeries,
+    public readonly array  $pastYearSeries,
+    public readonly array  $allTimeSeries,
+    public readonly Record $windRecord,
+    public readonly array  $windMilestones
   ) {
-    $this->time           = $time;
-    $this->latest         = $latest;
-    $this->pastDay        = $pastDay;
-    $this->pastWeek       = $pastWeek;
-    $this->pastYear       = $pastYear;
-    $this->allTime        = $allTime;
-    $this->pastDaySeries  = $pastDaySeries;
-    $this->pastWeekSeries = $pastWeekSeries;
-    $this->pastYearSeries = $pastYearSeries;
-    $this->allTimeSeries  = $allTimeSeries;
-    $this->windRecord     = $windRecord;
-    $this->windMilestones = $windMilestones;
-  }
-
-  /** Returns the time of the state. */
-  public function getTime(): int {
-    return $this->time;
-  }
-
-  /** Returns the latest datum. */
-  public function getLatest(): Datum {
-    return $this->latest;
-  }
-
-  /** Returns the past day's datum. */
-  public function getPastDay(): Datum {
-    return $this->pastDay;
-  }
-
-  /** Returns the past week's datum. */
-  public function getPastWeek(): Datum {
-    return $this->pastWeek;
-  }
-
-  /** Returns the past year's datum. */
-  public function getPastYear(): Datum {
-    return $this->pastYear;
-  }
-
-  /** Returns the all-time datum. */
-  public function getAllTime(): Datum {
-    return $this->allTime;
-  }
-
-  /** Returns the series for the past day. */
-  public function getPastDaySeries(): array {
-    return $this->pastDaySeries;
-  }
-
-  /** Returns the series for the past week. */
-  public function getPastWeekSeries(): array {
-    return $this->pastWeekSeries;
-  }
-
-  /** Returns the series for the past year. */
-  public function getPastYearSeries(): array {
-    return $this->pastYearSeries;
-  }
-
-  /** Returns the series for all time. */
-  public function getAllTimeSeries(): array {
-    return $this->allTimeSeries;
-  }
-
-  /** Returns the wind power generation record. */
-  public function getWindRecord(): Record {
-    return $this->windRecord;
-  }
-
-  /** Returns the wind power generation milestones. */
-  public function getWindMilestones(): array {
-    return $this->windMilestones;
   }
 }

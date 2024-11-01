@@ -13,9 +13,6 @@ class UI {
    * @param State $state The state
    */
   public static function output(State $state): void {
-    $time   = $state->getTime();
-    $latest = $state->getLatest();
-
 ?>
 <!DOCTYPE html>
 <html lang="en-gb">
@@ -67,13 +64,13 @@ class UI {
       </section>
       <div id="status" class="columns">
         <section>
-<?php Status::output($latest, date('g:i', $time), date('a', $time), true); ?>
+<?php Status::output($state->latest, date('g:i', $state->time), date('a', $state->time), true); ?>
         </section>
         <section>
-<?php Equation::output($latest, true); ?>
+<?php Equation::output($state->latest, true); ?>
         </section>
       </div>
-<?php Latest::output($latest); ?>
+<?php Latest::output($state->latest); ?>
 <?php Tabs::output($state); ?>
       <div class="columns">
 <?php Transition::output($state); ?>
