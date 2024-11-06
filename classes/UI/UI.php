@@ -48,7 +48,7 @@ class UI {
           <a href="https://iamkate.com/data/" class="section">Data</a>
         </div>
         <div>
-          <a href="https://iamkate.com/games/">Games</a>
+          <a href="https://iamkate.com/art/">Art</a>
           <a href="https://iamkate.com/ideas/">Ideas</a>
         </div>
       </nav>
