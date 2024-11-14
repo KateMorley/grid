@@ -32,6 +32,7 @@ class UI {
     <meta property="og:type" content="website">
     <meta property="og:title" content="National Grid: Live">
     <meta property="og:image" content="https://grid.iamkate.com/banner.png">
+    <link rel="canonical" href="https://grid.iamkate.com/">
     <link rel="preload" href="proza-regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="proza-light.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="grid.css?<?= filemtime(__DIR__ . '/../../public/grid.css') ?>" type="text/css">
