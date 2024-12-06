@@ -310,24 +310,31 @@ class Database {
 
   /** Updates the wind records. */
   private function updateWindRecords(): void {
-    $time = '"' . $this->getLatestHalfHour() . '"';
+    // delete records for which embedded wind estimates may have been revised
+    $this->connection->query(
+      'DELETE wind_records FROM wind_records INNER JOIN past_half_hours USING (time)'
+    );
 
     $record = (float)$this->connection->query(
       'SELECT MAX(value) FROM wind_records'
     )->fetch_row()[0];
 
-    $current = (float)$this->connection->query(
-      'SELECT embedded_wind+wind FROM past_half_hours WHERE time=' . $time
-    )->fetch_row()[0];
+    $rows = $this->connection->query(
+      'SELECT time,embedded_wind+wind AS value FROM past_half_hours ORDER BY time'
+    );
 
-    if ($current > $record) {
-      $this->connection->query(
-        'INSERT INTO wind_records (value,time) VALUES ('
-        . $current
-        . ','
-        . $time
-        . ')'
-      );
+    while ($row = $rows->fetch_assoc()) {
+      if ((float)$row['value'] > $record) {
+        $record = (float)$row['value'];
+
+        $this->connection->query(
+          'INSERT INTO wind_records (value,time) VALUES ('
+          . $row['value']
+          . ',"'
+          . $row['time']
+          . '")'
+        );
+      }
     }
   }
 
