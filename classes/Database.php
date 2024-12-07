@@ -49,7 +49,8 @@ class Database {
       $this->getSeries(self::PAST_YEAR),
       $this->getSeries('past_years'),
       $this->getWindRecord(),
-      $this->getWindMilestones()
+      $this->getWindMilestones(),
+      $this->getYearlyVisits()
     );
   }
 
@@ -153,6 +154,19 @@ class Database {
     }
 
     return $milestones;
+  }
+
+  /** Returns the number of visits in the past year. */
+  private function getYearlyVisits(): int {
+    // using 365 days rather than a calendar year (which would have 366 days in
+    // a leap year) is more appropriate for a rolling total
+    return (int)$this->connection->query(
+      'SELECT SUM(visits) FROM past_days WHERE time>="'
+      . date('Y-m-d', time() - 365 * 24 * 60 * 60)
+      . '" AND time<"'
+      . date('Y-m-d')
+      . '"'
+    )->fetch_row()[0];
   }
 
   /**
