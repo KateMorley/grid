@@ -45,7 +45,8 @@ class Demand {
         'NEMO_FLOW',
         'NSL_FLOW',
         'ELECLINK_FLOW',
-        'VIKING_FLOW'
+        'VIKING_FLOW',
+        'GREENLINK_FLOW'
       ]
     );
 
