@@ -65,7 +65,7 @@ class UI {
       </section>
       <div id="status" class="columns">
         <section>
-<?php Status::output($state->latest, date('g:i', $state->time), date('a', $state->time), true); ?>
+<?php Status::output($state->latest, Status::time($state->time), true); ?>
         </section>
         <section>
 <?php Equation::output($state->latest, true); ?>
