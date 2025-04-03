@@ -98,6 +98,6 @@ PHP class: [Emissions](classes/Data/Emissions.php)
 
 ## Future plans
 
-Battery storage data isn’t yet shown. Elexon Insights Solution includes several battery storage systems in its ‘other’ category, but only discharging is reported. Without charging being reported, this would lead to double-counting of generation.
+Battery storage data isn’t yet shown. Elexon Insights Solution only reports on discharging of battery storage systems. Without charging being reported, this would lead to double-counting of generation.
 
 I’m not currently planning any other major changes. I believe it’s better for a project like this to have a limited scope and a concise interface serving the general public than to attempt to offer specialised analysis for energy industry experts.
