@@ -16,6 +16,7 @@ class Generation {
     'hydro',
     'pumped',
     'biomass',
+    'battery',
     'other',
     'ifa',
     'moyle',
@@ -39,17 +40,18 @@ class Generation {
     'NPSHYD'  => 7,
     'PS'      => 8,
     'BIOMASS' => 9,
-    'OTHER'   => 10,
-    'INTFR'   => 11,
-    'INTIRL'  => 12,
-    'INTNED'  => 13,
-    'INTEW'   => 14,
-    'INTNEM'  => 15,
-    'INTIFA2' => 16,
-    'INTNSL'  => 17,
-    'INTELEC' => 18,
-    'INTVKL'  => 19,
-    'INTGRNL' => 20
+    'BESS'    => 10,
+    'OTHER'   => 11,
+    'INTFR'   => 12,
+    'INTIRL'  => 13,
+    'INTNED'  => 14,
+    'INTEW'   => 15,
+    'INTNEM'  => 16,
+    'INTIFA2' => 17,
+    'INTNSL'  => 18,
+    'INTELEC' => 19,
+    'INTVKL'  => 20,
+    'INTGRNL' => 21
   ];
 
   /**
