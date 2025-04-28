@@ -22,7 +22,7 @@ class UI {
     </title>
     <meta name="description" content="Shows the live status of Great Britain’s electric power transmission network">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="fediverse:creator" content="@kate@fosstodon.org">
+    <meta name="fediverse:creator" content="@katemorley@hachyderm.io">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="National Grid: Live">
     <meta name="twitter:description" content="Shows the live status of Great Britain’s electric power transmission network">
@@ -85,7 +85,7 @@ class UI {
         <span>Follow me on:</span>
       </div>
       <nav>
-        <a rel="me" href="https://fosstodon.org/@kate">Mastodon</a>
+        <a rel="me" href="https://hachyderm.io/@katemorley">Mastodon</a>
         <a href="https://github.com/KateMorley">GitHub</a>
         <a href="https://www.instagram.com/katerosemorley/">Instagram</a>
       </nav>
