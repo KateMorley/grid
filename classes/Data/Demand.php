@@ -4,7 +4,7 @@ namespace KateMorley\Grid\Data;
 
 use KateMorley\Grid\Database;
 
-/** Updates data from the National Grid ESO Demand Data Update. */
+/** Updates data from the National Energy System Operator Demand Data Update. */
 class Demand {
   public const KEYS = [
     'embedded_wind',
@@ -20,7 +20,7 @@ class Demand {
    */
   public static function update(Database $database): void {
     $rows = Csv::parse(
-      'https://data.nationalgrideso.com/backend/dataset/7a12172a-939c-404c-b581-a6128b74f588/resource/177f6fa4-ae49-4182-81ea-0c6b35f26ca6/download/demanddataupdate.csv',
+      'https://api.neso.energy/dataset/7a12172a-939c-404c-b581-a6128b74f588/resource/177f6fa4-ae49-4182-81ea-0c6b35f26ca6/download/demanddataupdate.csv',
       [
         'SETTLEMENT_DATE',
         'SETTLEMENT_PERIOD',

@@ -29,7 +29,7 @@ class About {
             <?php Graph::output($state->pastYearSeries, new Axes($state), Datum::VISITS, '', '', 13, 'd/m/Y', 0); ?>
           </div>
           <p>
-            The data comes from <a href="https://bmrs.elexon.co.uk/">Elexon Insights Solution</a>, <a href="https://data.nationalgrideso.com/">National Grid ESO’s Data Portal</a>, and the <a href="https://carbonintensity.org.uk/">Carbon Intensity API</a> (a project by National Grid ESO and the University Of Oxford Department Of Computer Science). <a href="https://www.elexon.co.uk/data/balancing-mechanism-reporting-agent/copyright-licence-bmrs-data/">Elexon’s licence</a> requires the following statement: Contains BMRS data © Elexon Limited copyright and database right <?= date('Y') ?>.
+            The data comes from the <a href="https://bmrs.elexon.co.uk/">Elexon Insights Solution</a>, the <a href="https://www.neso.energy/data-portal">National Energy System Operator Data Portal</a>, and the <a href="https://carbonintensity.org.uk/">Carbon Intensity API</a> (a project by the National Energy System Operator and the University Of Oxford Department Of Computer Science). <a href="https://www.elexon.co.uk/data/balancing-mechanism-reporting-agent/copyright-licence-bmrs-data/">Elexon’s licence</a> requires the following statement: Contains BMRS data © Elexon Limited copyright and database right <?= date('Y') ?>.
           </p>
         </section>
 <?php

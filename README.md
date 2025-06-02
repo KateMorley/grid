@@ -80,9 +80,9 @@ Data is available in JSON format at 30-minute or 5-minute granularity.
 
 PHP classes: [Generation](classes/Data/Generation.php), [Pricing](classes/Data/Pricing.php)
 
-### [National Grid ESO Data Portal](https://data.nationalgrideso.com/)
+### [National Energy System Operator Data Portal](https://www.neso.energy/data-portal)
 
-This API, developed by National Grid ESO, estimates power generation from embedded solar and wind (generation connected to the local distribution network rather than the national transmission network).
+This API, developed by the National Energy System Operator, estimates power generation from embedded solar and wind (generation connected to the local distribution network rather than the national transmission network).
 
 Data is available in CSV format at 30-minute granularity. Estimates may be retrospectively updated.
 
@@ -90,7 +90,7 @@ PHP class: [Demand](classes/Data/Demand.php)
 
 ### [Carbon Intensity API](https://carbonintensity.org.uk/)
 
-This API, developed by National Grid ESO and the University Of Oxford Department Of Computer Science, estimates the carbon intensity of electricity generation in grams of carbon dioxide per kilowatt-hour.
+This API, developed by the National Energy System Operator and the University Of Oxford Department Of Computer Science, estimates the carbon intensity of electricity generation in grams of carbon dioxide per kilowatt-hour.
 
 Data is available in JSON format at 30-minute granularity. Estimates may be retrospectively updated.
 
@@ -98,6 +98,6 @@ PHP class: [Emissions](classes/Data/Emissions.php)
 
 ## Future plans
 
-Battery storage data isn’t yet shown. Elexon Insights Solution only reports on discharging of battery storage systems. Without charging being reported, this would lead to double-counting of generation.
+Battery storage data isn’t yet shown. The Elexon Insights Solution only reports on discharging of battery storage systems. Without charging being reported, this would lead to double-counting of generation.
 
 I’m not currently planning any other major changes. I believe it’s better for a project like this to have a limited scope and a concise interface serving the general public than to attempt to offer specialised analysis for energy industry experts.
