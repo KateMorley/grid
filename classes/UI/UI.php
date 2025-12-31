@@ -86,8 +86,8 @@ class UI {
       </div>
       <nav>
         <a rel="me" href="https://hachyderm.io/@katemorley">Mastodon</a>
+        <a href="https://ko-fi.com/katemorley">Ko-fi</a>
         <a href="https://github.com/KateMorley">GitHub</a>
-        <a href="https://www.instagram.com/katerosemorley/">Instagram</a>
       </nav>
     </footer>
     <dialog>
