@@ -20,9 +20,9 @@ class Favicon {
    */
   public static function create(Types $types): string {
     $svg = (
-      '<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 -8 16 16" width="16" height="16"><g stroke="#fff" stroke-width="'
+      '<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 -8 16 16" width="16" height="16"><style>path{stroke:#fff;stroke-width:'
       . self::STROKE_WIDTH
-      . '">'
+      .';@media(prefers-color-scheme:dark){stroke:#000;}</style>'
     );
 
     $total      = $types->getTotal();
@@ -48,7 +48,7 @@ class Favicon {
       $others
     );
 
-    $svg .= '</g></svg>';
+    $svg .= '</svg>';
 
     return $svg;
   }
