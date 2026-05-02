@@ -1,26 +1,26 @@
 const LABELS = {
-  price       : 'Price per MWh',
-  emissions   : 'Emissions per kWh',
-  demand      : 'Demand',
-  generation  : 'Generation',
-  fossils     : 'Fossil fuels',
-  renewables  : 'Renewables',
-  others      : 'Other sources',
-  transfers   : 'Transfers',
-  coal        : 'Coal',
-  gas         : 'Gas',
-  solar       : 'Solar',
-  wind        : 'Wind',
-  hydro       : 'Hydroelectric',
-  nuclear     : 'Nuclear',
-  biomass     : 'Biomass',
-  belgium     : 'Belgium',
-  denmark     : 'Denmark',
-  france      : 'France',
-  ireland     : 'Ireland',
-  netherlands : 'Netherlands',
-  norway      : 'Norway',
-  pumped      : 'Pumped storage',
+  price: 'Price per MWh',
+  emissions: 'Emissions per kWh',
+  demand: 'Demand',
+  generation: 'Generation',
+  fossils: 'Fossil fuels',
+  renewables: 'Renewables',
+  others: 'Other sources',
+  transfers: 'Transfers',
+  coal: 'Coal',
+  gas: 'Gas',
+  solar: 'Solar',
+  wind: 'Wind',
+  hydro: 'Hydroelectric',
+  nuclear: 'Nuclear',
+  biomass: 'Biomass',
+  belgium: 'Belgium',
+  denmark: 'Denmark',
+  france: 'France',
+  ireland: 'Ireland',
+  netherlands: 'Netherlands',
+  norway: 'Norway',
+  pumped: 'Pumped storage',
 }
 
 const KEY_MARGIN = 8
@@ -35,9 +35,10 @@ const IDS_TO_UPDATE = [
   'transition'
 ]
 
-let key    = document.createElement('div')
+let key = document.createElement('div')
 let dialog = document.querySelector('dialog')
-let delay  = Math.random() * 60000
+let updated = document.querySelector('time').dateTime
+let delay = Math.random() * 60000
 let parser = new DOMParser()
 
 document.addEventListener('visibilitychange', update)
@@ -51,7 +52,7 @@ tabList.addEventListener('keydown', handleTabKeyDown)
 addGraphListeners()
 scheduleUpdate()
 
-// Adds the listeners to the graphs
+/** Adds the listeners to the graphs. */
 function addGraphListeners() {
   document.querySelectorAll('.pie-chart').forEach(pieChart => {
     pieChart.addEventListener('mouseover', e => updatePieChartKey(e, true))
@@ -64,7 +65,7 @@ function addGraphListeners() {
   })
 }
 
-// Handles a click by showing a help dialog if appropriate
+/** Handles a click by showing a help dialog if appropriate. */
 function handleClick(e) {
   let help = e.target.dataset.help
 
@@ -75,7 +76,7 @@ function handleClick(e) {
   }
 }
 
-// Updates a pie chart key
+/** Updates a pie chart key. */
 function updatePieChartKey(e, showDetails) {
   if (e.target.nodeName === 'path') {
     let sourceNode = e.target.parentNode
@@ -96,7 +97,7 @@ function updatePieChartKey(e, showDetails) {
   }
 }
 
-// Selects a tab
+/** Selects a tab. */
 function selectTab(tabList, tab) {
   let panels = Array.from(
     tabList.parentNode.querySelectorAll('[role="tabpanel"]')
@@ -112,7 +113,7 @@ function selectTab(tabList, tab) {
   }
 }
 
-// Handles a click on a tab
+/** Handles a click on a tab. */
 function handleTabClick(e) {
   if (e.target.parentNode === this) {
     selectTab(this, e.target)
@@ -121,7 +122,7 @@ function handleTabClick(e) {
   }
 }
 
-// Handles a key down on a tab
+/** Handles a key down on a tab. */
 function handleTabKeyDown(e) {
   let tabs  = Array.from(this.children)
   let count = tabs.length
@@ -145,7 +146,7 @@ function handleTabKeyDown(e) {
   tabs[index].focus()
 }
 
-// Shows the graph key
+/** Shows the graph key. */
 function showGraphKey(e) {
   if (e.target.nodeName !== 'rect') {
     return
@@ -200,21 +201,27 @@ function showGraphKey(e) {
   key.style.left = left + 'px'
 }
 
-// Hides the graph key
+/** Hides the graph key. */
 function hideGraphKey() {
   key.remove()
 }
 
-// Schedules an update. Updates occur every five minutes, with an offset of two
-// minutes plus a visitor-specific random delay of up to a minute to reduce
-// server load.
+/**
+ * Schedules an update. Updates occur every five minutes, with an offset of two
+ * minutes plus a visitor-specific random delay of up to a minute to reduce
+ * server load.
+ */
 function scheduleUpdate() {
   setTimeout(update, (420000 - (Date.now() % 300000)  + delay) % 300000)
 }
 
-// Updates the user interface. The 'unscheduled' flag is used for updates
-// triggered when the page becomes visible again after updates were suspended
-// while the page was not visible.
+/**
+ * Updates the user interface.
+ *
+ * @param {boolean} unscheduled `true` for updates triggered when the page
+ *                              becomes visible again after updates were
+ *                              suspended while the page was not visible
+ */
 function update(unscheduled) {
   let time = Math.floor(Date.now() / 300000)
 
@@ -227,14 +234,19 @@ function update(unscheduled) {
   if (document.visibilityState === 'visible') {
     fetch('?v=' + time).then(response => response.text()).then(html => {
       let update = parser.parseFromString(html, 'text/html')
+      let timestamp = update.querySelector('time').dateTime
 
-      IDS_TO_UPDATE.forEach(id => document.getElementById(id).replaceChildren(
-        ...update.getElementById(id).children
-      ))
+      if (timestamp > updated) {
+        updated = timestamp
 
-      hideGraphKey()
+        IDS_TO_UPDATE.forEach(id => document.getElementById(id).replaceChildren(
+          ...update.getElementById(id).children
+        ))
 
-      addGraphListeners()
+        hideGraphKey()
+
+        addGraphListeners()
+      }
     })
   }
 
