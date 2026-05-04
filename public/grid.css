@@ -74,7 +74,7 @@ body {
 }
 
 header {
-  padding: 1.25rem 0 0;
+  padding: 1.25rem 0 0.5rem;
 }
 
 header nav {
@@ -184,8 +184,13 @@ section {
   color: var(--content-text);
 }
 
-h1 {
+h1, main > p {
   margin: 0 0 0.5rem;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
   font-size: 2rem;
   font-weight: 400;
   line-height: 1.1;
@@ -293,12 +298,6 @@ img {
   .columns {
     grid-template-columns: 1fr;
   }
-}
-
-/* introduction */
-
-#introduction {
-  text-align: center;
 }
 
 /* status */

@@ -55,14 +55,12 @@ class UI {
       </nav>
     </header>
     <main>
-      <section id="introduction">
-        <h1>
-          National Grid: Live
-        </h1>
-        <p>
-          The National Grid is the electric power transmission network for Great Britain
-        </p>
-      </section>
+      <h1>
+        National Grid: Live
+      </h1>
+      <p>
+        The National Grid is the electric power transmission network for Great Britain
+      </p>
       <div id="status" class="columns">
         <section>
 <?php Status::output($state->latest, Status::time($state->time), true); ?>
